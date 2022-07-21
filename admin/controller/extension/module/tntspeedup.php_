@@ -1,0 +1,275 @@
+<?php
+class ControllerExtensionModuletntspeedup extends Controller {
+
+	
+	public function index() {
+    
+        $this->load->language('extension/module/tntspeedup');
+        $title = strip_tags($this->language->get('heading_title'));
+        $this->document->setTitle($title);
+
+        $this->load->model('setting/setting');
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            
+            $this->model_setting_setting->editSetting('tntspeedup', $this->request->post);
+            $this->session->data['success'] = $this->language->get('text_success');
+            if(isset($this->request->get['stay']))
+                $this->response->redirect($this->url->link('extension/module/tntspeedup', 'user_token=' . $this->session->data['user_token'], true));
+            $this->response->redirect($this->url->link('extension/module', 'user_token=' . $this->session->data['user_token'], true));
+        }
+        $data['success'] = '';
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+            unset($this->session->data['success']);
+        }
+        //get the user user_token to pass to the tpl.
+        $data['user_token'] = $this->session->data['user_token'];
+
+        
+        if ($this->config->get('tntspeedup_compression_level')) {
+            $data['image_crusher_default_compression_level'] = $this->config->get('tntspeedup_compression_level');
+        } else {
+            $data['image_crusher_default_compression_level'] =  $this->language->get('image_crusher_default_compression_level');
+        }
+        
+
+        $data['error_warning'] = '';
+        if (isset($this->error['warning'])) $data['error_warning'] = $this->error['warning'];
+        
+
+
+        $data['breadcrumbs'] = array(array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+        ),$data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_module'),
+            'href' => $this->url->link('extension/module', 'user_token=' . $this->session->data['user_token'], true)
+        ),$data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('extension/module/tntspeedup', 'user_token=' . $this->session->data['user_token'], true)
+        ));
+
+        $cssjs = $this->getAllCssJs();
+        $texthtml = "";
+        $texthtml .= $this->displaysub($cssjs);
+        $data['allfolderjscss'] = $texthtml;
+       
+        $data['action'] = $this->url->link('extension/module/tntspeedup', 'user_token=' . $this->session->data['user_token'], true);
+
+        $data['stay_action'] = $this->url->link('extension/module/tntspeedup', 'user_token=' . $this->session->data['user_token'].'&stay=1', true);
+
+        $compress_css_js = $this->url->link('extension/module/tntspeedup/compress_css_js', 'user_token=' . $this->session->data['user_token'], true);
+
+         $data['compress_css_js'] = html_entity_decode($compress_css_js);
+
+        $data['cancel'] = $this->url->link('extension/module', 'user_token=' . $this->session->data['user_token'], true);
+
+        $data['tntspeedup_status'] = 0;
+
+        $data['tntspeedup_defer'] = $this->config->get('tntspeedup_defer');
+
+        $filed = array('tntspeedup_minify_css','tntspeedup_minify_js','tntspeedup_minify_html','tntspeedup_image_lazyload','tntspeedup_image_dimensions','speedup_defer');
+        if ($this->request->server['REQUEST_METHOD'] == 'POST')
+            foreach ($filed as $v) $data[$v] = $this->request->post[$v];
+        else foreach ($filed as $v) $data[$v] = $this->config->get($v);
+
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+
+        $this->response->setOutput($this->load->view('extension/module/tntspeedup', $data));
+    }
+	
+	
+	public function compress_css_js() { 
+		$files = $this->request->post['compressfile'];
+		$json['files'] = array();
+		foreach ($files as $file) {
+			$tntspeedup= new tntspeedup($this->registry); 
+            $this->registry->set('tntspeedup', $tntspeedup);
+			$success = $this->tntspeedup->compresscssjs($file);
+			if($success) $json['files'][] = "<span style='color:green;'>".$file." was successfully compressed!</span><br>";
+		    else $json['files'][] = "<span style='color:red;'>$file cannot be compressed.</span><br>";
+		}
+		header("Content-Type: application/json; charset=UTF-8");
+		echo json_encode($json); 
+		die;
+	}
+	
+	
+	public function getCompressionLevel($qualitySetting) {
+		$compressionLevel = intval($qualitySetting);
+		$quality_array = array(1=>96,2=>94,3=>88,4=>82,5=>76,6=>70,7=>64,8=>58,9=>52,10=>46);
+		return (isset($quality_array[$compressionLevel]) ? $quality_array[$compressionLevel] : 70);
+	}
+	public function getCompressionLevelForPng($qualitySetting){
+		$compressionLevel = intval($qualitySetting);
+	    $quality_array = array(1=>8,2=>8,3=>7,4=>7,5=>6,6=>5,7=>4,8=>4,9=>3,10=>2);
+	    return (isset($quality_array[$compressionLevel]) ? $quality_array[$compressionLevel] : 3);
+	}
+	public function install() {
+	}
+	public function getAllCssJs(){
+		$dir = DIR_CATALOG;
+ 		//$dir = str_replace('\\', '/', $dir);
+ 		$realpath = realpath($dir);
+		$folders = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($realpath));
+		foreach($folders as $folder){
+			if(!is_file($folder)) continue;
+		    $imagerealpath = realpath($folder);
+		    $ex = pathinfo($imagerealpath, PATHINFO_EXTENSION);
+		    if(!in_array($ex,array('css','js'))) continue;
+		    $files[] = $imagerealpath;
+		}
+		$full = array();
+		foreach ($files as $v) {
+		$v = str_replace('\\', '/', $v);
+			$name = str_replace($dir,'',$v); 
+			$parts = explode('/',$name);
+			$str = $dir;
+			$tmpstr = '';
+			foreach ($parts as $part) {
+				eval('$check = isset($full'.$tmpstr.');');
+				if(is_dir($str.'/'.$part)){
+					$tmpstr .= '["'.$part.'"]';
+					if(!$check){
+						eval('$full'.$tmpstr.' = array();');
+					}
+				}else if(is_file($str.'/'.$part)){
+					eval('$full'.$tmpstr.'[] = "'.$str.'/'.$part.'";');
+				}
+				$str .= '/'.$part;
+			}
+		}
+		return $full;
+	}
+	
+	protected function summary($summary){
+		if(isset($summary['args'])){
+			$str = $summary['format'];
+            preg_match_all('/\{\{[^\}]*\}\}/',$str,$match);
+                foreach ($summary['args'] as $ar){
+                    $key = '{{'.$ar['key'].'}}';
+                    if(in_array($key,$match[0])){
+                        $str = str_replace($key,$ar['value'],$str);
+                    }else{
+                        $bkey = '{{BEGIN_LINK}}';
+                        $ekey = '{{END_LINK}}';
+                        $bvalue = '<a href="'.$ar['value'].'" target="_blank">';
+                        $evalue = '</a>';
+                        $str = str_replace($bkey,$bvalue,$str);
+                        $str = str_replace($ekey,$evalue,$str);
+                    }
+                }    
+            } else{
+        	$str = $summary['format'];
+        }
+        return $str;
+	}
+	protected function urlblocks($urlblocks){
+		$header = array();
+		foreach ($urlblocks as $url) {
+			if(isset($url['header']['args'])){
+				$str = $url['header']['format'];
+	            preg_match_all('/\{\{[^\}]*\}\}/',$str,$match);
+                foreach ($url['header']['args'] as $ar){
+                    $key = '{{'.$ar['key'].'}}';
+                    if(in_array($key,$match[0])){
+                        $str = str_replace($key,$ar['value'],$str);
+                    }else{
+                        $bkey = '{{BEGIN_LINK}}';
+                        $ekey = '{{END_LINK}}';
+                        $bvalue = '<a href="'.$ar['value'].'" target="_blank">';
+                        $evalue = '</a>';
+                        $str = str_replace($bkey,$bvalue,$str);
+                        $str = str_replace($ekey,$evalue,$str);
+                    }
+                }
+				$urlss = array();
+				if(isset($url['urls'])){
+	                foreach ($url['urls'] as $urls) {
+		                $urlstr = $urls['result']['format'];
+			            preg_match_all('/\{\{[^\}]*\}\}/',$urlstr,$match);
+		                foreach ($urls['result']['args'] as $ar){
+		                    $key = '{{'.$ar['key'].'}}';
+		                    if(in_array($key,$match[0])){
+		                        $urlstr = str_replace($key,$ar['value'],$urlstr);
+		                    }else{
+		                        $bkey = '{{BEGIN_LINK}}';
+		                        $ekey = '{{END_LINK}}';
+		                        $bvalue = '<a href="'.$ar['value'].'" target="_blank">';
+		                        $evalue = '</a>';
+		                        $urlstr = str_replace($bkey,$bvalue,$urlstr);
+		                        $urlstr = str_replace($ekey,$evalue,$urlstr);
+		                    }
+		                }
+	                	$urlss[] = $urlstr;
+	                }
+				}
+                $header['link'][] = array(
+                	'link'	=> $str,
+                	'urls'	=> $urlss,
+                );
+
+            }else{
+            	$str = $url['header']['format'];
+            	$header['header']=$str;
+            }
+		}
+        return $header;
+	}
+	
+	protected function validate() {
+		if (!$this->user->hasPermission('modify', 'extension/module/tntspeedup')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
+		return !$this->error;
+	}
+    public function imagescompress(){
+        error_reporting(0);
+        ini_set('max_execution_time',28000);
+        set_time_limit(28000);
+        ini_set('memory_limit', -1);
+        $json = array();
+        $folder = $this->request->post['imageFolder'];
+        $folder = DIR_IMAGE . $folder;
+        $realpath = realpath($folder);
+        if (!file_exists($realpath)) $json['error'] = "<span class='red'><strong>" . $folder . "</strong> is not a valid directory name. Please check it exists!</span>";       
+
+        $images = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($realpath));
+        $quality = $this->request->post['existingImageSlider'];
+        foreach($images as $image){
+            if(!is_file($image)) continue;
+            $imagerealpath = realpath($image); 
+            $success = $this->resizeImage($imagerealpath,$imagerealpath,$quality);
+            if($success) $json['files'][] = "<span style='color:green;'>".$imagerealpath." was successfully compressed!</span>";
+            else $json['files'][] = "<span style='color:red;'>$image cannot be compressed.</span>";
+        }
+        header("Content-Type: application/json; charset=UTF-8");
+        echo json_encode($json);
+        die;
+    }
+	
+    public function displaysub($sub = array()){
+        $i = 0;
+        global $i;
+        $html = '<ul class="directory-ul">';
+        foreach ($sub as $name => $file) {
+            if(is_numeric($name)){
+                $html .= '<li><label for="file"'.$i.'"><input type="checkbox" id="file'.$i.'" value="'.$file.'" name="compressfile[]" class="compressfiles" /><span>'.basename($file).'</span></label></li>';
+            } else if(is_array($file) && $file){ 
+                $html .= '<li>';
+                $html .= '<div class="colleps open">-</div><label for="'.$i.'" class="folder"><span>'.$name.'</span></label>';
+                $html .= $this->displaysub($file);  
+                $html .= '</li>';
+            }
+        }
+               // echo "<pre>"; print_r($html); die;
+        return $html .= '</ul>';
+    }
+ 
+	
+    
+}

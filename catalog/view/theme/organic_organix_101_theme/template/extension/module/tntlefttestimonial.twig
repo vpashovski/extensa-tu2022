@@ -1,0 +1,25 @@
+<div class="badlefttestimonials-block">
+    <div class="badleftcategory-title">
+                    {{ parentheading }}
+    </div> 
+    <div class="badlefttestimonials-content">
+            <div class="badlefttestimonials-content-inner owl-carousel owl-theme">
+                {% for testimonial in testimonials %}
+                <div class="badlefttestimonials-content-box-inner">
+                    <div class="item badlefttestimonials-item">
+                        <div class="badlefttestimonials-item-img-wrapper">
+                            <img src="{{ testimonial.tnttestimonialparent_image }}" alt="{{ testimonial.tnttestimonialchild_name }}" />
+                        </div>
+                        <div class="badlefttestimonials-item-content">
+                            <div class="badlefttestimonials-item-title">
+                                <a href="{{ testimonial.tnttestimonialparent_link }}" title="{{ testimonial.tnttestimonialchild_name }}">{{ testimonial.tnttestimonialchild_designation }}</a>
+                            </div>
+                            <div class="badlefttestimonials-item-sub-title">{{ testimonial.tnttestimonialchild_name }}</div>
+                            <div class="badlefttestimonials-item-description">{{ testimonial.tnttestimonialchild_description }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
+</div>

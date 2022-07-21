@@ -1,0 +1,71 @@
+<div class="badbest-products-block container-fluid">
+
+    <div class="badbest-products-inner container">
+
+        <div class="badbest-products-content-box">
+
+            <div class="badbest-product-main-title">
+
+                <div class="badmain-title-wrapper">
+
+                    <div class="badmain-title">
+
+                        {{ title }}
+
+                    </div>
+
+                    {# <div class="badmain-sub-title">
+
+                        {{ subtitle }}
+
+                    </div> #}
+
+                </div>
+
+            </div>
+
+            <div class="badbest-product-list-wrapper">
+
+                <div class="badbest-product-list-inner owl-carousel owl-theme">
+
+                {% for product in products %}
+
+                    {% include 'organic_organix_101_theme/template/helpfile/productdesing.twig' with {'product': product} %}
+
+                {% endfor %}
+
+                </div>
+
+                <div class="badbest-product-pagination-dots"></div>
+
+                <div class="badbest-product-pagination-wrapper">
+
+                    <div class="badbest-product-pagination bad-all-pagination">
+
+                        <div class="badbest-product-content">
+
+                            <button class="badbest-product-prev-btn bad-prev-btn" data-parent="badbest-products-block">
+
+                              
+
+                            </button>
+
+                            <button class="badbest-product-next-btn bad-next-btn" data-parent="badbest-products-block">
+
+                               
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,118 @@
+
+
+{% if productfeatures %}
+
+
+<div class="badleft-penal-product">
+    <div class="badleftcategory-title">
+        {{ productfeature.tabheading }}
+    </div>
+    <div class="badleftfeatureproduct-wrapper badleftproduct-block-inner">
+    	<div class="badleftfeatureproduct owl-theme owl-carousel">
+                    	    {% set i = 1 %}
+                    		{% for product in productfeatures %} 
+                    			{% if i == 1 %}
+                    	            <div class="item">
+                    	        {% endif %}
+
+                    	 		{% include 'organic_organix_101_theme/template/helpfile/leftproductdesing.twig' with {'product': product} %} 
+
+                    			{% if i == 3 %}
+                    		        </div>
+                    		        {% set i = 0 %} 
+                    		    {% endif %}
+                    	    	{% set i = i + 1 %} 
+                    	    {% endfor %} 
+                        	{% if i != 1 %}
+                        	    </div>
+                        	{% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if productnews %}
+<div class="badleft-penal-product">
+    <div class="badleftcategory-title">
+        {{ productnew.tabheading }}
+    </div>
+    <div class="badleftfeatureproduct-wrapper badleftproduct-block-inner">
+        <div class="badleftnewproduct owl-theme owl-carousel">
+            {% set i = 1 %}
+            {% for product in productnews %} 
+                {% if i == 1 %}
+                    <div class="item">
+                {% endif %}
+
+                {% include 'organic_organix_101_theme/template/helpfile/leftproductdesing.twig' with {'product': product} %} 
+
+                {% if i == 3 %}
+                    </div>
+                    {% set i = 0 %} 
+                {% endif %}
+                {% set i = i + 1 %} 
+            {% endfor %} 
+            {% if i != 1 %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if productspecials %}
+<div class="badleft-penal-product">
+    <div class="badleftcategory-title">
+        {{ productspecial.tabheading }}
+    </div>
+    <div class="badleftfeatureproduct-wrapper badleftproduct-block-inner">
+        <div class="badleftspecialproduct owl-theme owl-carousel">
+            {% set i = 1 %}
+            {% for product in productspecials %} 
+                {% if i == 1 %}
+                    <div class="item">
+                {% endif %}
+
+                {% include 'organic_organix_101_theme/template/helpfile/leftproductdesing.twig' with {'product': product} %} 
+
+                {% if i == 3 %}
+                    </div>
+                    {% set i = 0 %} 
+                {% endif %}
+                {% set i = i + 1 %} 
+            {% endfor %} 
+            {% if i != 1 %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if productbests %}
+<div class="badleft-penal-product">
+    <div class="badleftcategory-title">
+        {{ productbest.tabheading }}
+    </div>
+    <div class="badleftfeatureproduct-wrapper badleftproduct-block-inner">
+        <div class="badleftbestproduct owl-theme owl-carousel">
+            {% set i = 1 %}
+            {% for product in productbests %} 
+                {% if i == 1 %}
+                    <div class="item">
+                {% endif %}
+
+                {% include 'organic_organix_101_theme/template/helpfile/leftproductdesing.twig' with {'product': product} %} 
+
+                {% if i == 3 %}
+                    </div>
+                    {% set i = 0 %} 
+                {% endif %}
+                {% set i = i + 1 %} 
+            {% endfor %} 
+            {% if i != 1 %}
+                </div>
+            {% endif %}
+        </div>
+    </div> 
+</div>
+{% endif %}

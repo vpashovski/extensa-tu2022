@@ -1,0 +1,25 @@
+<div class="badpaymenticon-block">
+                            <div class="badpaymenticon-content-wrapper">
+                                <div class="badpaymenticon-content">
+                                    <div class="badpaymenticon-content-inner ">
+                                        {% for payment in payments %}
+                                        <div class=" badpaymenticon-item">
+                                            <div class="badpaymenticon-item-img-wrapper">
+                                                
+                                                <a href="{{ payment.tntpaymenticonparent_link }}" title="{{ payment.tntpaymenticonchild_title }}">
+                                                    <img src="{{ payment.tntpaymenticonparent_image }}" alt="{{ payment.tntpaymenticonchild_title }}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+	      		
+					
+					
+					
+				

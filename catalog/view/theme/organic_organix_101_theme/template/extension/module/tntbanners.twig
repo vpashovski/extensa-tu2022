@@ -1,0 +1,86 @@
+<div class="container-fluid badall-multibanner">
+    <div class="badmultibanner">
+        <div class=" badmultibanner-wrapper">
+
+			{% if tntbanners_status_1 %}
+				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 badmultibanner-inner badmultibanner-1">
+	                <div class="badbanner-hover">
+	                    <div class="badbanner-hover1"></div>
+	                	<a href="{{ tntbanners_link_1 }}">
+							<img class="img-responsive" src="{{ tntbanners_image_1 }}" alt="">
+	                    </a>
+	                    <div class="badbanner-hover2"></div>
+	                </div>
+				</div>
+			{% endif %}
+
+			{% if tntbanners_status_2 %}
+				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 badmultibanner-inner badmultibanner-2">
+		            <div class="badbanner-hover">
+		                <div class="badbanner-hover1"></div>
+		                <a href="{{ tntbanners_link_2 }}">
+		                    <img class="img-responsive" src="{{ tntbanners_image_2 }}"  />
+		                </a>
+		                <div class="badbanner-hover2"></div>
+
+		            </div>
+		        </div>
+			{% endif %}
+
+			{% if tntbanners_status_3 %}
+			   <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 badmultibanner-inner badmultibanner-3">
+	                <div class="badbanner-hover">
+	                	<div class="badbanner-hover1"></div>
+	                    <a href="{{ tntbanners_link_3 }}">
+	                        <img class="img-responsive" src="{{ tntbanners_image_3 }}"  />
+	                    </a>
+	                    <div class="badbanner-hover2"></div>
+	                </div>
+	            </div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{#
+	<div class="container-fluid badbenner-wrapper">
+	<div class="container badbenner-block">
+		{% if tntbanners_status_1 %}
+			<a href="{{ tntbanners_link_1 }}">
+				<div class="badbenner-one col-md-4">
+					<div class="badbenner-block">
+						<img src="{{ tntbanners_image_1 }}" alt="">
+					</div>
+				</div>
+			</a>
+		{% endif %}
+
+		{% if tntbanners_status_2 %}
+			<a href="{{ tntbanners_link_2 }}">
+				<div class="badbenner-two col-md-4">
+					<div class="badbenner-block">
+						<img src="{{ tntbanners_image_2 }}" alt="">
+					</div>
+				</div>
+			</a>
+		{% endif %}
+
+		{% if tntbanners_status_3 %}
+			<a href="{{ tntbanners_link_3 }}">
+				<div class="badbenner-two col-md-4">
+					<div class="badbenner-block">
+						<img src="{{ tntbanners_image_3 }}" alt="">
+					</div>
+				</div>
+			</a>
+		{% endif %}
+	</div>
+</div>
+#}
+
+
+
+
+
+
+

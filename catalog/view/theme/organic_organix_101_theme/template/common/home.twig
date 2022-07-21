@@ -1,0 +1,38 @@
+{{ header }}
+
+<section id="wrapper">
+
+    {{ content_header }}
+
+    {{ column_left }}
+
+    {% if column_left and column_right %}
+
+    {% set class = 'col-sm-6' %}
+
+    {% elseif column_left or column_right %}
+
+    {% set class = 'col-sm-9' %}
+
+    {% else %}
+
+    {% set class = '' %}
+
+    {% endif %}
+
+    <div id="content-wrapper">
+        <section id="main">
+            <section id="content" class="{{ class }} page-home">
+
+                {{ content_top }}
+
+                {{ content_bottom }}
+            </section>
+        </section>
+    </div>
+    {{ column_right }}
+
+    {{ content_footer }}
+
+</section>
+{{ footer }}

@@ -1,0 +1,2237 @@
+2022-07-15 7:13:13 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 123
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: $this->response->setOutput($this->load->view('checkout/shipping_method', $data));
+LINE: 71
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: if (isset($this->session->data['payment_address'])) {
+LINE: 5
+CODE: if ($method) {
+LINE: 59
+CODE: foreach ($method_data as $key => $value) {
+LINE: 74
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 486
+LINE: 828
+LINE: 1378
+CODE: $data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']);
+NOT FOUND - OPERATION SKIPPED!
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1157
+CODE: $total_data[] = array(
+LINE: 1903
+CODE: $data['order_status_id']
+LINE: 750
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 607
+CODE: $data['shipping_code'] = '';
+LINE: 696
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-left">{{ order.date_modified }}</td>
+LINE: 144
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report',
+NOT FOUND - OPERATION SKIPPED!
+----------------------------------------------------------------
+2022-07-15 7:25:04 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 123
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: $this->response->setOutput($this->load->view('checkout/shipping_method', $data));
+LINE: 71
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: if (isset($this->session->data['payment_address'])) {
+LINE: 5
+CODE: if ($method) {
+LINE: 59
+CODE: foreach ($method_data as $key => $value) {
+LINE: 74
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 486
+LINE: 828
+LINE: 1378
+CODE: $data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']);
+NOT FOUND - OPERATION SKIPPED!
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1157
+CODE: $total_data[] = array(
+LINE: 1903
+CODE: $data['order_status_id']
+LINE: 750
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 607
+CODE: $data['shipping_code'] = '';
+LINE: 696
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-left">{{ order.date_modified }}</td>
+LINE: 144
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report',
+NOT FOUND - OPERATION SKIPPED!
+----------------------------------------------------------------
+2022-07-15 7:25:56 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+2022-07-15 7:29:39 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+2022-07-15 7:30:26 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+2022-07-15 7:49:18 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+2022-07-15 8:01:40 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+2022-07-15 8:18:13 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+2022-07-15 8:18:22 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+2022-07-15 8:23:58 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 43
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+MOD: theme setting
+
+FILE: admin/controller/marketplace/extension.php
+CODE: $this->load->controller('common/footer');
+LINE: 60
+
+FILE: admin/view/template/marketplace/extension.twig
+CODE: <div class="panel panel-default">
+LINE: 18
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: $_['text_other_status']         = 'Other Statuses';
+LINE: 76
+
+FILE: admin/model/catalog/category.php
+CODE: public function getCategories($data = array()) {
+LINE: 261
+
+FILE: catalog/controller/common/header.php
+CODE: $data['base'] = $server;
+LINE: 55
+
+FILE: (sub modification) admin/controller/common/column_left.php
+CODE: $this->load->model('report/statistics')
+LINE: 713
+
+FILE: catalog/controller/checkout/cart.php
+CODE: if (!$json) {
+LINE: 331
+
+FILE: catalog/controller/common/cart.php
+CODE: $data['text_items']
+LINE: 52
+
+FILE: catalog/controller/common/footer.php
+CODE: // Whos Online
+LINE: 58
+
+FILE: catalog/controller/product/manufacturer.php
+CODE: $this->load->model('tool/image');
+LINE: 64
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/category.php
+CODE: $this->load->model('tool/image');
+LINE: 12
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/product.php
+CODE: $this->load->model('tool/image');
+LINE: 272
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/search.php
+CODE: $this->load->model('tool/image');
+LINE: 12
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/common/search.php
+CODE: public function index() {
+LINE: 5
+
+FILE: catalog/controller/extension/module/bestseller.php
+CODE: $this->load->model('tool/image');
+LINE: 18
+CODE: if ($result['image']) {
+LINE: 62
+CODE: 'thumb'       => $image,
+LINE: 102
+
+FILE: catalog/controller/extension/module/featured.php
+CODE: $this->load->model('tool/image');
+LINE: 18
+CODE: if ($product_info['image']) {
+LINE: 69
+CODE: 'thumb'       => $image,
+LINE: 109
+
+FILE: catalog/controller/extension/module/latest.php
+CODE: $this->load->model('tool/image');
+LINE: 22
+CODE: if ($result['image']) {
+LINE: 69
+CODE: 'thumb'       => $image,
+LINE: 109
+
+FILE: catalog/controller/extension/module/special.php
+CODE: $this->load->model('tool/image');
+LINE: 19
+CODE: if ($result['image']) {
+LINE: 71
+CODE: 'thumb'       => $image,
+LINE: 111
+
+FILE: catalog/controller/account/download.php
+CODE: new Pagination();
+LINE: 77
+
+FILE: (sub modification) catalog/controller/account/order.php
+CODE: new Pagination();
+LINE: 65
+
+FILE: catalog/controller/account/recurring.php
+CODE: new Pagination();
+LINE: 66
+
+FILE: catalog/controller/account/return.php
+CODE: new Pagination();
+LINE: 63
+
+FILE: catalog/controller/account/reward.php
+CODE: new Pagination();
+LINE: 61
+
+FILE: catalog/controller/account/transaction.php
+CODE: new Pagination();
+LINE: 61
+----------------------------------------------------------------
+2022-07-15 8:28:21 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 43
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+MOD: theme setting
+
+FILE: admin/controller/marketplace/extension.php
+CODE: $this->load->controller('common/footer');
+LINE: 60
+
+FILE: admin/view/template/marketplace/extension.twig
+CODE: <div class="panel panel-default">
+LINE: 18
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: $_['text_other_status']         = 'Other Statuses';
+LINE: 76
+
+FILE: admin/model/catalog/category.php
+CODE: public function getCategories($data = array()) {
+LINE: 261
+
+FILE: catalog/controller/common/header.php
+CODE: $data['base'] = $server;
+LINE: 55
+
+FILE: (sub modification) admin/controller/common/column_left.php
+CODE: $this->load->model('report/statistics')
+LINE: 713
+
+FILE: catalog/controller/checkout/cart.php
+CODE: if (!$json) {
+LINE: 331
+
+FILE: catalog/controller/common/cart.php
+CODE: $data['text_items']
+LINE: 52
+
+FILE: catalog/controller/common/footer.php
+CODE: // Whos Online
+LINE: 58
+
+FILE: catalog/controller/product/manufacturer.php
+CODE: $this->load->model('tool/image');
+LINE: 64
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/category.php
+CODE: $this->load->model('tool/image');
+LINE: 12
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/product.php
+CODE: $this->load->model('tool/image');
+LINE: 272
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/search.php
+CODE: $this->load->model('tool/image');
+LINE: 12
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/common/search.php
+CODE: public function index() {
+LINE: 5
+
+FILE: catalog/controller/extension/module/bestseller.php
+CODE: $this->load->model('tool/image');
+LINE: 18
+CODE: if ($result['image']) {
+LINE: 62
+CODE: 'thumb'       => $image,
+LINE: 102
+
+FILE: catalog/controller/extension/module/featured.php
+CODE: $this->load->model('tool/image');
+LINE: 18
+CODE: if ($product_info['image']) {
+LINE: 69
+CODE: 'thumb'       => $image,
+LINE: 109
+
+FILE: catalog/controller/extension/module/latest.php
+CODE: $this->load->model('tool/image');
+LINE: 22
+CODE: if ($result['image']) {
+LINE: 69
+CODE: 'thumb'       => $image,
+LINE: 109
+
+FILE: catalog/controller/extension/module/special.php
+CODE: $this->load->model('tool/image');
+LINE: 19
+CODE: if ($result['image']) {
+LINE: 71
+CODE: 'thumb'       => $image,
+LINE: 111
+
+FILE: catalog/controller/account/download.php
+CODE: new Pagination();
+LINE: 77
+
+FILE: (sub modification) catalog/controller/account/order.php
+CODE: new Pagination();
+LINE: 65
+
+FILE: catalog/controller/account/recurring.php
+CODE: new Pagination();
+LINE: 66
+
+FILE: catalog/controller/account/return.php
+CODE: new Pagination();
+LINE: 63
+
+FILE: catalog/controller/account/reward.php
+CODE: new Pagination();
+LINE: 61
+
+FILE: catalog/controller/account/transaction.php
+CODE: new Pagination();
+LINE: 61
+----------------------------------------------------------------
+2022-07-15 8:45:55 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 43
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+MOD: theme setting
+
+FILE: admin/controller/marketplace/extension.php
+CODE: $this->load->controller('common/footer');
+LINE: 60
+
+FILE: admin/view/template/marketplace/extension.twig
+CODE: <div class="panel panel-default">
+LINE: 18
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: $_['text_other_status']         = 'Other Statuses';
+LINE: 76
+
+FILE: admin/model/catalog/category.php
+CODE: public function getCategories($data = array()) {
+LINE: 261
+
+FILE: catalog/controller/common/header.php
+CODE: $data['base'] = $server;
+LINE: 55
+
+FILE: (sub modification) admin/controller/common/column_left.php
+CODE: $this->load->model('report/statistics')
+LINE: 713
+
+FILE: catalog/controller/checkout/cart.php
+CODE: if (!$json) {
+LINE: 331
+
+FILE: catalog/controller/common/cart.php
+CODE: $data['text_items']
+LINE: 52
+
+FILE: catalog/controller/common/footer.php
+CODE: // Whos Online
+LINE: 58
+
+FILE: catalog/controller/product/manufacturer.php
+CODE: $this->load->model('tool/image');
+LINE: 64
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/category.php
+CODE: $this->load->model('tool/image');
+LINE: 12
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/product.php
+CODE: $this->load->model('tool/image');
+LINE: 272
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/product/search.php
+CODE: $this->load->model('tool/image');
+LINE: 12
+CODE: if ((float)$result['special']) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/common/search.php
+CODE: public function index() {
+LINE: 5
+
+FILE: catalog/controller/extension/module/bestseller.php
+CODE: $this->load->model('tool/image');
+LINE: 18
+CODE: if ($result['image']) {
+LINE: 62
+CODE: 'thumb'       => $image,
+LINE: 102
+
+FILE: catalog/controller/extension/module/featured.php
+CODE: $this->load->model('tool/image');
+LINE: 18
+CODE: if ($product_info['image']) {
+LINE: 69
+CODE: 'thumb'       => $image,
+LINE: 109
+
+FILE: catalog/controller/extension/module/latest.php
+CODE: $this->load->model('tool/image');
+LINE: 22
+CODE: if ($result['image']) {
+LINE: 69
+CODE: 'thumb'       => $image,
+LINE: 109
+
+FILE: catalog/controller/extension/module/special.php
+CODE: $this->load->model('tool/image');
+LINE: 19
+CODE: if ($result['image']) {
+LINE: 71
+CODE: 'thumb'       => $image,
+LINE: 111
+
+FILE: catalog/controller/account/download.php
+CODE: new Pagination();
+LINE: 77
+
+FILE: (sub modification) catalog/controller/account/order.php
+CODE: new Pagination();
+LINE: 65
+
+FILE: catalog/controller/account/recurring.php
+CODE: new Pagination();
+LINE: 66
+
+FILE: catalog/controller/account/return.php
+CODE: new Pagination();
+LINE: 63
+
+FILE: catalog/controller/account/reward.php
+CODE: new Pagination();
+LINE: 61
+
+FILE: catalog/controller/account/transaction.php
+CODE: new Pagination();
+LINE: 61
+----------------------------------------------------------------
+2022-07-15 8:46:15 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 43
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------
+2022-07-15 8:46:19 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Speedy Shipping
+
+FILE: catalog/view/theme/default/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/checkout/shipping_method.twig
+CODE: <p><strong>{{ text_comments }}</strong></p>
+LINE: 27
+CODE: id="button-shipping-method"
+LINE: 124
+
+FILE: catalog/controller/account/logout.php
+CODE: unset($this->session->data['order_id']);
+LINE: 16
+
+FILE: catalog/controller/checkout/confirm.php
+CODE: $order_data['shipping_firstname'] = '';
+LINE: 268
+CODE: $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+LINE: 411
+CODE: $data['payment']
+LINE: 554
+
+FILE: catalog/controller/checkout/shipping_method.php
+CODE: if (isset($this->session->data['shipping_method']['code'])) {
+LINE: 63
+
+FILE: catalog/controller/checkout/payment_method.php
+CODE: $this->session->data['payment_methods'] = $method_data;
+LINE: 88
+CODE: if (!isset($this->request->post['payment_method'])) {
+LINE: 179
+
+FILE: catalog/controller/checkout/success.php
+CODE: unset($this->session->data['order_id']);
+LINE: 17
+
+FILE: catalog/model/account/address.php
+CODE: public function editAddress($address_id, $data) {
+LINE: 17
+CODE: public function deleteAddress($address_id) {
+LINE: 28
+
+FILE: catalog/controller/api/shipping.php
+CODE: $json['shipping_methods'] = array();
+LINE: 171
+
+FILE: catalog/controller/api/order.php
+CODE: $this->model_checkout_order->editOrder($order_id, $order_data);
+LINE: 693
+CODE: if (!$json) {
+LINE: 35
+LINE: 70
+LINE: 116
+LINE: 427
+LINE: 462
+LINE: 507
+
+FILE: admin/controller/common/column_left.php
+CODE: if ($this->user->hasPermission('access', 'sale/recurring')) {
+LINE: 256
+
+FILE: admin/controller/sale/order.php
+CODE: $results = $this->model_sale_order->getOrders($filter_data);
+LINE: 301
+CODE: 'shipping_code' => $result['shipping_code'],
+LINE: 315
+CODE: $data['header'] = $this->load->controller('common/header');
+LINE: 484
+LINE: 824
+LINE: 1372
+CODE: $data['commission'] = $this->currency->format($order_info['commission'], $order_info['currency_code'], $order_info['currency_value']);
+LINE: 1152
+CODE: $data['comment'] = nl2br($order_info['comment']);
+LINE: 1153
+CODE: $total_data[] = array(
+LINE: 1938
+CODE: $data['order_status_id']
+LINE: 748
+CODE: $data['shipping_code'] = $order_info['shipping_code'];
+LINE: 605
+CODE: $data['shipping_code'] = '';
+LINE: 694
+
+FILE: admin/view/template/sale/order_list.twig
+CODE: <td class="text-right">{{ column_action }}</td>
+LINE: 108
+CODE: <div class="pull-right">
+LINE: 9
+CODE: <td class="text-right"><div style="min-width: 120px;">
+LINE: 145
+CODE: <td class="text-center" colspan="8">{{ text_no_results }}</td>
+LINE: 158
+
+FILE: admin/model/customer/customer.php
+CODE: public function editCustomer($customer_id, $data) {
+LINE: 29
+CODE: public function deleteCustomer($customer_id) {
+LINE: 62
+
+FILE: catalog/controller/account/order.php
+CODE: $data['comment']
+LINE: 385
+
+FILE: catalog/view/theme/default/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 45
+
+FILE: catalog/view/theme/organic_organix_101_theme/template/account/order_info.twig
+CODE: {{ shipping_method }}
+LINE: 43
+
+FILE: admin/view/template/sale/order_form.twig
+CODE: url: '{{ catalog }}index.php?route=api/shipping/methods&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
+LINE: 1882
+
+FILE: admin/view/template/catalog/product_form.twig
+CODE: <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
+LINE: 311
+
+FILE: admin/controller/catalog/product.php
+CODE: $this->model_catalog_product->addProduct($this->request->post);
+LINE: 22
+CODE: $this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+LINE: 83
+CODE: $this->load->model('localisation/length_class');
+LINE: 855
+
+FILE: (sub modification) system/library/template/twig.php
+CODE: $loader = new \Twig\Loader\ArrayLoader(array($filename . '.twig' => $code));
+LINE: 34
+
+FILE: admin/controller/startup/permission.php
+CODE: 'extension/report'
+LINE: 31
+----------------------------------------------------------------

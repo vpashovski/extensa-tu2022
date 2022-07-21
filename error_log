@@ -1,0 +1,75 @@
+[15-Jul-2022 07:49:08 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/payment/speedy_cod! in /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php:89
+Stack trace:
+#0 /home/exte7mok/public_html/system/storage/modification/catalog/controller/checkout/payment_method.php(51): Loader->model('extension/payme...')
+#1 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCheckoutPaymentMethod->index()
+#2 /home/exte7mok/public_html/catalog/controller/startup/router.php(25): Action->execute(Object(Registry))
+#3 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerStartupRouter->index()
+#4 /home/exte7mok/public_html/system/engine/router.php(67): Action->execute(Object(Registry))
+#5 /home/exte7mok/public_html/system/engine/router.php(56): Router->execute(Object(Action))
+#6 /home/exte7mok/public_html/system/framework.php(169): Router->dispatch(Object(Action), Object(Action))
+#7 /home/exte7mok/public_html/system/startup.php(104 in /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php on line 89
+[15-Jul-2022 08:25:48 UTC] PHP Fatal error:  Uncaught Exception: Error: Table 'exte7mok_oc.oc_tntblog_parent' doesn't exist<br />Error No: 1146<br />SELECT * FROM oc_tntblog_parent p LEFT JOIN oc_tntblog_child pd ON (p.tntblog_parent_id = pd.tntblog_parent_id) WHERE pd.tntblog_child_languages_id = '2' ORDER BY tntblog_parent_position limit 4 in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('SELECT * FROM o...')
+#1 /home/exte7mok/public_html/catalog/model/tnt/tntallquery.php(224): DB->query('SELECT * FROM o...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelTnttntallquery->getblogdatarecordlist(4)
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/catalog/controller/common/tntblog.php(12): Proxy->__call('getblogdatareco...', Array)
+#5 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntblo in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:30:24 UTC] PHP Fatal error:  Uncaught Exception: Error: Table 'exte7mok_oc.oc_tntblog_parent' doesn't exist<br />Error No: 1146<br />SELECT * FROM oc_tntblog_parent p LEFT JOIN oc_tntblog_child pd ON (p.tntblog_parent_id = pd.tntblog_parent_id) WHERE pd.tntblog_child_languages_id = '2' ORDER BY tntblog_parent_position limit 4 in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('SELECT * FROM o...')
+#1 /home/exte7mok/public_html/catalog/model/tnt/tntallquery.php(224): DB->query('SELECT * FROM o...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelTnttntallquery->getblogdatarecordlist(4)
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/catalog/controller/common/tntblog.php(12): Proxy->__call('getblogdatareco...', Array)
+#5 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntblo in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:30:28 UTC] PHP Fatal error:  Uncaught Exception: Error: Table 'exte7mok_oc.oc_tntblog_parent' doesn't exist<br />Error No: 1146<br />SELECT * FROM oc_tntblog_parent p LEFT JOIN oc_tntblog_child pd ON (p.tntblog_parent_id = pd.tntblog_parent_id) WHERE pd.tntblog_child_languages_id = '2' ORDER BY tntblog_parent_position limit 4 in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('SELECT * FROM o...')
+#1 /home/exte7mok/public_html/catalog/model/tnt/tntallquery.php(224): DB->query('SELECT * FROM o...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelTnttntallquery->getblogdatarecordlist(4)
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/catalog/controller/common/tntblog.php(12): Proxy->__call('getblogdatareco...', Array)
+#5 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntblo in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:30:29 UTC] PHP Fatal error:  Uncaught Exception: Error: Table 'exte7mok_oc.oc_tntblog_parent' doesn't exist<br />Error No: 1146<br />SELECT * FROM oc_tntblog_parent p LEFT JOIN oc_tntblog_child pd ON (p.tntblog_parent_id = pd.tntblog_parent_id) WHERE pd.tntblog_child_languages_id = '2' ORDER BY tntblog_parent_position limit 4 in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('SELECT * FROM o...')
+#1 /home/exte7mok/public_html/catalog/model/tnt/tntallquery.php(224): DB->query('SELECT * FROM o...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelTnttntallquery->getblogdatarecordlist(4)
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/catalog/controller/common/tntblog.php(12): Proxy->__call('getblogdatareco...', Array)
+#5 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntblo in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:30:29 UTC] PHP Fatal error:  Uncaught Exception: Error: Table 'exte7mok_oc.oc_tntblog_parent' doesn't exist<br />Error No: 1146<br />SELECT * FROM oc_tntblog_parent p LEFT JOIN oc_tntblog_child pd ON (p.tntblog_parent_id = pd.tntblog_parent_id) WHERE pd.tntblog_child_languages_id = '2' ORDER BY tntblog_parent_position limit 4 in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('SELECT * FROM o...')
+#1 /home/exte7mok/public_html/catalog/model/tnt/tntallquery.php(224): DB->query('SELECT * FROM o...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelTnttntallquery->getblogdatarecordlist(4)
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/catalog/controller/common/tntblog.php(12): Proxy->__call('getblogdatareco...', Array)
+#5 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntblo in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:30:29 UTC] PHP Fatal error:  Uncaught Exception: Error: Table 'exte7mok_oc.oc_tntblog_parent' doesn't exist<br />Error No: 1146<br />SELECT * FROM oc_tntblog_parent p LEFT JOIN oc_tntblog_child pd ON (p.tntblog_parent_id = pd.tntblog_parent_id) WHERE pd.tntblog_child_languages_id = '2' ORDER BY tntblog_parent_position limit 4 in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('SELECT * FROM o...')
+#1 /home/exte7mok/public_html/catalog/model/tnt/tntallquery.php(224): DB->query('SELECT * FROM o...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelTnttntallquery->getblogdatarecordlist(4)
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/catalog/controller/common/tntblog.php(12): Proxy->__call('getblogdatareco...', Array)
+#5 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntblo in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:45:46 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not load template /home/exte7mok/public_html/catalog/view/theme/default/template/extension/module/tntpaymenticon.twig! in /home/exte7mok/public_html/system/storage/modification/system/library/template/twig.php:21
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/template.php(51): Template\Twig->render('default/templat...', '')
+#1 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(125): Template->render('default/templat...', '')
+#2 /home/exte7mok/public_html/catalog/controller/common/tntpaymenticon.php(25): Loader->view('extension/modul...', Array)
+#3 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntpaymenticon->index(Array)
+#4 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(48): Action->execute(Object(Registry), Array)
+#5 /home/exte7mok/public_html/system/storage/modification/catalog/controller/common/footer.php(44): Loader->controller('common/tntpayme... in /home/exte7mok/public_html/system/storage/modification/system/library/template/twig.php on line 21
+[15-Jul-2022 08:46:03 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not load template /home/exte7mok/public_html/catalog/view/theme/default/template/extension/module/tntpaymenticon.twig! in /home/exte7mok/public_html/system/storage/modification/system/library/template/twig.php:21
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/template.php(51): Template\Twig->render('default/templat...', '')
+#1 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(125): Template->render('default/templat...', '')
+#2 /home/exte7mok/public_html/catalog/controller/common/tntpaymenticon.php(25): Loader->view('extension/modul...', Array)
+#3 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerCommontntpaymenticon->index(Array)
+#4 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(48): Action->execute(Object(Registry), Array)
+#5 /home/exte7mok/public_html/system/storage/modification/catalog/controller/common/footer.php(44): Loader->controller('common/tntpayme... in /home/exte7mok/public_html/system/storage/modification/system/library/template/twig.php on line 21
+[18-Jul-2022 09:23:14 Europe/Sofia] PHP Parse error:  syntax error, unexpected 'l' (T_STRING) in /home/exte7mok/public_html/test.php on line 2

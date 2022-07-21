@@ -1,0 +1,51 @@
+<div class="container-fluid badcategoryslider-block">
+    <div class="container badcategoryslider-content-wrapper">
+        <div class="badcategoryslider-main-title">
+            <div class="badmain-title-wrapper">
+                <div class="badmain-title">
+                    {{ title }}
+                </div>
+                {# <div class="badmain-sub-title">
+                    {{ subtitle }}
+                </div> #}
+            </div>
+        </div>
+
+        <div class="badcategoryslider-content">
+            <div class="row">
+                {% set count = 1 %}
+                    {% for categoryslider in categorysliders %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="badcategoryslider-item {% if count == 2 %}badcategoryslider-num-2{% endif %}">
+                            <img src="{{ categoryslider.tntcategorysliderparent_image }}" alt="{{ categoryslider.tntcategorysliderchild_name }}">
+                       {# <div class="badcategoryslider-item-content">
+                            <div class="badcategoryslider-item-title">
+
+                                <a href="{{ categoryslider.tntcategorysliderparent_category_id }}" title="{{ categoryslider.tntcategorysliderchild_name }}">{{ categoryslider.tntcategorysliderchild_name }}</a>
+                            </div>
+                             <div class="badcategoryslider-item-sub-title">{$data.sub_title}</div> 
+                             <div class="badcategoryslider-item-btn">
+                                <a href="{{ categoryslider.tntcategorysliderparent_category_id }}">Buy Now</a>
+                            </div> 
+                            <div class="badcategoryslider-item-description">{$data.description}</div> 
+                        </div> #}
+                    </div>
+                </div>    
+                {% endfor %}
+            </div>
+        </div>
+        {# <div class="badcategoryslider-pagination-wrapper">
+            <div class="badcategoryslider-pagination bad-all-pagination">
+                <div class="badcategoryslider-content-pagination">
+                    <button class="badcategoryslider-prev-btn bad-prev-btn">
+                        <i class='material-icons'>&#xe5c4;</i> 
+                    </button>
+                    <button class="badcategoryslider-next-btn bad-next-btn">
+                         <i class='material-icons'>&#xe5c8;</i> 
+                    </button>
+                </div>
+            </div> 
+        </div> #}
+    </div> 
+</div>
+

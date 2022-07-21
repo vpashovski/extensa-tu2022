@@ -1,0 +1,54 @@
+{% if categories %}
+<div class="menu js-top-menu position-static hidden-sm-down" id="_desktop_top_menu">
+    <div class="badmain-menu-block">
+        <div class="badmain-menu-content-box" id="badmain-menu-content-box">
+            <div class="badmain-menu-content">
+
+              <ul class="top-menu badmain-menu-dropdown" id="top-menu" >
+                <li class="current badmain-menu-wrapper">
+
+                  <div class="badmain-menu-dropdown-link">
+                    <a class="badmenu-first badmenu-link" href="#">Home</a>
+                  </div>
+                </li>
+                {% for category in categories %}
+                  {% if category.children %}
+                    {% set expand_id = random(50, 100) %}
+                    <li class="category badmain-menu-wrapper badmenu-has-child-item">
+
+                      <div class=" badmain-menu-dropdown-link">
+
+                        <a class="badmenu-first badmenu-link" href="{{ category.href }}" >{{ category.name }}</a>
+                         <span class="badmain-menu-icon-wrapper">
+                          <a href="Javascript:void(0);" data-dropdown="#top_sub_menu_{{ expand_id }}" class="badmain-menu-icon"><i class="fa fa-angle-down"></i>
+                          </a>
+                         </span>
+                      </div>
+                      <div class="badmain-menu-get-child" id="top_sub_menu_{{ expand_id }}">
+                          {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+
+                            <ul class="top-menu badsub-menu-dropdown">
+                                {% for child in children %}
+                                <li class="category  badsub-menu-item badmenu-has-child-item" >
+                                    <div class=" badmain-menu-dropdown-link"><a class="badmenu-link dropdown-submenu" href="{{ child.href }}" >{{ child.name }}</a></div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                          {% endfor %}
+                      </div>
+                    </li>
+                  {% else %}
+                    <li class="category badmain-menu-wrapper">
+                      <div class=" badmain-menu-dropdown-link">
+                        <a class="badmenu-first badmenu-link" href="{{ category.href }}">{{ category.name }}</a>
+                      </div>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+                <li id="badmobile-header-call"></li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %} 

@@ -1,0 +1,139 @@
+{{ header }}
+<div id="product-product" class="container">
+        <div class="adbreadcrumb">
+            {% include 'organic_organix_101_theme/template/helpfile/breadcrumb.twig' with {'breadcrumbs': breadcrumbs} %} 
+        </div>
+        <div class="row">
+
+            <div id="content" class="page-content card kr_blog_post_area_wrapper card-block col-*sm-12">
+                <div class="kr_blog_post_area single">
+                    <div class="kr_blog_post_inner">
+                        <article id="blog_post" class="blog_post blog_post_video clearfix">
+                            <div class="blog_post_content">
+                                <div class="blog_post_content_top col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="post_thumbnail">
+                                        
+                                        <div class="badnews-event-hoverbtn">
+                                            <img class="badblog_img img-responsive" src="{{ tntblog_parent_featureimage }}" alt="{{ tntblog_child_title }}">
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="post_content col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"><h3 class="post_title">{{ tntblog_child_title }}</h3>
+                                    <div class="post_meta clearfix">
+                                        <p class="meta_author">Post by <span>{{ store_owner }}</span></p>
+                                        <p class="meta_date"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ tntblog_parent_adddate }}</p>
+                                        <p class="meta_category">{{ category_title }}</p>
+                                    </div>
+                                    <div class="post_description">
+                                        <p>{{ tntblog_child_content }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <!-- begin comment-list -->
+                {% if tntblog_parent_commentstatus %}
+                    {% if comment_info %}
+                    <div class="comments_area" id="comments">
+                    <div class="comments_title">All Comments </div>
+                    
+                    <ol class="comment_list">
+                        {% for comment_data in comment_info %}
+                        
+                        {% if comment_data.tntblog_comment_status %}
+                            <li class="comment" id="comment_1">
+                                <article class="comment_body clearfix">
+                                    <div class="comment_author vcard">
+                                        <img alt="" class="badblog_img avatar avatar-70 photo" height="70" src="{{ comment_image }}" width="70">
+                                    </div>
+                                    <div class="comment_content">
+                                        <div class="comment_meta">
+                                            <div class="comment_meta_author">
+                                                <b class="fn">{{ comment_data.tntblog_comment_name }}</b>
+                                            </div>
+                                            <div class="comment_meta_date">
+                                                <time datetime="{{ comment_data.tntblog_comment_createdate }}">{{ comment_data.tntblog_comment_createdate }}</time>
+                                            </div>
+                                        </div>
+                                        <div class="comment_content_bottom">
+                                            <p>{{ comment_data.tntblog_coment_url }}</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ol>
+                    </div>
+                    {% endif %}
+                    {% if success %}
+                    <div class="alert alert-success alert-dismissible">
+                        <i class="fa fa-check-circle"></i> {{ success }}
+                    </div>
+                    {% endif %}
+                    <!-- end comment-list -->
+
+                    <!-- begin comment -->
+                    <div class="comment_respond clearfix m_bottom_50 bad-blog-inner-page" id="respond"><h3 class="comment_reply_title" id="reply-title">Give Comment</h3>
+                        <form class="comment_form" action="{{ action }}" method="post" enctype="multipart/form-data">
+                            <div class="form-group badblogs_message"></div>
+                            <div class="form-group badblog_name_parent clearfix">
+                                <label class="col-xs-12 col-sm-12 col-md-3 col-lg-3">Name</label>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <input type="text" name="tntblog_comment_name" value="{{ tntblog_comment_name }}" placeholder="{{ text_comment_name }}" class="form-control" />
+                                    <input type="hidden" name="tntblog_parent_id" value="{{ tntblog_parent_id }}" class="form-control" />
+                                    {% if error_name %}
+                                        <div class="text-danger">{{ error_name }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="form-group badblog_email_parent clearfix">
+                                <label class="col-xs-12 col-sm-12 col-md-3 col-lg-3">Email</label>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <input class="form-control" name="tntblog_comment_email" type="email" value="{{ tntblog_comment_email }}" placeholder="{{ text_comment_email }}"> 
+                                    {% if error_email %}
+                                        <div class="text-danger">{{ error_email }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="form-group badblog_website_parent clearfix">
+                                <label class="col-xs-12 col-sm-12 col-md-3 col-lg-3">URL</label>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <input type="text" name="tntblog_comment_website_url" value="{{ tntblog_comment_website_url }}" id="input-url" placeholder="{{ entry_url }}" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group badblog_subject_parent clearfix">
+                                <label class="col-xs-12 col-sm-12 col-md-3 col-lg-3">Subject</label>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <input type="text" name="tntblog_comment_subject" value="{{ tntblog_comment_subject }}" id="input-comment" placeholder="{{ entry_url }}" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group badblog_content_parent clearfix">
+                                <label class="col-xs-12 col-sm-12 col-md-3 col-lg-3">Comment</label>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <textarea rows="15" class="form-control" name="tntblog_coment_url" placeholder="How can we help?">{{ tntblog_coment_url }}</textarea>
+                                    {% if error_enquiry %}
+                                        <div class="text-danger">{{ error_enquiry }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="badblob-all-submit-btn">
+                                <input type="submit" class="badall-theme-button" value="{{ button_submit }}">
+
+                            </div>
+                        </form>
+                    </div>  
+                {% endif %} 
+                <!-- end comment -->
+            </div>
+        </div>
+</div>
+                            
+{{ footer }}

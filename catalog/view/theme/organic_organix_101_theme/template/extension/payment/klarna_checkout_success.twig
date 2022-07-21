@@ -1,0 +1,23 @@
+{{ header }}
+<div class="container">
+      <div class="adbreadcrumb">
+        <h1>{{ klarna_checkout }}</h1>
+        {% include 'organic_organix_101_theme/template/helpfile/breadcrumb.twig' with {'breadcrumbs': breadcrumbs} %} 
+      </div>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      
+      <div class="buttons">
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      </div>
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

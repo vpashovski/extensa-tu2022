@@ -1,0 +1,35 @@
+{{ parentheading }}
+{% for testimonial in testimonials %}
+    {{ testimonial.tnttestimonialchild_name }}
+    {{ testimonial.tnttestimonialchild_description }}
+{% endfor %}
+
+<script type="text/javascript">
+/*main testimonials*/
+$('#id').owlCarousel({
+    loop: true,
+    dots: false,
+    nav: false,
+    responsive: {
+        0: { items: 1 },
+        320: { items: 1, slideBy: 1 },
+        440: { items: 1, slideBy: 1 },
+        768: { items: 1, slideBy: 1 },
+        850: { items: 1, slideBy: 1 },
+        992: { items: 1, slideBy: 1 },
+        1200: { items: 1, slideBy: 1 },
+        1600: { items: 1, slideBy: 1 },
+        1800: { items: 1, slideBy: 1 }
+
+    },
+});
+$('.parent .prev').click(function(e) {
+    e.preventDefault();
+    $('#testimonials .owl-nav .owl-prev').trigger('click');
+});
+$('.parent .next').click(function(e) {
+    e.preventDefault();
+    $('#testimonials .owl-nav .owl-next').trigger('click');
+});
+/*main testimonials*/
+</script>

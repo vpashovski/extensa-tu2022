@@ -1,0 +1,18 @@
+<div class="comments_note">    
+    <div class="star_content clearfix">
+    	{% for i in 1..5 %} 
+
+		    {% if rating < i %} 
+
+		        <div class="star"><i class="lnr lnr-star"></i></div>
+
+		    {% else %}
+
+		        <div class="star star_on"><i class="lnr lnr-star"></i></div>
+
+		    {% endif %}
+
+		{% endfor %}
+        
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{% if reviews %}
+{% for review in reviews %}
+<table class="table table-striped table-bordered">
+  <tr>
+    <td style="width: 50%;"><strong>{{ review.author }}</strong></td>
+    <td class="text-right">{{ review.date_added }}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>{{ review.text }}</p>
+     
+      {% include 'organic_organix_101_theme/template/helpfile/productrating.twig' with {'rating': review.rating } %}
+
+      </td>
+  </tr>
+</table>
+{% endfor %}
+<div class="text-right">{{ pagination }}</div>
+{% else %}
+<p>{{ text_no_reviews }}</p>
+{% endif %} 

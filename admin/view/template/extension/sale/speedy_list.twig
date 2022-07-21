@@ -1,0 +1,231 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      {% if courier %}
+        <div class="pull-right">
+          <button type="submit" id="button-shipping" form="form" formaction="{{ courier }}" data-toggle="tooltip" title="{{ button_courier }}" class="btn btn-primary"><i class="fa fa-truck"></i> {{ button_courier }}</button>
+        </div>
+      {% endif %}
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    {% if success %}
+      <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="well">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="control-label" for="input-bol-id">{{ column_bol_id }}</label>
+                <input type="text" name="filter_bol_id" value="{{ filter_bol_id }}" placeholder="{{ column_bol_id }}" id="input-bol-id" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="control-label" for="input-order-id">{{ column_order_id }}</label>
+                <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ column_order_id }}" id="input-order-id" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="control-label" for="input-customer">{{ column_customer }}</label>
+                <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ column_customer }}" id="input-customer" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label class="control-label" for="input-date-created">{{ column_date_created }}</label>
+                <div class="input-group date">
+                  <input type="text" name="filter_date_created" value="{{ filter_date_created }}" placeholder="{{ column_date_created }}" data-date-format="YYYY-MM-DD" id="input-date-created" class="form-control" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                  </span>
+                </div>
+              </div>
+              <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> {{ button_filter }}</button>
+            </div>
+          </div>
+        </div>
+        <form method="post" enctype="multipart/form-data" id="form">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>
+                  <td class="text-right">
+                    {% if sort == 'so.bol_id' %}
+                      <a href="{{ sort_speedy_order }}" class="{{ order|lower }}">{{ column_bol_id }}</a>
+                    {% else %}
+                      <a href="{{ sort_speedy_order }}">{{ column_bol_id }}</a>
+                    {% endif %}
+                  </td>
+                  <td class="text-right">
+                    {% if sort == 'so.order_id' %}
+                      <a href="{{ sort_order }}" class="{{ order|lower }}">{{ column_order_id }}</a>
+                    {% else %}
+                      <a href="{{ sort_order }}">{{ column_order_id }}</a>
+                    {% endif %}
+                  </td>
+                  <td class="text-left">
+                    {% if sort == 'customer' %}
+                      <a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a>
+                    {% else %}
+                      <a href="{{ sort_customer }}">{{ column_customer }}</a>
+                    {% endif %}
+                  </td>
+                  <td class="text-left">{{ column_recipient }}</td>
+                  <td class="text-left">
+                    {% if sort == 'so.date_created' %}
+                      <a href="{{ sort_date_created }}" class="{{ order|lower }}">{{ column_date_created }}</a>
+                    {% else %}
+                      <a href="{{ sort_date_created }}">{{ column_date_created }}</a>
+                    {% endif %}
+                  </td>
+                  <td class="text-left">{{ column_delivery_date }}</td>
+                  <td class="text-right">{{ column_status }}</td>
+                  <td class="text-left">{{ column_order_address }}</td>
+                  <td class="text-right">{{ column_action }}</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% if speedy_orders %}
+                  {% for order in speedy_orders %}
+                    <tr>
+                      <td class="text-center">
+                        {% if order.order_id in selected %}
+                          <input type="checkbox" name="selected[]" value="{{ order.order_id }}" checked="checked" />
+                        {% else %}
+                          <input type="checkbox" name="selected[]" value="{{ order.order_id }}" />
+                        {% endif %}
+                      </td>
+                      <td class="text-right">
+                        <a href="{{ order.bol_href }}" {% if order.bol_target %}target="{{ order.bol_target }}"{% endif %}>{{ order.bol_id }}</a>
+                      </td>
+                      <td class="text-right">
+                        <a href="{{ order.order_href }}">{{ order.order_id }}</a>
+                      </td>
+                      <td class="text-left">{{ order.customer }}</td>
+                      <td class="text-left">{{ order.recipient }}</td>
+                      <td class="text-left">{{ order.date_created }}</td>
+                      <td class="text-left">{{ order.delivery_date }} {% if order.delivery_consignee is not empty %} <br /> {{ order.delivery_consignee }} {% endif %} {% if order.delivery_note is not empty %} , {{ order.delivery_note }} {% endif %}</td>
+                      <td class="text-left">{{ order.status }}</td>
+                      <td class="text-left">{{ order.address }}</td>
+                      <td class="text-right">
+                        {% for action in order.action %}
+                          [
+                            {% if action.href %}
+                              <a href="{{ action.href }}" {% if action.target %}target="{{ action.target }}"{% endif %}>{{ action.text }}</a>
+                            {% else %}
+                              {{ action.text }}
+                            {% endif %}
+                          ]
+                        {% endfor %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td class="text-center" colspan="10">{{ text_no_results }}</td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-sm-6 text-left">{{ pagination }}</div>
+          <div class="col-sm-6 text-right">{{ results }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<link href="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen" />
+<script type="text/javascript"><!--
+$('#button-filter').on('click', function() {
+  url = 'index.php?route=extension/sale/speedy&user_token={{ user_token }}';
+
+  var filter_bol_id = $('input[name=\'filter_bol_id\']').val();
+
+  if (filter_bol_id) {
+    url += '&filter_bol_id=' + encodeURIComponent(filter_bol_id);
+  }
+
+  var filter_order_id = $('input[name=\'filter_order_id\']').val();
+
+  if (filter_order_id) {
+    url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+  }
+
+  var filter_customer = $('input[name=\'filter_customer\']').val();
+
+  if (filter_customer) {
+    url += '&filter_customer=' + encodeURIComponent(filter_customer);
+  }
+
+  var filter_date_created = $('input[name=\'filter_date_created\']').val();
+
+  if (filter_date_created) {
+    url += '&filter_date_created=' + encodeURIComponent(filter_date_created);
+  }
+
+  location = url;
+});
+
+$('.date').datetimepicker({
+  pickTime: false
+});
+
+$('#form input').keydown(function(e) {
+  if (e.keyCode == 13) {
+    filter();
+  }
+});
+
+$('input[name=\'filter_customer\']').autocomplete({
+  'source': function(request, response) {
+    $.ajax({
+      url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent($('input[name=\'filter_customer\']').val()),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            category: item.customer_group,
+            label: item.name,
+            value: item.customer_id
+          }
+        }));
+      }
+    });
+  },
+  'select': function(item) {
+    if (item) {
+      $('input[name=\'filter_customer\']').val(item.label);
+    }
+  },
+  'focus': function(item) {
+    return false;
+  }
+});
+//--></script>
+{{ footer }}

@@ -1,0 +1,16 @@
+
+
+<div class="badfooter-socialicon-block">
+  		<div class="badfooter-socialicon-content-wrapper">
+	    	<ul class="badfooter-socialicon-content">
+	      		{% for socialicon in socialicons %}
+	      			<li>
+	        			<a href="{{ socialicon.tntsocialiconparent_link }}" >
+	        				<i class="{{ socialicon.tntsocialiconparent_class_name }}"></i>
+	        			</a>
+	        		</li>
+				{% endfor %}
+	    	</ul>
+  		</div>
+  	</div>
+

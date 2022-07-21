@@ -1,0 +1,39 @@
+[15-Jul-2022 10:29:51 Europe/Sofia] PHP Fatal error:  require_once(): Failed opening required '/home/exte7mok/public_html/system/storage/modification/system/engine/action.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/exte7mok/public_html/system/startup.php on line 90
+[15-Jul-2022 07:49:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Controllerstartuppermission' not found in /home/exte7mok/public_html/system/storage/modification/system/engine/action.php:71
+Stack trace:
+#0 /home/exte7mok/public_html/system/engine/router.php(67): Action->execute(Object(Registry))
+#1 /home/exte7mok/public_html/system/engine/router.php(46): Router->execute(Object(Action))
+#2 /home/exte7mok/public_html/system/framework.php(169): Router->dispatch(Object(Action), Object(Action))
+#3 /home/exte7mok/public_html/system/startup.php(104): require_once('/home/exte7mok/...')
+#4 /home/exte7mok/public_html/admin/index.php(19): start('admin')
+#5 {main}
+  thrown in /home/exte7mok/public_html/system/storage/modification/system/engine/action.php on line 71
+[15-Jul-2022 08:05:05 UTC] PHP Fatal error:  Uncaught Exception: Error: Duplicate column name 'operation_code'<br />Error No: 1060<br />ALTER TABLE `oc_speedy_order` ADD `operation_code` INT(11) NOT NULL in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('ALTER TABLE `oc...')
+#1 /home/exte7mok/public_html/admin/model/extension/shipping/speedy.php(116): DB->query('ALTER TABLE `oc...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelExtensionShippingSpeedy->updateTablesV410()
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/admin/controller/extension/shipping/speedy.php(796): Proxy->__call('updateTablesV41...', Array)
+#5 /home/exte7mok/public_html/admin/controller/extension/shipping/speedy.php(15): ControllerExtensionShippingSpeedy->updateV410()
+#6 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerE in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:05:10 UTC] PHP Fatal error:  Uncaught Exception: Error: Duplicate column name 'operation_code'<br />Error No: 1060<br />ALTER TABLE `oc_speedy_order` ADD `operation_code` INT(11) NOT NULL in /home/exte7mok/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/exte7mok/public_html/system/library/db.php(45): DB\MySQLi->query('ALTER TABLE `oc...')
+#1 /home/exte7mok/public_html/admin/model/extension/shipping/speedy.php(116): DB->query('ALTER TABLE `oc...')
+#2 /home/exte7mok/public_html/system/storage/modification/system/engine/loader.php(248): ModelExtensionShippingSpeedy->updateTablesV410()
+#3 /home/exte7mok/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/exte7mok/public_html/admin/controller/extension/shipping/speedy.php(796): Proxy->__call('updateTablesV41...', Array)
+#5 /home/exte7mok/public_html/admin/controller/extension/shipping/speedy.php(15): ControllerExtensionShippingSpeedy->updateV410()
+#6 /home/exte7mok/public_html/system/storage/modification/system/engine/action.php(79): ControllerE in /home/exte7mok/public_html/system/library/db/mysqli.php on line 48
+[15-Jul-2022 08:18:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Controllerstartuppermission' not found in /home/exte7mok/public_html/system/storage/modification/system/engine/action.php:71
+Stack trace:
+#0 /home/exte7mok/public_html/system/engine/router.php(67): Action->execute(Object(Registry))
+#1 /home/exte7mok/public_html/system/engine/router.php(46): Router->execute(Object(Action))
+#2 /home/exte7mok/public_html/system/framework.php(169): Router->dispatch(Object(Action), Object(Action))
+#3 /home/exte7mok/public_html/system/startup.php(104): require_once('/home/exte7mok/...')
+#4 /home/exte7mok/public_html/admin/index.php(19): start('admin')
+#5 {main}
+  thrown in /home/exte7mok/public_html/system/storage/modification/system/engine/action.php on line 71
+[15-Jul-2022 08:32:26 UTC] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE) in /home/exte7mok/public_html/admin/controller/extension/module/tntblogcategory.php on line 13
+[15-Jul-2022 08:46:15 UTC] PHP Fatal error:  require(): Failed opening required '/home/exte7mok/public_html/system/storage/modification/admin/language/en-gb/common/column_left.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/exte7mok/public_html/system/storage/modification/system/library/language.php on line 67

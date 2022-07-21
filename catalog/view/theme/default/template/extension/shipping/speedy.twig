@@ -1,0 +1,1144 @@
+<form action="{{ action }}" method="post" enctype="multipart/form-data" id="speedy_form" class="form-horizontal" >
+  {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+  {% endif %}
+  {% if abroad == 0 %}
+    <div class="content">
+      <div>
+        <input type="hidden" id="speedy_country_id" name="country_id" value="{{ country_id }}" />
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="speedy_city">{{ entry_city }}</label>
+          <div class="col-sm-5">
+            <input type="search" id="speedy_city" name="city" value="{{ city }}" class="form-control" autocomplete="off" />
+            <input type="hidden" id="speedy_city_id" name="city_id" value="{{ city_id }}" />
+            <input type="hidden" id="speedy_city_nomenclature" name="city_nomenclature" value="{{ city_nomenclature }}" />
+          </div>
+          <label class="col-sm-1 control-label" for="speedy_postcode">{{ entry_postcode }}</label>
+          <div class="col-sm-2">
+            <input type="search" id="speedy_postcode" name="postcode" value="{{ postcode }}" disabled="disabled" class="form-control" autocomplete="off" />
+          </div>
+        </div>
+        <div class="form-group" id="speedy_to_office" {% if offices == false %} style="display:none;" {% endif %}>
+          <label class="col-sm-2 control-label">{{ entry_shipping_to }}</label>
+          <div class="col-sm-8">
+            {% if option_before_payment == 'no_option' or ignore_obp %}
+                <label class="radio-inline">
+                  <input type="radio" id="speedy_shipping_to_apt" data-is-apt="1" name="to_office" value="1" {% if to_office != false and is_apt != false %}checked="checked"{% endif %} />
+                  {% if option_before_payment == 'test' %}
+                    {{ text_to_apt_ignore_obp_test }}
+                  {% elseif option_before_payment == 'open' %}
+                    {{ text_to_apt_ignore_obp_open }}
+                  {% else %}
+                    {{ text_to_apt }}
+                  {% endif %}
+                </label>
+            {% endif %}
+            <label class="radio-inline">
+              <input type="radio" id="speedy_shipping_to_office" data-is-apt="0" name="to_office" value="1" {% if to_office != false and is_apt == false %}checked="checked"{% endif %} />
+              {{ text_to_office }}
+            </label>
+            <label class="radio-inline">
+              <input type="radio" id="speedy_shipping_to_door" data-is-apt="0" name="to_office" value="0" {% if to_office == false and is_apt == false %}checked="checked"{% endif %} />
+              {{ text_to_door }}
+            </label>
+          </div>
+        </div>
+        <div class="form-group" id="speedy_quarter_container" {% if to_office != false %}style="display: none;"{% endif %}>
+          <label class="col-sm-2 control-label" for="speedy_quarter">{{ entry_quarter }}</label>
+          <div class="col-sm-8">
+            <input type="search" id="speedy_quarter" name="quarter" value="{{ quarter }}" class="form-control" autocomplete="off" />
+            <input type="hidden" id="speedy_quarter_id" name="quarter_id" value="{{ quarter_id }}" />
+          </div>
+        </div>
+        <div class="form-group" id="speedy_street_container" {% if to_office != false %}style="display: none;"{% endif %}>
+          <label class="col-sm-2 control-label" for="speedy_street">{{ entry_street }}</label>
+          <div class="col-sm-5">
+            <input type="search" id="speedy_street" name="street" value="{{ street }}" class="form-control" autocomplete="off" />
+            <input type="hidden" id="speedy_street_id" name="street_id" value="{{ street_id }}" />
+            {% if error_address %}
+              <span class="text-danger">{{ error_address }}</span>
+            {% endif %}
+          </div>
+          <label class="col-sm-1 control-label" for="speedy_street_no">{{ entry_street_no }}</label>
+          <div class="col-sm-2">
+            <input type="search" id="speedy_street_no" name="street_no" value="{{ street_no }}" class="form-control" autocomplete="off" />
+          </div>
+        </div>
+        <div class="form-group" id="speedy_block_no_container" {% if to_office != false %}style="display: none;"{% endif %}>
+          <label class="col-sm-2 control-label" for="speedy_block_no">{{ entry_block_no }}</label>
+          <div class="col-sm-2">
+            <input type="search" id="speedy_block_no" name="block_no" value="{{ block_no }}" class="form-control" autocomplete="off" />
+          </div>
+          <label class="col-sm-1 control-label" for="speedy_entrance_no">{{ entry_entrance_no }}</label>
+          <div class="col-sm-1">
+            <input type="search" id="speedy_entrance_no" name="entrance_no" value="{{ entrance_no }}" class="form-control" autocomplete="off" />
+          </div>
+          <label class="col-sm-1 control-label" for="speedy_floor_no">{{ entry_floor_no }}</label>
+          <div class="col-sm-1">
+            <input type="search" id="speedy_floor_no" name="floor_no" value="{{ floor_no }}" class="form-control" autocomplete="off" />
+          </div>
+          <label class="col-sm-1 control-label" for="speedy_apartment_no">{{ entry_apartment_no }}</label>
+          <div class="col-sm-1">
+            <input type="search" id="speedy_apartment_no" name="apartment_no" value="{{ apartment_no }}" class="form-control" autocomplete="off" />
+          </div>
+        </div>
+        <div class="form-group" id="speedy_note_container" {% if to_office != false %}style="display: none;"{% endif %}>
+          <label class="col-sm-2 control-label" for="speedy_note">{{ entry_note }}</label>
+          <div class="col-sm-8">
+            <input type="search" id="speedy_note" name="note" value="{{ note }}" class="form-control" autocomplete="off" />
+          </div>
+        </div>
+        <div class="form-group" id="speedy_office_container" {% if to_office  == false %}style="display: none;"{% endif %}>
+          <label class="col-sm-2 control-label" for="speedy_office_id">{{ entry_office }}</label>
+          <div class="col-sm-10">
+            <select id="speedy_office_id" name="office_id" class="form-control">
+              {% if to_office != false and is_apt != false %}
+                <option value="0" selected="selected">{{ text_select_apt }}</option>
+              {% else %}
+                <option value="0" selected="selected">{{ text_select_office }}</option>
+              {% endif %}
+              {% for office in offices %}
+                {% if office.id == office_id %}
+                  {% if not (office.is_apt b-xor is_apt) %}
+                    <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}" selected="selected">{{ office.label }}</option>
+                  {% endif %}
+                {% else %}
+                  <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}">{{ office.label }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <input type="hidden" id="office_name" name="office_name" value="{{ office_name }}" />
+            <input type="hidden" id="is_apt" name="is_apt" value="{{ is_apt != false ? 1 : 0 }}" />
+            {% if error_office %}
+              <span class="text-danger">{{ error_office }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="form-group" {% if fixed_time == 0 %}style="display: none;"{% endif %}>
+          <label class="col-sm-2 control-label">
+            <input type="checkbox" id="speedy_fixed_time_cb" name="fixed_time_cb" value="1" {% if fixed_time_cb_enable == 0 %}disabled="disabled"{% endif %} {% if fixed_time_cb %}checked="checked"{% endif %} onclick="speedyCheckFixedTime();" />
+            {{ entry_fixed_time }}
+          </label>
+          <div class="col-sm-1">
+            <select id="speedy_fixed_time_hour" name="fixed_time_hour" class="form-control" {% if fixed_time_cb == 0 %}disabled="disabled"{% endif %} onchange="speedySetFixedTime();">
+              {% for hour in hours %}
+                {% if hour == fixed_time_hour or fixed_time_hour == 0 %}
+                  <option value="{{ hour }}" selected="selected">{{ hour }}</option>
+                {% else %}
+                  <option value="{{ hour }}">{{ hour }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-sm-1">
+            <select id="speedy_fixed_time_min" name="fixed_time_min" class="form-control" {% if fixed_time_cb == 0 %}disabled="disabled"{% endif %}>
+              {% for minute in minutes %}
+                {% if minute == fixed_time_min %}
+                  <option value="{{ minute }}" selected="selected">{{ minute }}</option>
+                {% else %}
+                  <option value="{{ minute }}">{{ minute }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <label class="col-sm-1 control-label">{{ text_fixed_time }}</label>
+          {% if error_fixed_time %}
+            <span class="text-danger">{{ error_fixed_time }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="form-group">
+      <div>
+        <label class="col-sm-2 control-label" for="speedy_country">{{ entry_country }}</label>
+        <div class="col-sm-5">
+          <input type="search" id="speedy_country" name="country" value="{{ country }}" {% if country_disabled %}disabled="disabled" {% endif %} class="form-control" autocomplete="off" />
+          <input type="hidden" id="speedy_country_id" name="country_id" value="{{ country_id }}" />
+          <input type="hidden" id="speedy_country_nomenclature" name="country_nomenclature" value="{{ country_nomenclature }}" />
+      </div>
+    </div>
+    <div id="abroad_speedy_state" class="{% if required_state %} required {% endif %}">
+      <label class="col-sm-1 control-label" for="speedy_state">{{ entry_state }}</label>
+      <div class="col-sm-2">
+        <input type="search" id="speedy_state" name="state" value="{{ state }}" {% if state_disabled %}disabled="disabled"{% endif %} class="form-control" autocomplete="off" />
+        <input type="hidden" id="speedy_state_id" name="state_id" value="{{ state_id }}" />
+        <input type="hidden" id="required_state" name="required_state" value="{{ required_state }}" />
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div>
+      <label class="col-sm-2 control-label" for="speedy_city">{{ entry_city }}</label>
+      <div class="col-sm-5">
+        <input type="search" id="speedy_city" name="city" value="{{ city }}" class="form-control" autocomplete="off" />
+        <input type="hidden" id="speedy_city_id" name="city_id" value="{{ city_id }}" />
+        <input type="hidden" id="speedy_city_nomenclature" name="city_nomenclature" value="{{ city_nomenclature }}" />
+      </div>
+    </div>
+    <div id="abroad_speedy_postcode" class="{% if required_postcode %}required{% endif %}">
+      <label class="col-sm-1 control-label" for="speedy_postcode">{{ entry_postcode }}</label>
+      <div class="col-sm-2">
+        <input type="search" id="speedy_postcode" name="postcode" value="{{ postcode }}" class="form-control" autocomplete="off" />
+        <input type="hidden" id="required_postcode" name="required_postcode" value="{{ required_postcode }}" />
+      </div>
+    </div>
+  </div>
+  <div class="form-group" id="speedy_to_office" {% if offices == false %}style="display:none;" {% endif %}>
+    <label class="col-sm-2 control-label">{{ entry_shipping_to }}</label>
+    <div class="col-sm-8">
+      {% if option_before_payment == 'no_option' or ignore_obp %}
+          <label class="radio-inline">
+            <input type="radio" id="speedy_shipping_to_apt" data-is-apt="1" name="to_office" value="1" {% if to_office != false and is_apt != false %}checked="checked"{% endif %} />
+            {% if option_before_payment == 'test' %}
+              {{ text_to_apt_ignore_obp_test }}
+            {% elseif option_before_payment == 'open' %}
+              {{ text_to_apt_ignore_obp_open }}
+            {% else %}
+              {{ text_to_apt }}
+            {% endif %}
+          </label>
+      {% endif %}
+      <label class="radio-inline">
+        <input type="radio" id="speedy_shipping_to_office" data-is-apt="0" name="to_office" value="1" {% if to_office != false and is_apt == false %} checked="checked"{% endif %} />
+        {{ text_to_office }}
+      </label>
+      <label class="radio-inline">
+        <input type="radio" id="speedy_shipping_to_door" data-is-apt="0" name="to_office" value="0" {% if to_office == false and is_apt == false %} checked="checked"{% endif %} />
+        {{ text_to_door }}
+      </label>
+    </div>
+  </div>
+  {% if country_address_nomenclature %}
+    <div class="form-group" id="speedy_quarter_container" {% if to_office != false %} style="display: none;"{% endif %}>
+      <label class="col-sm-2 control-label" for="speedy_quarter">{{ entry_quarter }}</label>
+      <div class="col-sm-8">
+        <input type="search" id="speedy_quarter" name="quarter" value="{{ quarter }}" class="form-control" autocomplete="off" />
+        <input type="hidden" id="speedy_quarter_id" name="quarter_id" value="{{ quarter_id }}" />
+      </div>
+    </div>
+    <div class="form-group" id="speedy_street_container" {% if to_office != false %} style="display: none;"{% endif %}>
+      <label class="col-sm-2 control-label" for="speedy_street">{{ entry_street }}</label>
+      <div class="col-sm-5">
+        <input type="search" id="speedy_street" name="street" value="{{ street }}" class="form-control" autocomplete="off" />
+        <input type="hidden" id="speedy_street_id" name="street_id" value="{{ street_id }}" />
+        {% if error_address %}
+          <span class="text-danger">{{ error_address }}</span>
+        {% endif %}
+      </div>
+      <label class="col-sm-1 control-label" for="speedy_street_no">{{ entry_street_no }}</label>
+      <div class="col-sm-2">
+        <input type="search" id="speedy_street_no" name="street_no" value="{{ street_no }}" class="form-control" autocomplete="off" />
+      </div>
+    </div>
+    <div class="form-group" id="speedy_block_no_container" {% if to_office != false %} style="display: none;"{% endif %}>
+      <label class="col-sm-2 control-label" for="speedy_block_no">{{ entry_block_no }}</label>
+      <div class="col-sm-2">
+        <input type="search" id="speedy_block_no" name="block_no" value="{{ block_no }}" class="form-control" autocomplete="off" />
+      </div>
+      <label class="col-sm-1 control-label" for="speedy_entrance_no">{{ entry_entrance_no }}</label>
+      <div class="col-sm-1">
+        <input type="search" id="speedy_entrance_no" name="entrance_no" value="{{ entrance_no }}" class="form-control" autocomplete="off" />
+      </div>
+      <label class="col-sm-1 control-label" for="speedy_floor_no">{{ entry_floor_no }}</label>
+      <div class="col-sm-1">
+        <input type="search" id="speedy_floor_no" name="floor_no" value="{{ floor_no }}" class="form-control" autocomplete="off" />
+      </div>
+      <label class="col-sm-1 control-label" for="speedy_apartment_no">{{ entry_apartment_no }}</label>
+      <div class="col-sm-1">
+        <input type="search" id="speedy_apartment_no" name="apartment_no" value="{{ apartment_no }}" class="form-control" autocomplete="off" />
+      </div>
+    </div>
+    <div class="form-group" id="speedy_note_container" {% if to_office != false %} style="display: none;"{% endif %}>
+      <label class="col-sm-2 control-label" for="speedy_note">{{ entry_note }}</label>
+      <div class="col-sm-8">
+        <input type="search" id="speedy_note" name="note" value="{{ note }}" class="form-control" autocomplete="off" />
+      </div>
+    </div>
+    <div class="form-group" id="speedy_office_container" {% if to_office == false %} style="display: none;"{% endif %}>
+      <label class="col-sm-2 control-label" for="speedy_office_id">{{ entry_office }}</label>
+        <div class="col-sm-10">
+          <select id="speedy_office_id" name="office_id" class="form-control">
+            {% if to_office != false and is_apt != false %}
+              <option value="0" selected="selected">{{ text_select_apt }}</option>
+            {% else %}
+              <option value="0" selected="selected">{{ text_select_office }}</option>
+            {% endif %}
+            {% for office in offices %}
+              {% if office.id == office_id %}
+                {% if not (office.is_apt b-xor is_apt != false) %}
+                  <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}" selected="selected">{{ office.label }}</option>
+                {% endif %}
+              {% else %}
+                <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}">{{ office.label }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <input type="hidden" id="office_name" name="office_name" value="{{ office_name }}" />
+          <input type="hidden" id="is_apt" name="is_apt" value="{{ is_apt != false ? 1 : 0 }}" />
+          {% if error_office %}
+            <span class="text-danger">{{ error_office }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="form-group" {% if fixed_time == 0 %} style="display: none;"{% endif %}>
+        <label class="col-sm-2 control-label">
+          <input type="checkbox" id="speedy_fixed_time_cb" name="fixed_time_cb" value="1" {% if fixed_time_cb %} checked="checked"{% endif %} {% if fixed_time_cb_enable == 0 %} disabled="disabled"{% endif %} onclick="speedyCheckFixedTime();" />
+          {{ entry_fixed_time }}
+        </label>
+        <div class="col-sm-1">
+          <select id="speedy_fixed_time_hour" name="fixed_time_hour" class="form-control" {% if fixed_time_cb == 0 %}disabled="disabled"{% endif %} onchange="speedySetFixedTime();">
+            {% for hour in hours %}
+              {% if hour == fixed_time_hour or fixed_time_hour == 0 %}
+                <option value="{{ hour }}" selected="selected">{{ hour }}</option>
+              {% else %}
+                <option value="{{ hour }}">{{ hour }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-sm-1">
+          <select id="speedy_fixed_time_min" name="fixed_time_min" class="form-control" {% if fixed_time_cb == 0 %}disabled="disabled"{% endif %}>
+            {% for minute in minutes %}
+              {% if minute == fixed_time_min %}
+                <option value="{{ minute }}" selected="selected">{{ minute }}</option>
+              {% else %}
+                <option value="{{ minute }}">{{ minute }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <label class="col-sm-1 control-label">{{ text_fixed_time }}</label>
+        {% if error_fixed_time %}
+          <span class="text-danger">{{ error_fixed_time }}</span>
+        {% endif %}
+      </div>
+  {% else %}
+      <div class="form-group required">
+        <label class="col-sm-2 control-label" for="speedy_address_1">{{ entry_address_1 }}</label>
+        <div class="col-sm-8">
+          <input type="search" id="speedy_address_1" name="address_1" value="{{ address_1 }}" class="form-control" autocomplete="off" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="speedy_address_2">{{ entry_address_2 }}</label>
+        <div class="col-sm-8">
+          <input type="search" id="speedy_address_2" name="address_2" value="{{ address_2 }}" class="form-control" autocomplete="off" />
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+    </div>
+    </div>
+    <div id="speedy_cod_container" class="content" {% if cod_status == 0 %} style="display: none;"{% endif %}>
+    <input type="hidden" id="speedy_cod_status" name="cod_status" value="{{ cod_status }}" />
+    <input type="hidden" id="speedy_active_currency_code" name="active_currency_code" value="{{ active_currency_code }}" />
+      <div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">{{ entry_cod }}</label>
+          <div class="col-sm-10">
+            <label class="radio-inline">
+              <input type="radio" id="speedy_cod_yes" name="cod" value="1" {% if cod %} checked="checked"{% endif %} />
+              {{ text_yes }}
+            </label>
+            <label class="radio-inline">
+              <input type="radio" id="speedy_cod_no" name="cod" value="0" {% if cod == 0 %} checked="checked"{% endif %} />
+              {{ text_no }}
+            </label>
+          </div>
+          {% if error_cod %}
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-10">
+              <span class="text-danger">{{ error_cod }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="abroad" name="abroad" value="{{ abroad }}" />
+    <input type="hidden" id="validate" name="validate" value="0" />
+    <input type="hidden" name="country_address_nomenclature" value="{{ country_address_nomenclature }}" />
+</form>
+<script type="text/javascript">//<!--
+  var isInvalidSpeedyService = false;
+  {% if session_speedy.quote.speedy is not empty %}
+    isInvalidSpeedyService = true;
+  {% endif %}
+
+  $('#button-shipping-method').off();
+
+  $('#button-shipping-method').on('click', function(event) {
+    if ($('[name="shipping_method"][value^="speedy."]:checked').length) {
+      event.stopPropagation();
+      speedy_disabled = $('#speedy_form :input :disabled');
+      $('#speedy_form :input').removeAttr('disabled');
+
+      $('#validate').val(1);
+      speedySubmit(true);
+      $('#validate').val(0);
+    } else {
+      speedyShipping(true);
+    }
+    return false;
+  });
+
+if ($('[name=shipping_method][value^=speedy]:checked').length) {
+    $('#speedy_container').show();
+} else {
+    $('#speedy_container').hide();
+}
+
+  function speedySubmit(next) {
+    $('#speedy_form').removeClass('loading_speedy_container');
+    $('.wait').remove();
+    $('#speedy_container').prepend($('#wait[type=html]').text());
+
+    $('#speedy_form').addClass('loading_speedy_container');
+    speedy_disabled = $('#speedy_form :input :disabled');
+    $('#speedy_form :input').removeAttr('disabled');
+
+    $.ajax({
+      url: 'index.php?route=extension/shipping/speedy',
+      type: 'POST',
+      data: $('#speedy_form').serialize(),
+      dataType: 'json',
+      beforeSend: function() {
+        $('#button-speedy-calculate').button('loading');
+      },
+      complete: function() {
+        speedy_disabled.prop('disabled', true);
+      },
+      success: function(data) {
+        if (data) {
+          if (data.redirect) {
+            location = data.redirect;
+          } else if (data.submit) {
+            shouldRecalcSpeedyServices = false;
+            speedyShipping(next);
+          } else {
+            $('#speedy_container').html(data.html);
+          }
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        // do nothing
+      }
+    });
+  }
+
+  function speedyShipping(next) {
+    if (!$('[name=shipping_method]:checked').length) {
+        $('[name=shipping_method][value^=speedy]:first').click();
+    }
+
+    $.ajax({
+      url: 'index.php?route=checkout/shipping_method/save',
+      type: 'post',
+      data: $('#collapse-shipping-method input[type=\'radio\']:checked, #collapse-shipping-method textarea'),
+      dataType: 'json',
+      beforeSend: function() {
+        $('#button-shipping-method').button('loading');
+      },
+      complete: function() {
+        $('#button-speedy-calculate').button('reset');
+        $('#button-shipping-method').button('reset');
+      },
+      success: function(json) {
+        $('.wait').remove();
+        $('#speedy_form').removeClass('loading_speedy_container');
+        $('.alert, .text-danger').remove();
+
+        if (json['redirect']) {
+          location = json['redirect'];
+        }
+
+        if (json['error']) {
+          if (json['error']['warning']) {
+            $('#collapse-shipping-method .panel-body').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+            $.each($('#collapse-shipping-method :radio[name="shipping_method"]'), function(index, element) {
+              if (element.value.indexOf('speedy.') == 0) {
+                $(this).parent().parent().hide();
+              }
+            });
+
+          }
+        } else {
+          $('#speedy_container').prepend($('#wait[type=html]').text());
+          $('#speedy_form').addClass('loading_speedy_container');
+
+          $.ajax({
+            url: 'index.php?route=checkout/shipping_method',
+            dataType: 'html',
+            success: function(html) {
+              $('.wait').remove();
+              $('#speedy_form').removeClass('loading_speedy_container');
+              $('#collapse-shipping-method .panel-body').html(html);
+
+              if (next) {
+                $.ajax({
+                  url: 'index.php?route=checkout/payment_method',
+                  dataType: 'html',
+                  success: function(html) {
+                    $('#collapse-payment-method .panel-body').html(html);
+
+                    $('#collapse-payment-method').parent().find('.panel-heading .panel-title').html('<a href="#collapse-payment-method" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">{{ text_checkout_payment_method }} <i class="fa fa-caret-down"></i></a>');
+
+                    $('a[href=\'#collapse-payment-method\']').trigger('click');
+
+                    $('#collapse-checkout-confirm').parent().find('.panel-heading .panel-title').html('{{ text_checkout_confirm }}');
+                  }
+                });
+              }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+              // do nothing
+            }
+          });
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        // do nothing
+      }
+    });
+  }
+
+  function shouldDisableContinueBtn() {
+    if($('[name="shipping_method"][value^="speedy."]:checked').length && (shouldRecalcSpeedyServices || isInvalidSpeedyService)) {
+      $('#button-shipping-method').prop('disabled', 'disabled');
+
+      $('#collapse-shipping-method :radio[name="shipping_method"]').each(function() {
+        if ($(this).prop('value').indexOf('speedy.') > -1 && $(this).prop('value') != 'speedy.speedy') {
+          $(this).closest('div').hide();
+        }
+      });
+    } else {
+      $('#button-shipping-method').prop('disabled', false);
+    }
+  }
+
+  function speedyCheckFixedTime() {
+    if ($('#speedy_fixed_time_cb:checked').length) {
+      $('#speedy_fixed_time_hour').removeAttr('disabled');
+      $('#speedy_fixed_time_min').removeAttr('disabled');
+    } else {
+      $('#speedy_fixed_time_hour').prop('disabled', 'disabled');
+      $('#speedy_fixed_time_min').prop('disabled', 'disabled');
+    }
+  }
+
+  function speedySetFixedTime() {
+    if ($('#speedy_fixed_time_hour').val() == 10) {
+      min_fixed_time_mins = 30;
+    } else {
+      min_fixed_time_mins = 0;
+    }
+
+    if ($('#speedy_fixed_time_hour').val() == 17) {
+      max_fixed_time_mins = 30;
+    } else {
+      max_fixed_time_mins = 59;
+    }
+
+    html = '';
+
+    for (i = min_fixed_time_mins; i <= max_fixed_time_mins; i++) {
+      iStr = i.toString();
+
+      if (iStr.length < 2) {
+        fixed_time_min = '0' + i;
+      } else {
+        fixed_time_min = i;
+      }
+
+      html += '<option value="' + fixed_time_min + '">' + fixed_time_min + '</option>';
+    }
+
+    $('#speedy_fixed_time_min').html(html);
+  }
+
+  var speedy_city = '{{ city }}';
+  var speedy_quarter = '{{ quarter }}';
+  var speedy_street = '{{ street }}';
+
+  var speedy_country = '{{ country }}';
+  var speedy_state = '{{ state }}';
+
+  $(document).ready(function() {
+    $('#collapse-shipping-method :radio[name="shipping_method"][value^="speedy."]').first().closest('div').before($('#speedy_container'));
+
+    if (typeof shouldRecalcSpeedyServices === 'undefined') {
+      $('head').append("<script type=\"text/javascript\">var shouldRecalcSpeedyServices = false;<\/script>");
+    }
+
+    shouldDisableContinueBtn();
+
+    $('#collapse-shipping-method :radio[name="shipping_method"]').change(function(evt) {
+        var carrierValue = $(this).prop('value');
+
+        if (carrierValue.indexOf('speedy.') > -1) {
+          shouldDisableContinueBtn();
+        } else {
+          $('#button-shipping-method').prop('disabled', false);
+          if ($('#collapse-shipping-method :radio[name="shipping_method"][value^="speedy."]:visible').length == 0) {
+            element = $('#collapse-shipping-method :radio[name="shipping_method"][value^="speedy."]').first();
+            element.closest('div').show();
+            element.val('speedy.speedy');
+            element.closest('label').html('{{ text_title }}').prepend(element);
+
+            element.click(function() {
+              speedy($(this).prop('value'));
+            });
+          }
+        }
+    });
+
+    $('#speedy_fixed_time_cb, #speedy_cod_yes, #speedy_cod_no').change(function(evt) {
+      speedySubmit(false);
+    });
+
+    $('#speedy_city').autocomplete({
+      'source': function(request, response) {
+        if (request) {
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getCities',
+            dataType: 'json',
+            type: 'get',
+            data: {
+              term: request,
+              country_id: $('#speedy_country_id').val()
+            },
+            success: function(json) {
+              if ($('#speedy_city').is(":focus")) {
+                response($.map(json, function(item) {
+                  return {
+                    label:        item['label'],
+                    value:        item['value'],
+                    id:           item['id'],
+                    postcode:     item['postcode'],
+                    nomenclature: item['nomenclature']
+                  }
+                }));
+              }
+            }
+          });
+        }
+      },
+      'select': function(item) {
+        if (item) {
+          speedy_city = item.value;
+          $('#speedy_city').val(item.value);
+          $('#speedy_postcode').val(item.postcode);
+          $('#speedy_city_id').val(item.id);
+          $('#speedy_city_nomenclature').val(item.nomenclature);
+          $('#speedy_quarter').val('');
+          $('#speedy_quarter_id').val('');
+          $('#speedy_street').val('');
+          $('#speedy_street_id').val('');
+          $('#speedy_street_no').val('');
+          $('#speedy_block_no').val('');
+          $('#speedy_entrance_no').val('');
+          $('#speedy_floor_no').val('');
+          $('#speedy_apartment_no').val('');
+          $('#speedy_note').val('');
+          $('#speedy_office_id').html('<option value="0">{{ text_wait }}</option>');
+
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getOffices',
+            dataType: 'json',
+            data: {
+              city_id: item.id,
+              country_id: $('#speedy_country_id').val()
+            },
+            success: function(data) {
+              if (data.error) {
+                alert(data.error);
+              } else {
+                html = '';
+
+                if (data.length) {
+                  var hasApt = false;
+                  var hasOffices = false;
+
+                  html += '<option value="0">{{ text_select_office }}</option>';
+                  for (i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i]['id'] + '" data-is-apt="' + data[i]['is_apt'] + '">' + data[i]['label'] + '</option>';
+
+                    if (data[i]['is_apt'] == 1 && $('#speedy_shipping_to_apt').length) {
+                      hasApt = true;
+                    }
+
+                    if (data[i]['is_apt'] == 0) {
+                      hasOffices = true;
+                    }
+                  }
+
+                  if ($('#speedy_to_office:hidden').length == 1
+                      || (hasApt && $('#speedy_shipping_to_apt:checked'))
+                      || (hasOffices && $('#speedy_shipping_to_office:checked'))
+                  ) {
+                    if (hasApt) {
+                        if ($('#speedy_shipping_to_apt:checked').length) {
+                            $('#speedy_shipping_to_apt').trigger('click').trigger('change');
+                        } else {
+                            $('#speedy_shipping_to_apt').trigger('click');
+                        }
+                    } else if (hasOffices) {
+                        if ($('#speedy_shipping_to_office:checked').length) {
+                            $('#speedy_shipping_to_office').trigger('click').trigger('change');
+                        } else {
+                            $('#speedy_shipping_to_office').trigger('click');
+                        }
+                    }
+                  }
+
+                  if ($('#speedy_shipping_to_apt').length) {
+                      $('#speedy_shipping_to_apt').parent().toggle(hasApt);
+                  }
+                  $('#speedy_shipping_to_office').parent().toggle(hasOffices);
+
+                  $('#speedy_to_office').show();
+                } else {
+                  $('#speedy_shipping_to_door').trigger('click').trigger('change');
+                  hideOffices($('#speedy_to_office input[name=to_office]:checked'));
+                  $('#speedy_to_office').hide();
+                }
+
+                $('#speedy_office_id').html(html);
+              }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+              // do nothing
+            }
+          });
+        }
+      },
+      'change': function(item) {
+        if (!item && $('#speedy_country_nomenclature').val() == 'FULL') {
+          $('#speedy_city').val('');
+          $('#speedy_city_id').val('');
+          $('#speedy_city_nomenclature').val('');
+          $('#speedy_postcode').val('');
+          $('#speedy_office_id').html('<option value="0">{{ text_select_city }}</option>');
+        }
+
+        $('#speedy_quarter').val('');
+        $('#speedy_quarter_id').val('');
+        $('#speedy_street').val('');
+        $('#speedy_street_id').val('');
+        $('#speedy_street_no').val('');
+        $('#speedy_block_no').val('');
+        $('#speedy_entrance_no').val('');
+        $('#speedy_floor_no').val('');
+        $('#speedy_apartment_no').val('');
+        $('#speedy_note').val('');
+      }
+    });
+
+    $('#speedy_city').blur(function() {
+      if ($(this).val() != speedy_city) {
+
+        if (!$('#abroad').val() || ($('#abroad').val() && ($('#speedy_country_nomenclature').val() == 'FULL'))) {
+          $(this).val('');
+        }
+
+        $('#speedy_city_id').val('');
+        $('#speedy_city_nomenclature').val('');
+        $('#speedy_postcode').val('');
+        $('#speedy_office_id').html('<option value="0">{{ text_select_city }}</option>');
+        $('#speedy_quarter').val('');
+        $('#speedy_quarter_id').val('');
+        $('#speedy_street').val('');
+        $('#speedy_street_id').val('');
+        $('#speedy_street_no').val('');
+        $('#speedy_block_no').val('');
+        $('#speedy_entrance_no').val('');
+        $('#speedy_floor_no').val('');
+        $('#speedy_apartment_no').val('');
+        $('#speedy_note').val('');
+
+        var selectedCarrier = $('input:radio[name="shipping_method"]:checked');
+
+        if (selectedCarrier) {
+          var shippingMethodId = $(selectedCarrier).prop('value');
+          if (shippingMethodId && shippingMethodId.indexOf('speedy.') > -1) {
+            shouldRecalcSpeedyServices = true;
+            shouldDisableContinueBtn();
+          }
+        }
+      }
+    });
+
+    $('#speedy_quarter').autocomplete({
+      'source': function(request, response) {
+        if (request) {
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getQuarters',
+            dataType: 'json',
+            data: {
+              term: function() { return $('#speedy_quarter').val(); },
+              city_id: function() { return $('#speedy_city_id').val(); }
+            },
+            success: function(json) {
+              response($.map(json, function(item) {
+                return {
+                  label: item['label'],
+                  value: item['value'],
+                  id: item['id'],
+                }
+              }));
+            }
+          });
+        }
+      },
+      'select': function(item) {
+        if (item) {
+          speedy_quarter = item.value;
+          $('#speedy_quarter').val(item.value);
+          $('#speedy_quarter_id').val(item.id);
+        }
+      },
+      'change': function(item) {
+        if (!item && $('#speedy_city_nomenclature').val() == 'FULL') {
+          $('#speedy_quarter').val('');
+          $('#speedy_quarter_id').val('');
+        }
+      }
+    });
+
+    $('#speedy_quarter').blur(function() {
+      if (($(this).val() != speedy_quarter) && ($('#speedy_city_nomenclature').val() == 'FULL')) {
+        $('#speedy_quarter').val('');
+        $('#speedy_quarter_id').val('');
+      }
+    });
+
+    $('#speedy_street').autocomplete({
+      'source': function(request, response) {
+        if (request) {
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getStreets',
+            dataType: 'json',
+            data: {
+              term: function() { return $('#speedy_street').val(); },
+              city_id: function() { return $('#speedy_city_id').val(); }
+            },
+            success: function(json) {
+              response($.map(json, function(item) {
+                return {
+                  label: item['label'],
+                  value: item['value'],
+                  id: item['id']
+                }
+              }));
+            }
+          });
+        }
+      },
+      'select': function(item) {
+        if (item) {
+          speedy_street = item.value;
+          $('#speedy_street').val(item.value);
+          $('#speedy_street_id').val(item.id);
+        }
+      },
+      'change': function(item) {
+        if (!item) {
+          if (!item && $('#speedy_city_nomenclature').val() == 'FULL') {
+            $('#speedy_street').val('');
+            $('#speedy_street_id').val('');
+          }
+        }
+      }
+    });
+
+    $('#speedy_street').blur(function() {
+      if (($(this).val() != speedy_street) && ($('#speedy_city_nomenclature').val() == 'FULL')) {
+        $('#speedy_street').val('');
+        $('#speedy_street_id').val('');
+      }
+    });
+
+    $('#speedy_block_no').autocomplete({
+      'source': function(request, response) {
+        if (request) {
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getBlocks',
+            dataType: 'json',
+            data: {
+              term: function() { return $('#speedy_block_no').val(); },
+              city_id: function() { return $('#speedy_city_id').val(); }
+            },
+            success: function(json) {
+              response($.map(json, function(item) {
+                return {
+                  label: item['label'],
+                  value: item['value']
+                }
+              }));
+            }
+          });
+        }
+      },
+      'select': function(item) {
+        if (item) {
+          $('#speedy_block_no').val(item.value);
+        }
+      }
+    });
+
+    $('#speedy_block_no').blur(function() {
+      if (!$(this).val()) {
+        $('#speedy_block_no').val('');
+      }
+    });
+
+    $('#speedy_country').autocomplete({
+      'source': function(request, response) {
+        if (request) {
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getCountries',
+            dataType: 'json',
+            type: 'get',
+            data: {
+              term: request
+            },
+            success: function(json) {
+              if ($('#speedy_country').is(":focus")) {
+                response($.map(json, function(item) {
+                  return {
+                    label:                item['name'],
+                    value:                item['name'],
+                    id:                   item['id'],
+                    nomenclature:         item['nomenclature'],
+                    required_state:       item['required_state'],
+                    required_postcode:    item['required_postcode'],
+                    active_currency_code: item['active_currency_code'],
+                  }
+                }));
+              }
+            }
+          });
+        }
+      },
+      'select': function(item) {
+        if (item) {
+          $('#abroad_speedy_state, #abroad_speedy_postcode').removeClass('required');
+          speedy_country = item.value;
+
+          $('#speedy_country').val(item.value);
+          $('#speedy_country_id').val(item.id);
+          $('#speedy_country_nomenclature').val(item.nomenclature);
+          $('#required_state').val(item.required_state);
+          $('#required_postcode').val(item.required_postcode);
+          $('#speedy_active_currency_code').val(item.active_currency_code);
+
+          if (!item.active_currency_code) {
+            $('#speedy_cod_container').hide();
+            $('#speedy_cod_no').click();
+            $('#speedy_cod_status').val(0);
+          } else {
+            $('#speedy_cod_container').show();
+            $('#speedy_cod_status').val(1);
+          }
+
+          if (item.required_state) {
+            $('#abroad_speedy_state').addClass('required');
+          } else {
+            $('#abroad_speedy_state').removeClass('required');
+          }
+
+          if (item.required_postcode) {
+            $('#abroad_speedy_postcode').addClass('required');
+          } else {
+            $('#abroad_speedy_postcode').removeClass('required');
+          }
+        }
+      },
+      'change': function(item) {
+        if (!item) {
+          $('#speedy_country').val('');
+          $('#speedy_country_id').val('');
+          $('#speedy_country_nomenclature').val('');
+          $('#speedy_state').val('');
+          $('#speedy_state_id').val('');
+          $('#speedy_city').val('');
+          $('#speedy_city_id').val('');
+          $('#speedy_city_nomenclature').val('');
+          $('#speedy_postcode').val('');
+        }
+      }
+    });
+
+    $('#speedy_country').blur(function() {
+      if ($(this).val() != speedy_country) {
+        $(this).val('');
+        $('#speedy_country_id').val('');
+        $('#speedy_country_nomenclature').val('');
+        $('#speedy_state').val('');
+        $('#speedy_state_id').val('');
+        $('#speedy_city').val('');
+        $('#speedy_city_id').val('');
+        $('#speedy_city_nomenclature').val('');
+        $('#speedy_postcode').val('');
+      }
+    });
+
+    $('#speedy_state').autocomplete({
+      'source': function(request, response) {
+        if (request) {
+          $.ajax({
+            url: 'index.php?route=extension/shipping/speedy/getStates',
+            dataType: 'json',
+            type: 'get',
+            data: {
+              term: request,
+              country_id: $('#speedy_country_id').val()
+            },
+            success: function(json) {
+              if ($('#speedy_state').is(":focus")) {
+                response($.map(json, function(item) {
+                  return {
+                    label:        item['name'],
+                    value:        item['name'],
+                    id:           item['id']
+                  }
+                }));
+              }
+            }
+          });
+        }
+      },
+      'select': function(item) {
+        if (item) {
+          speedy_state = item.value;
+          $('#speedy_state').val(item.value);
+          $('#speedy_state_id').val(item.id).change();
+        }
+      },
+      'change': function(item) {
+        if (!item) {
+          $('#speedy_state').val('');
+          $('#speedy_state_id').val('');
+        }
+      }
+    });
+
+    $('#speedy_state').blur(function() {
+      if ($(this).val() != speedy_state) {
+        $(this).val('');
+        $('#speedy_state_id').val('');
+      }
+    });
+
+    $('#speedy_form input').keypress(function(event) {
+      if (($('#abroad').val() == 1) && event.key.match(/[а-яА-я]/)) {
+        event.preventDefault();
+        alert('{{ error_cyrillic }}');
+      }
+    });
+
+    $('#speedy_form input[type=search]').focusout(function(event) {
+      speedy_clear_input($(this));
+    });
+
+    $('#speedy_form input[type=search]').each(function(index) {
+      speedy_clear_input($(this));
+    });
+
+    $('#speedy_state_id, #speedy_postcode').on('change', function () {
+      if (!$('#country_address_nomenclature').val()
+          && (!$('#speedy_state_id').val() || $('#required_state').val())
+          && (!$('#speedy_postcode').val() || $('#required_postcode').val())
+      ) {
+          speedySubmit(false);
+      }
+    });
+
+    // autocomplete css workaround
+    $('#speedy_container .dropdown-menu').css('position', 'absolute');
+
+    $('#speedy_to_office input[name=to_office], #speedy_street_id, #speedy_quarter_id').on('change', function () {
+      hideOffices(this);
+
+      if ($(this).attr('data-is-apt') == 1) {
+        $('#speedy_office_id option[value=0]').text('{{ text_select_apt }}');
+      } else {
+        $('#speedy_office_id option[value=0]').text('{{ text_select_office }}');
+      }
+
+      $('#speedy_office_id').val(0);
+      speedySubmit(false);
+    });
+
+    $('#speedy_office_id').on('change', function() {
+      $('#office_name').val($('#speedy_office_id option:selected').text());
+    });
+
+    function hideOffices(speedy_radio) {
+        var hasApt = false;
+        var hasOffices = false;
+
+        if ($(speedy_radio).val() == 1) {
+          $('#is_apt').val($(speedy_radio).attr('data-is-apt'));
+
+          $('#speedy_quarter_container, #speedy_street_container, #speedy_block_no_container, #speedy_note_container').hide();
+          $('#speedy_office_container').show();
+        } else {
+          $('#is_apt').val(0);
+
+          $('#speedy_quarter_container, #speedy_street_container, #speedy_block_no_container, #speedy_note_container').show();
+          $('#speedy_office_container').hide();
+        }
+
+        $('#speedy_office_id option').each(function() {
+            if ($(this).val() == 0) {
+                return;
+            }
+
+            if (($(this).attr('data-is-apt') == 1 && $(speedy_radio).attr('data-is-apt') != 1)
+                || ($(this).attr('data-is-apt') != 1 && $(speedy_radio).attr('data-is-apt') == 1)
+            ) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+
+            if ($(this).attr('data-is-apt') == 1) {
+                hasApt = true;
+            } else {
+                hasOffices = true;
+            }
+        });
+
+        if ($('#speedy_shipping_to_apt').length) {
+          $('#speedy_shipping_to_apt').parent().toggle(hasApt);
+        }
+
+        $('#speedy_shipping_to_office').parent().toggle(hasOffices);
+    }
+
+    hideOffices($('#speedy_to_office input[name=to_office]:checked'));
+
+    {% if speedy_precalculate %}
+      speedySubmit(false);
+    {% endif %}
+  });
+
+  function speedy_clear_input(element) {
+    if (($('#abroad').val() == 1) && element.val().match(/[а-яА-я]/)) {
+      element.val('');
+    }
+  }
+//--></script>
+<link rel="stylesheet" type="text/css" href="{{ HTTPS_SERVER }}catalog\view\theme\default\speedy\css\style.css">
+<script id="wait" type="html">
+<div class="wait">
+    <div>
+        <img src="catalog/view/theme/default/image/loading.gif" alt="" />
+        {{ text_please_wait }}
+    </div>
+</div>
+</script>

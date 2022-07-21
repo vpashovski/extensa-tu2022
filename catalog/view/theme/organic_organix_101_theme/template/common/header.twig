@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html dir="{{ direction }}" lang="{{ lang }}">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{{ title }}</title>
+<base href="{{ base }}" />
+{% if description %}
+<meta name="description" content="{{ description }}" />
+{% endif %}
+{% if keywords %}
+<meta name="keywords" content="{{ keywords }}" />
+{% endif %}
+{% if page == "homec" %}
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/allcommon.css"  rel="stylesheet" />
+  <script async src="catalog/view/theme/organic_organix_101_theme/asset/js/alljscommon.js"></script>
+   <div id="lazysetting" class="hidden">1</div>
+{% else %}
+  <script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"></script>
+  <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+  <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>
+  <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="catalog/view/theme/default/stylesheet/calendar.css" rel="stylesheet">
+  {% for style in styles %}
+    <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+  {% endfor %}
+  {% for script in scripts %}
+    <script src="{{ script }}"></script>
+  {% endfor %}
+  {# <script src="catalog/view/javascript/common.js"></script> #}
+  {% for link in links %}
+    <link href="{{ link.href }}" rel="{{ link.rel }}" />
+  {% endfor %}
+  
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/linearicons-Free.css"  rel="stylesheet" />
+
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/theme.css"  rel="stylesheet" />
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/common.css"  rel="stylesheet" />
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/module.css"  rel="stylesheet" />
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/custom.css"  rel="stylesheet" />
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/owl.carousel.min.css"  rel="stylesheet" />
+  <link href="catalog/view/theme/organic_organix_101_theme/asset/css/jquery.fancybox.css"  rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+  <script src="catalog/view/theme/organic_organix_101_theme/asset/js/common.js"></script>
+  <script src="catalog/view/theme/organic_organix_101_theme/asset/js/custom.js"></script>
+  <script src="catalog/view/theme/organic_organix_101_theme/asset/js/owl.carousel.js"></script>
+  <script src="catalog/view/theme/organic_organix_101_theme/asset/js/jquery.fancybox.js"></script>
+  <script async src="catalog/view/theme/organic_organix_101_theme/asset/js/allmodule.js"></script>
+  <script  src="catalog/view/theme/organic_organix_101_theme/asset/js/jquery.storageapi.min.js"></script>
+  
+    
+   <div id="lazysetting" class="hidden">0</div>
+{% endif %}
+<!-- css & js -->
+
+{% for analytic in analytics %}
+{{ analytic }}
+{% endfor %}
+</head>
+<body id="index" class="{% if direction != 'ltr' %}lang-rtl{% endif %} lang-en country-us currency-usd layout-full-width page-index tax-display-disabled" style="">
+  <div class="badpage-loader-wrapper">
+    <div class="badpage-loader">
+      <img src="{{ loaderimage }}" alt="">
+    </div>
+  </div>
+  {{ themeoption }}
+
+<div class="badtheme-layout-option">
+  <main>
+   <header id="header">
+      <div class="header-block-wrapper">
+          <nav class="header-nav badheader-top-block">
+            <div class="badheader-left-right-contant container">
+              <div class="row">
+                <div class="col-xl-6 col-md-8 col-xs-12 badheader-call-info">
+                  <div class="desktop_email_link">
+                    <i class="lnr lnr-envelope"></i><span>{{ email }}</span>
+                  </div>
+                  <div id="_desktop_contact_link">
+                    <div id="contact-link"><i class="lnr lnr-phone-handset"></i><span>{{ callno }}</span>
+                    </div>
+                  </div><div class="desktop_contact_link"><i class="lnr lnr-license"></i><span>{{ contactus }}</span>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-md-4 col-xs-12 badheader-block-info">
+
+                  <!-- organic_organix_101_theme\template\common\language.twig -->
+                  {{ language }}
+                  <!-- organic_organix_101_theme\template\common\language.twig -->
+
+                  <!-- organic_organix_101_theme\template\common\currency.twig -->
+                  {{ currency }}
+                  <!-- organic_organix_101_theme\template\common\currency.twig -->
+
+                </div>
+              </div>
+            </div>
+        <!-- second -->
+            <div class="badheader-top-content hidden-md-down badmenu-has-sticky">
+              <div class="container">
+                <div class="row">
+                  <div class="col-xl-2 col-lg-2 col-md-2 badheader-top-center">
+                      <div class="badheader-top-logo">
+                          <a href="{{ home }}"><img class="logo img-responsive" src="{{ logo }}" alt="Flower Store"></a>
+                      </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 header-top">
+                      <div class="badmain-menu-block-wrapper">
+                          {{ menu }}
+                      </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4 badheader-top-right">
+                      <div class="bedheader-Search-user-shopping-cat">
+                          {{ search }}
+                          {{ cart }}
+                        <div class="badwishlist">
+                          <a href="{{ wishlist }}">
+                            <div class="badwishlist-wrapper">
+                              <i class="lnr lnr-heart"></i> 
+                              <span class="cart-wishlist-number">0</span>
+                            </div>
+                          </a>
+                        </div>
+
+                        <div id="_desktop_user_info">
+                          <div class="badcustomer-signin-block">
+                            <div class="badcustomer-signin-inner">
+                              <div class="dropdown js-dropdown badcustomer-signin-content-box-wrapper">
+                                  <button class="btn-unstyle badcustomer-signin-btn" data-target="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="lnr lnr-user"></i>
+                                    <div class="badcustomer-signin-btn-login">
+                                    <span>Login Or</span>
+                                    <span>Register</span>
+                                    </div>
+                                </button>
+                                  <div class="dropdown-menu badcustomer-signin-content-box">
+                                      <div class="badcustomer-signin-content-box-inner">
+                                          <div class="badcustomer-signin-login">
+                                              {% if logged %}
+                                              <a href="{{ account }}"><span class="signin">{{ text_account }}</span></a>
+                                              <a href="{{ order }}"><span class="signin">{{ text_order }}</span></a>
+                                              <a href="{{ transaction }}"><span class="signin">{{ text_transaction }}</span></a>
+                                              <a href="{{ download }}"><span class="signin">{{ text_download }}</span></a>
+                                              <a href="{{ logout }}"><span class="signin">{{ text_logout }}</span></a>
+                                              {% else %}
+                                              <a href="{{ register }}"><span class="signin">{{ text_register }}</span></a>
+                                              <a href="{{ login }}"><span class="signin">{{ text_login }}</span></a>
+                                              {% endif %}
+                                            
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!-- second -->
+          </nav>
+          <!-- mobile header -->
+          <div class='badmobile-header-block hidden-lg-up'>
+            <div id="badmobile-header-left">
+              <div class="badmobile-menu-icon-wrapper">
+                  <button class="badmobile-menu-icon">
+                      <i class="fa fa-align-justify"></i>
+                  </button>
+                  <div id="badmobile-horizontal-menu"></div>
+              </div>
+            </div>
+            <div id="badmobile-header-center"></div>
+            <div id="badmobile-header-right"></div>
+          </div>
+          <!-- mobile header -->
+      </div>
+    </header>
+           
+    
+
+

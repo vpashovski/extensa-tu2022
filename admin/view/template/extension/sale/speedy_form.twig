@@ -1,0 +1,1399 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <a id="createBillOfLading" class="btn btn-primary">{{ button_create }}</a>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ heading_title }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-speedy" class="form-horizontal">
+          <input id="speedy_taking_date" type="hidden" name="taking_date" value="{{ taking_date }}" />
+          <div class="form-group required">
+            <label class="col-sm-3 control-label" for="speedy_contents">{{ entry_contents }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_contents" name="contents" value="{{ contents }}" />
+              {% if error_contents %}
+                <span class="text-danger">{{ error_contents }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-3 control-label" for="speedy_weight">{{ entry_weight }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_weight" name="weight" value="{{ weight }}" />
+              {% if error_weight %}
+                <span class="text-danger">{{ error_weight }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-3 control-label" for="speedy_packing">{{ entry_packing }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_packing" name="packing" value="{{ packing }}" />
+              {% if error_packing %}
+                <span class="text-danger">{{ error_packing }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-3 control-label" for="client_id">{{ entry_client_id }}</label>
+            <div class="col-sm-9">
+              <select name="client_id" id="client_id" class="form-control">
+                {% for client in clients %}
+                  {% if client.clientId == client_id %}
+                    <option value="{{ client.clientId }}" selected="selected">{{ text_client_id|format(client.clientId, client.name, client.address) }}</option>
+                  {% else %}
+                    <option value="{{ client.clientId }}">{{ text_client_id|format(client.clientId, client.name, client.address) }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="speedy_payer_type">{{ entry_payer_type }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="speedy_payer_type" name="payer_type">
+                {% if payer_type %}
+                  <option value="1" selected="selected">{{ text_receiver }}</option>
+                  <option value="0">{{ text_sender }}</option>
+                {% else %}
+                  <option value="1">{{ text_receiver }}</option>
+                  <option value="0" selected="selected">{{ text_sender }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group required" {% if shipping_method_id == 500 %}style="display:none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="speedy_count">{{ entry_count }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_count" name="count" value="{{ count }}" />
+              {% if error_count %}
+                <span class="text-danger">{{ error_count }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group" {% if shipping_method_id == 500 %}style="display:none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="speedy_width">{{ entry_size }}</label>
+            <div class="table-responsive col-sm-9">
+              <table id="parcels_size" class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <td class="text-left">{{ entry_width }}</td>
+                    <td class="text-left">{{ entry_height }}</td>
+                    <td class="text-left">{{ entry_depth }}</td>
+                    <td class="text-left">{{ entry_parcel_weight }}</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% set parcels_size_row = 1 %}
+                  {% for parcels_size in parcels_sizes %}
+                    <tr id="parcel-size-row{{ parcels_size_row }}">
+                      <td class="text-left">
+                        <input type="text" name="parcels_size[{{ parcels_size_row }}][width]" value="{{ parcels_size.width }}" placeholder="{{ entry_width }}" class="form-control" />
+                      </td>
+                      <td class="text-left">
+                        <input type="text" name="parcels_size[{{ parcels_size_row }}][height]" value="{{ parcels_size.height }}" placeholder="{{ entry_height }}" class="form-control" />
+                      </td>
+                      <td class="text-left">
+                        <input type="text" name="parcels_size[{{ parcels_size_row }}][depth]" value="{{ parcels_size.depth }}" placeholder="{{ entry_depth }}" class="form-control" />
+                      </td>
+                      <td class="text-left">
+                        <input type="text" name="parcels_size[{{ parcels_size_row }}][weight]" value="{{ parcels_size.weight }}" placeholder="{{ entry_parcel_weight }}" class="form-control" />
+                      </td>
+                    </tr>
+                    {% set parcels_size_row = parcels_size_row + 1 %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="form-group" {% if shipping_method_id != 500 %}style="display:none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="speedy_parcel_sizes">{{ entry_min_parcel_size }}</label>
+            <div class="col-sm-9">
+              <select name="parcel_size" id="speedy_parcel_sizes" class="form-control">
+                {% for key, option in parcel_sizes %}
+                  {% if key == parcel_size %}
+                    <option value="{{ key }}" selected="selected">{{ option }}</option>
+                  {% else %}
+                    <option value="{{ key }}">{{ option }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="speedy_deffered_days">{{ entry_deffered_days }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="speedy_deffered_days" name="deffered_days">
+                {% for day_id, day in days %}
+                  {% if day_id == deffered_days %}
+                    <option value="{{ day_id }}" selected="selected">{{ day }}</option>
+                  {% else %}
+                    <option value="{{ day_id }}">{{ day }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="speedy_client_note">{{ entry_client_note }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_client_note" name="client_note" value="{{ client_note }}" />
+            </div>
+          </div>
+          <div class="form-group" id="speedy_cod_container" {% if cod_status == false %}style="display:none;"{% endif %}>
+            <label class="col-sm-3 control-label">{{ entry_cod }}</label>
+            <div class="col-sm-9">
+              <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                <input type="radio" id="speedy_cod_yes" name="cod" value="1" {% if cod %}checked="checked"{% endif %} onclick="$('#speedy_total_container').show(); $('#speedy_option_before_payment_container').show();" />
+                {{ text_yes }}
+              </label>
+              <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                <input type="radio" id="speedy_cod_no" name="cod" value="0" {% if cod == false %}checked="checked"{% endif %} onclick="$('#speedy_total_container').hide(); $('#speedy_option_before_payment_container').hide();" />
+                {{ text_no }}
+              </label>
+            </div>
+          </div>
+          <div class="form-group" id="speedy_total_container" {% if cod == false or cod_status == false %}style="display: none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="speedy_total">{{ entry_total }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_total" name="total" value="{{ total }}" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="speedy_convertion_to_win1251">{{ entry_convertion_to_win1251 }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="speedy_convertion_to_win1251" name="convertion_to_win1251">
+                {% if convertion_to_win1251 %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="speedy_additional_copy_for_sender">{{ entry_additional_copy_for_sender }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="speedy_additional_copy_for_sender" name="additional_copy_for_sender">
+                {% if additional_copy_for_sender %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          {% if abroad == false %}
+            <div class="form-group" id="speedy_option_before_payment_container" {% if cod == false or cod_status == false %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label" for="speedy_option_before_payment">{{ entry_options_before_payment }}</label>
+              <div class="col-sm-9">
+                <select name="option_before_payment" id="speedy_option_before_payment" class="form-control">
+                  {% for option_id, option in options_before_payment %}
+                    {% if option_id == option_before_payment %}
+                      <option value="{{ option_id }}" selected="selected">{{ option }}</option>
+                    {% else %}
+                      <option value="{{ option_id }}">{{ option }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          {% endif %}
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="speedy_insurance">{{ entry_insurance }}</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="speedy_insurance" name="insurance" onchange="$('#speedy_fragile').parent().parent().toggle(); $('#speedy_total_insurance').parent().parent().toggle();">
+                {% if insurance %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" {% if insurance == false %}style="display: none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="speedy_fragile"><span data-toggle="tooltip" title="{{ help_fragile }}">{{ entry_fragile }}</span></label>
+            <div class="col-sm-9">
+              <select class="form-control" id="speedy_fragile" name="fragile">
+                {% if fragile %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" {% if insurance == false %}style="display: none;"{% endif %}>
+            <label class="col-sm-3 control-label" for="speedy_total_insurance">{{ entry_total_insurance }}</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" id="speedy_total_insurance" name="totalNoShipping" value="{{ totalNoShipping }}" />
+            </div>
+          </div>
+          {% if abroad == false %}
+          <input type="hidden" id="speedy_country_id" name="country_id" value="{{ country_id }}" />
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="speedy_city">{{ entry_city }}</label>
+              <div class="col-sm-6">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_city" name="city" value="{{ city }}" />
+              </div>
+              <input type="hidden" id="speedy_city_id" name="city_id" value="{{ city_id }}" />
+              <input type="hidden" id="speedy_city_nomenclature" name="city_nomenclature" value="{{ city_nomenclature }}" />
+              <label class="col-sm-1 control-label" for="speedy_postcode">{{ entry_postcode }}</label>
+              <div class="col-sm-1">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_postcode" name="postcode" value="{{ postcode }}" disabled="disabled" />
+              </div>
+            </div>
+            <div class="form-group" id="to_office" {% if offices == false %} style="display:none;" {% endif %}>
+              <label class="col-sm-3 control-label">{{ entry_shipping_to }}</label>
+              <div class="col-sm-9">
+                <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                  <input type="radio" id="speedy_shipping_to_apt" data-is-apt="1" name="to_office" value="1" {% if to_office and is_apt %}checked="checked"{% endif %} />
+                  <span>
+                    {% if option_before_payment == 'test' and ignore_obp %}
+                        {{ text_to_apt_ignore_obp_test }}
+                    {% elseif option_before_payment == 'open' and ignore_obp %}
+                        {{ text_to_apt_ignore_obp_open }}
+                    {% else %}
+                        {{ text_to_apt }}
+                    {% endif %}
+                  </span>
+                </label>
+                <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                  <input type="radio" id="speedy_shipping_to_office" data-is-apt="0" name="to_office" value="1" {% if to_office and not is_apt %}checked="checked"{% endif %} />
+                  <span>{{ text_to_office }}</span>
+                </label>
+                <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                  <input type="radio" id="speedy_shipping_to_door" data-is-apt="0" name="to_office" value="0" {% if not to_office and not is_apt %}checked="checked"{% endif %} />
+                  <span>{{ text_to_door }}</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group" id="speedy_quarter_container" {% if to_office %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label" for="speedy_quarter">{{ entry_quarter }}</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_quarter" name="quarter" value="{{ quarter }}" />
+                <input type="hidden" id="speedy_quarter_id" name="quarter_id" value="{{ quarter_id }}" />
+              </div>
+            </div>
+            <div class="form-group" id="speedy_street_container" {% if to_office %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label" for="speedy_street">{{ entry_street }}</label>
+              <div class="col-sm-6">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_street" name="street" value="{{ street }}" />
+                <input type="hidden" id="speedy_street_id" name="street_id" value="{{ street_id }}" />
+                {% if error_address %}
+                  <span class="text-danger">{{ error_address }}</span>
+                {% endif %}
+              </div>
+              <label class="col-sm-1 control-label" for="speedy_street_no">{{ entry_street_no }}</label>
+              <div class="col-sm-1">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_street_no" name="street_no" value="{{ street_no }}" />
+              </div>
+            </div>
+            <div class="form-group" id="speedy_block_no_container" {% if to_office %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label" for="speedy_block_no">{{ entry_block_no }}</label>
+              <div class="col-sm-2">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_block_no" name="block_no" value="{{ block_no }}" />
+              </div>
+              <label class="col-sm-1 control-label" for="speedy_entrance_no">{{ entry_entrance_no }}</label>
+              <div class="col-sm-1">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_entrance_no" name="entrance_no" value="{{ entrance_no }}" />
+              </div>
+              <label class="col-sm-1 control-label" for="speedy_floor_no">{{ entry_floor_no }}</label>
+              <div class="col-sm-1">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_floor_no" name="floor_no" value="{{ floor_no }}" />
+              </div>
+              <label class="col-sm-1 control-label" for="speedy_apartment_no">{{ entry_apartment_no }}</label>
+              <div class="col-sm-1">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_apartment_no" name="apartment_no" value="{{ apartment_no }}" />
+              </div>
+            </div>
+            <div class="form-group" id="speedy_note_container" {% if to_office %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label" for="speedy_note">{{ entry_note }}</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="search" autocomplete="off" id="speedy_note" name="note" value="{{ note }}" />
+              </div>
+            </div>
+            <div class="form-group" id="speedy_office_container" {% if to_office == false %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label" for="speedy_office_id">{{ entry_office }}</label>
+              <div class="col-sm-9">
+                <select class="form-control" id="speedy_office_id" name="office_id">
+                  {% if to_office != false and is_apt != false %}
+                    <option value="0" selected="selected">{{ text_select_apt }}</option>
+                  {% else %}
+                    <option value="0" selected="selected">{{ text_select_office }}</option>
+                  {% endif %}
+                  {% for office in offices %}
+                    {% if office_id == office.id %}
+                      {% if not (office.is_apt b-xor is_apt) %}
+                        <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}" selected="selected">{{ office.label }}</option>
+                      {% endif %}
+                    {% else %}
+                      <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}">{{ office.label }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+                <input type="hidden" id="office_name" name="office_name" value="{{ office_name }}" />
+                <input type="hidden" id="is_apt" name="is_apt" value="{{ is_apt }}" />
+                {% if error_office %}
+                  <br />&nbsp;&nbsp;&nbsp;<span class="text-danger">{{ error_office }}</span>
+                {% endif %}
+              </div>
+            </div>
+            <div class="form-group" {% if fixed_time == false %}style="display: none;"{% endif %}>
+              <label class="col-sm-3 control-label">
+                <input type="checkbox" id="speedy_fixed_time_cb" name="fixed_time_cb" value="1" {% if fixed_time_cb %}checked="checked"{% endif %} onclick="speedyCheckFixedTime();" />
+                {{ entry_fixed_time }}
+              </label>
+              <div class="col-sm-2">
+                <select id="speedy_fixed_time_hour" name="fixed_time_hour" class="form-control" {% if fixed_time_cb == false %}disabled="disabled"{% endif %} onchange="speedySetFixedTime();">
+                  {% for hour in hours_10_17 %}
+                    {% if hour == fixed_time_hour or fixed_time_hour == false %}
+                      {% set fixed_time_hour = hour %}
+                      <option value="{{ hour }}" selected="selected">{{ hour }}</option>
+                    {% else %}
+                      <option value="{{ hour }}">{{ hour }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-sm-2">
+                <select id="speedy_fixed_time_min" name="fixed_time_min" class="form-control" {% if fixed_time_cb == false %}disabled="disabled"{% endif %}>
+                {% for minute in mins_10_17 %}
+                  {% if fixed_time_min == minute %}
+                    <option value="{{ minute }}" selected="selected">{{ minute }}</option>
+                  {% else %}
+                    <option value="{{ minute }}">{{ minute }}</option>
+                  {% endif %}
+                {% endfor %}
+                </select>
+              </div>
+            </div>
+          {% else %}
+            <div class="form-group">
+              <div class="required">
+                <label class="col-sm-3 control-label" for="speedy_country">{{ entry_country }}</label>
+                <div class="col-sm-5">
+                  <input type="search" autocomplete="off" id="speedy_country" name="country" value="{{ country }}" class="form-control" />
+                </div>
+              </div>
+              <div id="abroad_speedy_state" {% if required_state %}class="required"{% endif %}>
+                <label class="col-sm-1 control-label" for="speedy_state">{{ entry_state }}</label>
+                <div class="col-sm-2">
+                  <input type="search" autocomplete="off" id="speedy_state" name="state" value="{{ state }}" class="form-control" />
+                  <input type="hidden" id="speedy_state_id" name="state_id" value="{{ state_id }}" />
+                  <input type="hidden" id="required_state" name="required_state" value="{{ required_state }}" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="required">
+                <label class="col-sm-3 control-label" for="speedy_city">{{ entry_city }}</label>
+                <div class="col-sm-5">
+                  <input type="search" autocomplete="off" id="speedy_city" name="city" value="{{ city }}" class="form-control" />
+                  <input type="hidden" id="speedy_city_id" name="city_id" value="{{ city_id }}" />
+                  <input type="hidden" id="speedy_city_nomenclature" name="city_nomenclature" value="{{ city_nomenclature }}" />
+                </div>
+              </div>
+              <div id="abroad_speedy_postcode" {% if required_postcode %}class="required"{% endif %}>
+                <label class="col-sm-1 control-label" for="speedy_postcode">{{ entry_postcode }}</label>
+                <div class="col-sm-2">
+                  <input type="search" autocomplete="off" id="speedy_postcode" name="postcode" value="{{ postcode }}" class="form-control" />
+                  <input type="hidden" id="required_postcode" name="required_postcode" value="{{ required_postcode }}" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group" id="to_office" {% if offices == false %}style="display:none;" {% endif %}>
+              <label class="col-sm-3 control-label">{{ entry_shipping_to }}</label>
+              <div class="col-sm-9">
+                <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                  <input type="radio" id="speedy_shipping_to_apt" data-is-apt="1" name="to_office" value="1" {% if to_office and is_apt %} checked="checked"{% endif %} />
+                  <span>
+                    {% if option_before_payment == 'test' and ignore_obp %}
+                        {{ text_to_apt_ignore_obp_test }}
+                    {% elseif option_before_payment == 'open' and ignore_obp %}
+                        {{ text_to_apt_ignore_obp_open }}
+                    {% else %}
+                        {{ text_to_apt }}
+                    {% endif %}
+                  </span>
+                </label>
+                <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                  <input type="radio" id="speedy_shipping_to_office" data-is-apt="0" name="to_office" value="1" {% if to_office and not is_apt %} checked="checked"{% endif %} />
+                  <span>{{ text_to_office }}</span>
+                </label>
+                <label class="radio-inline" style="display: inline; width: auto; float: none;">
+                  <input type="radio" id="speedy_shipping_to_door" data-is-apt="0" name="to_office" value="0"{% if not to_office and not is_apt %} checked="checked"{% endif %} />
+                  <span>{{ text_to_door }}</span>
+                </label>
+              </div>
+              </div>
+              <div id="country_has_address_nomenclature" {% if country_address_nomenclature == 0 %} style="display: none;"{% endif %}>
+                <div class="form-group" id="speedy_quarter_container" {% if to_office %} style="display: none;"{% endif %}>
+                  <label class="col-sm-3 control-label" for="speedy_quarter">{{ entry_quarter }}</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_quarter" name="quarter" value="{{ quarter }}" />
+                    <input type="hidden" id="speedy_quarter_id" name="quarter_id" value="{{ quarter_id }}" />
+                  </div>
+                </div>
+                <div class="form-group" id="speedy_street_container" {% if to_office %} style="display: none;"{% endif %}>
+                  <label class="col-sm-3 control-label" for="speedy_street">{{ entry_street }}</label>
+                  <div class="col-sm-6">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_street" name="street" value="{{ street }}" />
+                    <input type="hidden" id="speedy_street_id" name="street_id" value="{{ street_id }}" />
+                    {% if error_address %}
+                      <span class="text-danger">{{ error_address }}</span>
+                    {% endif %}
+                  </div>
+                  <label class="col-sm-1 control-label" for="speedy_street_no">{{ entry_street_no }}</label>
+                  <div class="col-sm-1">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_street_no" name="street_no" value="{{ street_no }}" />
+                  </div>
+                </div>
+                <div class="form-group" id="speedy_block_no_container" {% if to_office %} style="display: none;"{% endif %}>
+                  <label class="col-sm-3 control-label" for="speedy_block_no">{{ entry_block_no }}</label>
+                  <div class="col-sm-2">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_block_no" name="block_no" value="{{ block_no }}" />
+                  </div>
+                  <label class="col-sm-1 control-label" for="speedy_entrance_no">{{ entry_entrance_no }}</label>
+                  <div class="col-sm-1">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_entrance_no" name="entrance_no" value="{{ entrance_no }}" />
+                  </div>
+                  <label class="col-sm-1 control-label" for="speedy_floor_no">{{ entry_floor_no }}</label>
+                  <div class="col-sm-1">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_floor_no" name="floor_no" value="{{ floor_no }}" />
+                  </div>
+                  <label class="col-sm-1 control-label" for="speedy_apartment_no">{{ entry_apartment_no }}</label>
+                  <div class="col-sm-1">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_apartment_no" name="apartment_no" value="{{ apartment_no }}" />
+                  </div>
+                </div>
+                <div class="form-group" id="speedy_note_container" {% if to_office %} style="display: none;"{% endif %}>
+                  <label class="col-sm-3 control-label" for="speedy_note">{{ entry_note }}</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="search" autocomplete="off" id="speedy_note" name="note" value="{{ note }}" />
+                  </div>
+                </div>
+                <div class="form-group" id="speedy_office_container" {% if to_office == 0 %} style="display: none;"{% endif %}>
+                  <label class="col-sm-3 control-label" for="speedy_office_id">{{ entry_office }}</label>
+                  <div class="col-sm-9">
+                    <select class="form-control" id="speedy_office_id" name="office_id">
+                      {% if to_office != false and is_apt != false %}
+                        <option value="0" selected="selected">{{ text_select_apt }}</option>
+                      {% else %}
+                        <option value="0" selected="selected">{{ text_select_office }}</option>
+                      {% endif %}
+                      {% for office in offices %}
+                        {% if office.id == office_id %}
+                          {% if not (office.is_apt b-xor is_apt) %}
+                            <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}" selected="selected">{{ office.label }}</option>
+                          {% endif %}
+                        {% else %}
+                          <option value="{{ office.id }}" data-is-apt="{{ office.is_apt }}">{{ office.label }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+                    <input type="hidden" id="office_name" name="office_name" value="{{ office_name }}" />
+                    <input type="hidden" id="is_apt" name="is_apt" value="{{ is_apt }}" />
+                    {% if error_office %}
+                      <br />&nbsp;&nbsp;&nbsp;<span class="text-danger">{{ error_office }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group" {% if fixed_time == 0 %} style="display: none;"{% endif %}>
+                  <label class="col-sm-3 control-label">
+                    <input type="checkbox" id="speedy_fixed_time_cb" name="fixed_time_cb" value="1" {% if fixed_time_cb %} checked="checked"{% endif %} onclick="speedyCheckFixedTime();" />
+                    {{ entry_fixed_time }}
+                  </label>
+                  <div class="col-sm-2">
+                    <select id="speedy_fixed_time_hour" name="fixed_time_hour" class="form-control" {% if fixed_time_cb == false %}disabled="disabled"{% endif %} onchange="speedySetFixedTime();">
+                      {% for hour in hours_10_17 %}
+                        {% if hour == fixed_time_hour or fixed_time_hour == false %}
+                          {% set fixed_time_hour = hour %}
+                          <option value="{{ hour }}" selected="selected">{{ hour }}</option>
+                        {% else %}
+                          <option value="{{ hour }}">{{ hour }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <select id="speedy_fixed_time_min" name="fixed_time_min" class="form-control" {% if fixed_time_cb == false %}disabled="disabled"{% endif %}>
+                    {% for minute in mins_10_17 %}
+                      {% if fixed_time_min == minute %}
+                        <option value="{{ minute }}" selected="selected">{{ minute }}</option>
+                      {% else %}
+                        <option value="{{ minute }}">{{ minute }}</option>
+                      {% endif %}
+                    {% endfor %}
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div id="country_has_no_address_nomenclature" {% if country_address_nomenclature %} style="display: none;"{% endif %}>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="speedy_address_1">{{ entry_address_1 }}</label>
+                <div class="col-sm-8">
+                  <input type="search" autocomplete="off" id="speedy_address_1" name="address_1" value="{{ address_1 }}" class="form-control" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="speedy_address_2">{{ entry_address_2 }}</label>
+                <div class="col-sm-8">
+                  <input type="search" autocomplete="off" id="speedy_address_2" name="address_2" value="{{ address_2 }}" class="form-control" />
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% if quote %}
+            <div class="form-group">
+              <label class="col-sm-3 control-label">{{ entry_shipping_method }}</label>
+              <div class="col-sm-9">{% if shipping_method_key_id == shipping_method_id %}checked="checked"{% endif %}
+              {% for shipping_method_key_id, shipping_method in quote.quote %}
+                <div class="radio">
+                  <label>
+                    <input type="radio" id="{{ shipping_method.code }}" data-shipping_method_id="{{ shipping_method_key_id }}" name="shipping_method" value="{{ shipping_method.code }}" {% if shipping_method_key_id == shipping_method_id %}checked="checked"{% endif %}/>
+                    {{ shipping_method.title }}&nbsp;{{ shipping_method.text }}
+                  </label>
+                </div>
+              {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          <div class="form-group">
+            <b><label class="col-sm-3 control-label" for="speedy_note">{{ text_calculate }}</label></b>
+            <div class="col-sm-9">
+              <input type="hidden" id="abroad" name="abroad" value="{{ abroad }}" />
+              <input type="hidden" id="speedy_country_id" name="country_id" value="{{ country_id }}" />
+              <input type="hidden" id="speedy_country_nomenclature" name="country_nomenclature" value="{{ country_nomenclature }}" />
+              <input type="hidden" id="speedy_active_currency_code" name="active_currency_code" value="{{ active_currency_code }}" />
+              <input type="hidden" id="calculate" name="calculate" value="0" />
+              <input type="hidden" id="recalculate" name="recalculate" value="0" />
+              <a onclick="$('#calculate').val('1'); $('#form-speedy :input').removeAttr('disabled'); $('#form-speedy').submit();" class="btn btn-primary">{{ button_calculate }}</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('#speedy_parcel_sizes, #client_id').on('change', function() {
+  if ($('#recalculate').val() == 0) {
+    alert("{{ error_recalculate }}");
+
+    $('#createBillOfLading').attr('disabled', 'disabled');
+    $('#recalculate').val('1');
+  }
+});
+
+function speedySubmit() {
+  $('#createBillOfLading').off('click');
+  $('#createBillOfLading').attr('disabled', 'disabled');
+  if ($('[name="shipping_method"][value^="speedy."]:checked').length) {
+    var shipping_method_id = $('[name="shipping_method"][value^="speedy."]:checked').data('shipping_method_id');
+  } else {
+    var shipping_method_id = '{{ shipping_method_id }}';
+  }
+  var post_data = {
+    'shipping_method_id'  : shipping_method_id,
+    'abroad'              : $('#abroad').val()
+  };
+
+  if (!parseInt($('#abroad').val())) {
+    post_data.speedy_shipping_to_office = $('input[name=to_office]:checked').val();
+    post_data.speedy_option_before_payment = $('#speedy_option_before_payment').val();
+    post_data.speedy_city_id = $('#speedy_city_id').val();
+    post_data.speedy_office_id = $('#speedy_office_id').val();
+  }
+
+  $.ajax({
+    url: 'index.php?route=extension/sale/speedy/validateBillOfLading&user_token={{ user_token }}',
+    type: 'POST',
+    data: post_data,
+    dataType: 'json',
+    success: function(data) {
+      if (data.error) {
+        var confurm = 1;
+
+        if (data.taking_date) {
+          $('#speedy_taking_date').val(data.taking_date);
+        }
+
+        for (error in data.errors) {
+          if (!confirm(data.errors[error])) {
+            confurm = 0;
+          }
+        }
+
+        if (confurm) {
+          $('#form-speedy :input').removeAttr('disabled');
+          $('#form-speedy').submit();
+        } else {
+          $('#createBillOfLading').removeAttr('disabled');
+          $('#createBillOfLading').on('click', function() {speedySubmit();});
+        }
+      } else {
+        $('#form-speedy :input').removeAttr('disabled');
+        $('#form-speedy').submit();
+      }
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      $('#createBillOfLading').removeAttr('disabled');
+      $('#createBillOfLading').on('click', function() {speedySubmit();});
+      //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+}
+
+$('#createBillOfLading').on('click', function() {speedySubmit();});
+
+function speedyCheckFixedTime() {
+  if ($('#speedy_fixed_time_cb:checked').length) {
+    $('#speedy_fixed_time_hour').removeAttr('disabled');
+    $('#speedy_fixed_time_min').removeAttr('disabled');
+  } else {
+    $('#speedy_fixed_time_hour').prop('disabled', 'disabled');
+    $('#speedy_fixed_time_min').prop('disabled', 'disabled');
+  }
+}
+
+function speedySetFixedTime() {
+  if ($('#speedy_fixed_time_hour').val() == 10) {
+    min_fixed_time_mins = 30;
+  } else {
+    min_fixed_time_mins = 0;
+  }
+
+  if ($('#speedy_fixed_time_hour').val() == 17) {
+    max_fixed_time_mins = 30;
+  } else {
+    max_fixed_time_mins = 59;
+  }
+
+  html = '';
+
+  for (i = min_fixed_time_mins; i <= max_fixed_time_mins; i++) {
+    iStr = i.toString();
+
+    if (iStr.length < 2) {
+      fixed_time_min = '0' + i;
+    } else {
+      fixed_time_min = i;
+    }
+
+    html += '<option value="' + fixed_time_min + '">' + fixed_time_min + '</option>';
+  }
+
+  $('#speedy_fixed_time_min').html(html);
+}
+
+function speedy(speedy_id) {
+  speedy_has_fixed_time = false;
+
+  {% if loading_methods_fixed_time %}
+    speedy_methods_fixed_time = new Array("{{ speedy_methods_fixed_time }}");
+
+    for (speedy_method in speedy_methods_fixed_time) {
+      if (('speedy.' + speedy_methods_fixed_time[speedy_method]) == speedy_id) {
+        speedy_has_fixed_time = true;
+
+        break;
+      }
+    }
+  {% endif %}
+
+  if (speedy_has_fixed_time) {
+    $('#speedy_fixed_time_cb').removeAttr('disabled');
+  } else {
+    $('#speedy_fixed_time_cb').prop('disabled', 'disabled');
+    $('#speedy_fixed_time_cb').prop('checked', false);
+    $('#speedy_fixed_time_hour').prop('disabled', 'disabled');
+    $('#speedy_fixed_time_min').prop('disabled', 'disabled');
+  }
+}
+
+var speedy_count_previous;
+
+$('#speedy_count').keydown(function (e) {
+  if (!e.key.match(/\d/)) {
+    e.preventDefault()
+  }
+}).on('focus', function () {
+  speedy_count_previous = parseInt($(this).val());
+}).change(function() {
+  // Do something with the previous value after the change
+
+  if (parseInt(speedy_count_previous) < parseInt($(this).val())) {
+    addParcelsSize(parseInt(speedy_count_previous) + 1, parseInt($(this).val()));
+  } else {
+    removeParcelsSize(parseInt($(this).val()), parseInt(speedy_count_previous));
+  }
+
+  // Make sure the previous value is updated
+  speedy_count_previous = parseInt($(this).val());
+});
+
+function addParcelsSize(old_rows, new_rows) {
+  for (i = old_rows; i <= new_rows; i++) {
+    html  = '<tr id="parcel-size-row' + i + '">'; 
+    html += '  <td class="text-left"><input type="text" name="parcels_size[' + i + '][width]" value="" placeholder="{{ entry_width }}" class="form-control" /></td>';
+    html += '  <td class="text-left"><input type="text" name="parcels_size[' + i + '][height]" value="" placeholder="{{ entry_height }}" class="form-control" /></td>';
+    html += '  <td class="text-left"><input type="text" name="parcels_size[' + i + '][depth]" value="" placeholder="{{ entry_depth }}" class="form-control" /></td>';
+    html += '  <td class="text-left"><input type="text" name="parcels_size[' + i + '][weight]" value="" placeholder="{{ entry_parcel_weight }}" class="form-control" /></td>';
+    html += '</tr>';
+
+    $('#parcels_size tbody').append(html);
+  }
+}
+
+function removeParcelsSize(old_rows, new_rows) {
+  for (i = new_rows; i > old_rows; i--) {
+    $('#parcel-size-row' + i).remove();
+  }
+}
+
+var speedy_city = '{{ city }}';
+var speedy_quarter = '{{ quarter }}';
+var speedy_street = '{{ street }}';
+
+var speedy_country = '{{ country }}';
+var speedy_state = '{{ state }}';
+
+$(document).ready(function() {
+  if ($('[name="shipping_method"][value^="speedy."]:checked').length) {
+    speedy($('[name="shipping_method"][value^="speedy."]:checked').prop('value'));
+  } else if ($('[name="shipping_method"][value^="speedy."]').length) {
+    $('#speedy_fixed_time_cb').prop('disabled', 'disabled');
+    $('#speedy_fixed_time_cb').prop('checked', false);
+    $('#speedy_fixed_time_hour').prop('disabled', 'disabled');
+    $('#speedy_fixed_time_min').prop('disabled', 'disabled');
+  }
+
+  $('[name="shipping_method"][value^="speedy."]').click(function() {
+    speedy($(this).prop('value'));
+  });
+
+  $('#speedy_city').autocomplete({
+    'source': function(request, response) {
+      if (request) {
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getCities&user_token={{ user_token }}',
+          dataType: 'json',
+        type: 'get',
+        data: {
+          term: function() { return $('#speedy_city').val(); },
+          country_id: $('#speedy_country_id').val(),
+          abroad: $('#abroad').val()
+        },
+          success: function(json) {
+            if ($('#speedy_city').is(":focus")) {
+              response($.map(json, function(item) {
+                return {
+                  label:        item['label'],
+                  value:        item['value'],
+                  id:           item['id'],
+                  postcode:     item['postcode'],
+                  nomenclature: item['nomenclature']
+                }
+              }));
+            }
+          }
+        });
+      }
+    },
+    'select': function(item) {
+      if (item) {
+        speedy_city = item.value;
+        $('#speedy_city').val(item.value);
+        $('#speedy_postcode').val(item.postcode);
+        $('#speedy_city_id').val(item.id);
+        $('#speedy_city_nomenclature').val(item.nomenclature);
+        $('#speedy_quarter').val('');
+        $('#speedy_quarter_id').val('');
+        $('#speedy_street').val('');
+        $('#speedy_street_id').val('');
+        $('#speedy_street_no').val('');
+        $('#speedy_block_no').val('');
+        $('#speedy_entrance_no').val('');
+        $('#speedy_floor_no').val('');
+        $('#speedy_apartment_no').val('');
+        $('#speedy_note').val('');
+        $('#speedy_office_id').html('<option value="0">{{ text_wait }}</option>');
+
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getOffices&user_token={{ user_token }}',
+          dataType: 'json',
+          data: {
+            city_id: item.id,
+            abroad: $('#abroad').val(),
+            country_id: $('#speedy_country_id').val()
+          },
+          success: function(data) {
+            if (data.error) {
+              alert(data.error);
+            } else {
+              html = '';
+
+              if (data.length) {
+                var hasApt = false;
+                var hasOffices = false;
+
+                html += '<option value="0">{{ text_select_office }}</option>';
+                for (i = 0; i < data.length; i++) {
+                  html += '<option value="' + data[i]['id'] + '" data-is-apt="' + data[i]['is_apt'] + '">' + data[i]['label'] + '</option>';
+
+                  if (data[i]['is_apt'] == 1) {
+                    hasApt = true;
+                  }
+
+                  if (data[i]['is_apt'] == 0) {
+                    hasOffices = true;
+                  }
+                }
+
+                if ($('#to_office:hidden').length == 1
+                    || (hasApt && $('#speedy_shipping_to_apt:checked'))
+                    || (hasOffices && $('#speedy_shipping_to_office:checked'))
+                ) {
+                    if (hasApt) {
+                        $('#speedy_shipping_to_apt').trigger('click');
+                    } else if (hasOffices) {
+                        $('#speedy_shipping_to_office').trigger('click');
+                    }
+                }
+
+                $('#speedy_shipping_to_apt').parent().toggle(hasApt);
+                $('#speedy_shipping_to_office').parent().toggle(hasOffices);
+
+                $('#to_office').show();
+              } else {
+                $('#speedy_shipping_to_door').trigger('click');
+                $('#to_office').hide();
+              }
+
+              $('#speedy_office_id').html(html);
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+            //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+    },
+    'change': function(item) {
+      if (!item && $('#speedy_country_nomenclature').val() == 'FULL') {
+        $('#speedy_city').val('');
+        $('#speedy_city_id').val('');
+        $('#speedy_city_nomenclature').val('');
+        $('#speedy_postcode').val('');
+        $('#speedy_office_id').html('<option value="0">{{ text_select_city }}</option>');
+      }
+
+      $('#speedy_quarter').val('');
+      $('#speedy_quarter_id').val('');
+      $('#speedy_street').val('');
+      $('#speedy_street_id').val('');
+      $('#speedy_street_no').val('');
+      $('#speedy_block_no').val('');
+      $('#speedy_entrance_no').val('');
+      $('#speedy_floor_no').val('');
+      $('#speedy_apartment_no').val('');
+      $('#speedy_note').val('');
+    }
+  });
+
+  $('#speedy_city').blur(function() {
+    if ($(this).val() != speedy_city) {
+
+      if (!$('#abroad').val() || ($('#abroad').val() && ($('#speedy_country_nomenclature').val() == 'FULL'))) {
+        $('#speedy_city').val('');
+      }
+
+      $('#speedy_city_id').val('');
+      $('#speedy_city_nomenclature').val('');
+      $('#speedy_postcode').val('');
+      $('#speedy_office_id').html('<option value="0">{{ text_select_city }}</option>');
+      $('#speedy_quarter').val('');
+      $('#speedy_quarter_id').val('');
+      $('#speedy_street').val('');
+      $('#speedy_street_id').val('');
+      $('#speedy_street_no').val('');
+      $('#speedy_block_no').val('');
+      $('#speedy_entrance_no').val('');
+      $('#speedy_floor_no').val('');
+      $('#speedy_apartment_no').val('');
+      $('#speedy_note').val('');
+    }
+  });
+
+  $('#speedy_quarter').autocomplete({
+    'source': function(request, response) {
+      if (request) {
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getQuarters&user_token={{ user_token }}',
+          dataType: 'json',
+          data: {
+            term: function() { return $('#speedy_quarter').val(); },
+            city_id: function() { return $('#speedy_city_id').val(); },
+            abroad: $('#abroad').val()
+          },
+          success: function(data) {
+            if (data.error) {
+              $('#speedy_quarter').val('');
+              $('#speedy_quarter_id').val('');
+              alert(data.error);
+            } else {
+              if ($('#speedy_city_nomenclature').val() == 'FULL') {
+                if (data.length) {
+                  response($.map(data, function(item) {
+                    return {
+                      label: item['label'],
+                      value: item['value'],
+                      id: item['id'],
+                    }
+                  }));
+                }
+              } else {
+                response($.map(data, function(item) {
+                  return {
+                    label: item['label'],
+                    value: item['value'],
+                    id: item['id'],
+                  }
+                }));
+              }
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+            //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          } 
+        });
+      }
+    },
+    'select': function(item) {
+      if (item) {
+        speedy_quarter = item.value;
+        $('#speedy_quarter').val(item.value);
+        $('#speedy_quarter_id').val(item.id);
+      }
+    },
+    'change': function(item) {
+      if (!item && $('#speedy_city_nomenclature').val() == 'FULL') {
+        $('#speedy_quarter').val('');
+        $('#speedy_quarter_id').val('');
+      }
+    }
+  });
+
+  $('#speedy_quarter').blur(function() {
+    if (($(this).val() != speedy_quarter) && ($('#speedy_city_nomenclature').val() == 'FULL')) {
+      $('#speedy_quarter').val('');
+      $('#speedy_quarter_id').val('');
+    }
+  });
+
+  $('#speedy_street').autocomplete({
+    'source': function(request, response) {
+      if (request) {
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getStreets&user_token={{ user_token }}',
+          dataType: 'json',
+          data: {
+            term: function() { return $('#speedy_street').val(); },
+            city_id: function() { return $('#speedy_city_id').val(); },
+            abroad: $('#abroad').val()
+          },
+          success: function(data) {
+            if (data.error) {
+              $('#speedy_street').val('');
+              $('#speedy_street_id').val('');
+              alert(data.error);
+            } else {
+              if ($('#speedy_city_nomenclature').val() == 'FULL') {
+                if (data.length) {
+                  response($.map(data, function(item) {
+                    return {
+                      label: item['label'],
+                      value: item['value'],
+                      id: item['id']
+                    }
+                  }));
+                }
+              } else {
+                response($.map(data, function(item) {
+                  return {
+                    label: item['label'],
+                    value: item['value'],
+                    id:    item['id']
+                  }
+                }));
+              }
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+            //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+    },
+    'select': function(item) {
+      if (item) {
+        speedy_street = item.value;
+        $('#speedy_street').val(item.value);
+        $('#speedy_street_id').val(item.id);
+      }
+    },
+    'change': function(item) {
+      if (!item) {
+        if (!item && $('#speedy_city_nomenclature').val() == 'FULL') {
+          $('#speedy_street').val('');
+          $('#speedy_street_id').val('');
+        }
+      }
+    }
+  });
+
+  $('#speedy_street').blur(function() {
+    if (($(this).val() != speedy_street) && ($('#speedy_city_nomenclature').val() == 'FULL')) {
+      $('#speedy_street').val('');
+      $('#speedy_street_id').val('');
+    }
+  });
+
+  $('#speedy_block_no').autocomplete({
+    'source': function(request, response) {
+      if (request) {
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getBlocks&user_token={{ user_token }}',
+          dataType: 'json',
+          data: {
+            term: function() { return $('#speedy_block_no').val(); },
+            city_id: function() { return $('#speedy_city_id').val(); },
+            abroad: $('#abroad').val()
+          },
+          success: function(data) {
+            if (data.error) {
+              $('#speedy_block_no').val('');
+              alert(data.error);
+            } else {
+              if ($('#speedy_city_nomenclature').val() == 'FULL') {
+                if (data.length) {
+                  response($.map(data, function(item) {
+                    return {
+                      label: item['label'],
+                      value: item['value']
+                    }
+                  }));
+                }
+              } else {
+                response($.map(data, function(item) {
+                  return {
+                    label: item['label'],
+                    value: item['value']
+                  }
+                }));
+              }
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+            //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+    },
+    'select': function(item) {
+      if (item) {
+        $('#speedy_block_no').val(item.value);
+      }
+    }
+  });
+
+  $('#speedy_block_no').blur(function() {
+    if (!$(this).val()) {
+      $('#speedy_block_no').val('');
+    }
+  });
+
+  $('#speedy_country').autocomplete({
+    'source': function(request, response) {
+      if (request) {
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getCountries&user_token={{ user_token }}',
+          dataType: 'json',
+          type: 'get',
+          data: {
+            term: request,
+            abroad: $('#abroad').val()
+          },
+          success: function(json) {
+            if ($('#speedy_country').is(":focus")) {
+              response($.map(json, function(item) {
+                return {
+                  label:                item['name'],
+                  value:                item['name'],
+                  id:                   item['id'],
+                  nomenclature:         item['nomenclature'],
+                  required_state:       item['required_state'],
+                  required_postcode:    item['required_postcode'],
+                  active_currency_code: item['active_currency_code'],
+                  address_nomenclature: item['address_nomenclature'],
+                }
+              }));
+            }
+          }
+        });
+      }
+    },
+    'select': function(item) {
+      if (item) {
+        $('#abroad_speedy_state, #abroad_speedy_postcode').removeClass('required');
+        speedy_country = item.value;
+        $('#speedy_country').val(item.value);
+        $('#speedy_country_id').val(item.id);
+        $('#speedy_country_nomenclature').val(item.nomenclature);
+        $('#required_state').val(item.required_state);
+        $('#required_postcode').val(item.required_postcode);
+        $('#speedy_active_currency_code').val(item.active_currency_code);
+
+        if (item.address_nomenclature) {
+          $('#country_has_address_nomenclature').show();
+          $('#country_has_no_address_nomenclature').hide();
+        } else {
+          $('#country_has_address_nomenclature').hide();
+          $('#country_has_no_address_nomenclature').show();
+        }
+
+        if (!item.active_currency_code) {
+          $('#speedy_cod_container').hide();
+          $('#speedy_total_container').hide();
+          $('#speedy_option_before_payment_container').hide();
+          $('#speedy_cod_no').click();
+          $('#speedy_cod_status').val(0);
+        } else {
+          $('#speedy_cod_container').show();
+          $('#speedy_total_container').show();
+          $('#speedy_option_before_payment_container').show();
+          $('#speedy_cod_container').show();
+          $('#speedy_cod_status').val(1);
+        }
+
+        if (item.required_state) {
+          $('#abroad_speedy_state').addClass('required');
+        } else {
+          $('#abroad_speedy_state').removeClass('required');
+        }
+
+        if (item.required_postcode) {
+          $('#abroad_speedy_postcode').addClass('required');
+        } else {
+          $('#abroad_speedy_postcode').removeClass('required');
+        }
+      }
+    },
+    'change': function(item) {
+      if (!item) {
+        $('#to_office').hide();
+        $('[name=to_office][value=0]').trigger('click');
+
+        $('#speedy_country').val('');
+        $('#speedy_country_id').val('');
+        $('#speedy_country_nomenclature').val('');
+        $('#speedy_state').val('');
+        $('#speedy_state_id').val('');
+        $('#speedy_city').val('');
+        $('#speedy_city_id').val('');
+        $('#speedy_city_nomenclature').val('');
+        $('#speedy_quarter').val('');
+        $('#speedy_quarter_id').val('');
+        $('#speedy_street').val('');
+        $('#speedy_street_id').val('');
+        $('#speedy_street_no').val('');
+        $('#speedy_block_no').val('');
+        $('#speedy_entrance_no').val('');
+        $('#speedy_floor_no').val('');
+        $('#speedy_apartment_no').val('');
+        $('#speedy_note').val('');
+        $('#speedy_postcode').val('');
+        $('#speedy_fixed_time_cb').val('');
+      }
+    }
+  });
+
+  $('#speedy_country').blur(function() {
+    if ($(this).val() != speedy_country) {
+      $('#to_office').hide();
+      $('[name=to_office][value=0]').trigger('click');
+
+      $(this).val('');
+      $('#speedy_country_id').val('');
+      $('#speedy_country_nomenclature').val('');
+      $('#speedy_state').val('');
+      $('#speedy_state_id').val('');
+      $('#speedy_city').val('');
+      $('#speedy_city_id').val('');
+      $('#speedy_city_nomenclature').val('');
+      $('#speedy_quarter').val('');
+      $('#speedy_quarter_id').val('');
+      $('#speedy_street').val('');
+      $('#speedy_street_id').val('');
+      $('#speedy_street_no').val('');
+      $('#speedy_block_no').val('');
+      $('#speedy_entrance_no').val('');
+      $('#speedy_floor_no').val('');
+      $('#speedy_apartment_no').val('');
+      $('#speedy_note').val('');
+      $('#speedy_postcode').val('');
+      $('#speedy_fixed_time_cb').val('');
+    }
+  });
+
+  $('#speedy_state').autocomplete({
+    'source': function(request, response) {
+      if (request) {
+        $.ajax({
+          url: 'index.php?route=extension/sale/speedy/getStates&user_token={{ user_token }}',
+          dataType: 'json',
+          type: 'get',
+          data: {
+            term: request,
+            country_id: $('#speedy_country_id').val()
+          },
+          success: function(json) {
+            if ($('#speedy_state').is(":focus")) {
+              response($.map(json, function(item) {
+                return {
+                  label:        item['name'],
+                  value:        item['name'],
+                  id:           item['id']
+                }
+              }));
+            }
+          }
+        });
+      }
+    },
+    'select': function(item) {
+      if (item) {
+        speedy_state = item.value;
+        $('#speedy_state').val(item.value);
+        $('#speedy_state_id').val(item.id);
+      }
+    },
+    'change': function(item) {
+      if (!item) {
+        $('#speedy_state').val('');
+        $('#speedy_state_id').val('');
+      }
+    }
+  });
+
+  $('#speedy_state').blur(function() {
+    if ($(this).val() != speedy_state) {
+      $(this).val('');
+      $('#speedy_state_id').val('');
+    }
+  });
+
+  $('#form-speedy input').keypress(function(event) {
+    if (($('#abroad').val() == 1) && event.key.match(/[а-яА-я]/)) {
+      event.preventDefault();
+      alert('{{ error_cyrillic }}');
+    }
+  });
+
+  $('#speedy_office_id').on('change', function() {
+    $('#office_name').val($('#speedy_office_id option:selected').text());
+  });
+
+  $('#to_office input[name=to_office]').on('change', function () {
+    hideOffices(this);
+
+    if ($(this).attr('data-is-apt') == 1) {
+        $('#speedy_office_id option[value=0]').text('{{ text_select_apt }}');
+    } else {
+        $('#speedy_office_id option[value=0]').text('{{ text_select_office }}');
+    }
+
+    $('#speedy_office_id').val(0);
+  });
+
+  function hideOffices(speedy_checkbox) {
+    $('#is_apt').val($(speedy_checkbox).attr('data-is-apt'));
+
+    if ($(speedy_checkbox).val() == 1) {
+        $('#speedy_office_id option').each(function() {
+            if ($(this).val() == 0) {
+                return;
+            }
+
+            if (($(this).attr('data-is-apt') == 1 && $(speedy_checkbox).attr('data-is-apt') != 1)
+                || ($(this).attr('data-is-apt') != 1 && $(speedy_checkbox).attr('data-is-apt') == 1)
+            ) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+
+        $('#speedy_quarter_container, #speedy_street_container, #speedy_block_no_container, #speedy_note_container').hide();
+        $('#speedy_office_container').show();
+      } else {
+        $('#speedy_quarter_container, #speedy_street_container, #speedy_block_no_container, #speedy_note_container').show();
+        $('#speedy_office_container').hide();
+      }
+  }
+
+  hideOffices($('#to_office input[name=to_office]:checked'));
+});
+{% if ignore_obp %}
+$('#speedy_option_before_payment').change(function() {
+    if ($(this).val() == 'test') {
+        $('#speedy_shipping_to_apt').parent().find('span').text('{{ text_to_apt_ignore_obp_test }}');
+    } else if ($(this).val() == 'open') {
+        $('#speedy_shipping_to_apt').parent().find('span').text('{{ text_to_apt_ignore_obp_open }}');
+    } else {
+        $('#speedy_shipping_to_apt').parent().find('span').text('{{ text_to_apt }}');
+    }
+});
+{% endif %}
+$('input[name=shipping_method]').change(function() {
+  if ($(this).attr('data-shipping_method_id') == 500) { // id for speedy POST method
+    $('#speedy_count').parent().parent().hide();
+    $('#parcels_size').parent().parent().hide();
+    $('#speedy_parcel_sizes').parent().parent().show();
+  } else {
+    $('#speedy_count').parent().parent().show();
+    $('#parcels_size').parent().parent().show();
+    $('#speedy_parcel_sizes').parent().parent().hide();
+  }
+});
+//--></script>
+{{ footer }}

@@ -1,0 +1,74 @@
+<div class="row badcategory-category-filter">
+
+        <div class="col-md-3 col-sm-12 badcategory-grid-list-wrapper">
+
+          <div class="badcategory-grid-list-inner">
+
+            <a id="grid-view" class="btn badcategory-grid" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></a>
+
+            <a id="list-view" class="btn badcategory-list" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-th-list"></i></a>
+
+          </div>
+
+        </div>
+
+        
+
+        <div class="col-md-5 col-sm-6 col-xs-12 badcategory-sortby">
+
+          <div class="form-group input-group badcategory-sortby-block">
+
+           
+            <select id="input-sort" class="form-control badcategory-sortby-menu" onchange="location = this.value;">  
+
+              {% for sorts in sorts %}
+
+              {% if sorts.value == '%s-%s'|format(sort, order) %}
+
+              <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option> 
+
+              {% else %}    
+
+              <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+
+              {% endif %}
+
+              {% endfor %}
+
+            </select>
+
+
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12 badcategory-show-limit">
+
+          <div class="form-group badcategory-show-limit-block">
+
+            
+
+            <select id="input-limit" class="form-control badcategory-limit-menu" onchange="location = this.value;">
+
+              {% for limits in limits %}
+
+              {% if limits.value == limit %}
+
+              <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+
+               {% else %}
+
+              <option value="{{ limits.href }}">{{ limits.text }}</option>
+
+               {% endif %}
+
+              {% endfor %}
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>

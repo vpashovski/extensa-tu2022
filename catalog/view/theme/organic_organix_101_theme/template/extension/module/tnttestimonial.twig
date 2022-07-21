@@ -1,0 +1,48 @@
+<div class="container-fluid badtestimonials-block" style="background: #f7f5f3 url({{ bgimage }}) no-repeat center center;"> 
+    <div class="container badtestimonials-content-wrapper">
+        <div class="badtestimonials-content-inner-block">
+            <div class="badtestimonials-main-title">
+                <div class="badmain-title-wrapper">
+                    <div class="badmain-title">
+                        {{ parentheading }}
+                    </div>
+                    {# <div class="badmain-sub-title">
+                        {{ parentsubtitle }}
+                    </div> #}
+                </div>
+            </div>
+            <div class="badtestimonials-content">
+                <div class="badtestimonials-content-inner owl-carousel owl-theme">
+                     {% for testimonial in testimonials %}
+                    <div class="badtestimonials-content-box-inner">
+                        <div class="item badtestimonials-item">
+                            <div class="badtestimonials-item-img-wrapper">
+                                 <img src="{{ testimonial.tnttestimonialparent_image }}" alt="{{ testimonial.tnttestimonialchild_name }}" />
+                            </div>
+                            <div class="badtestimonials-item-content">
+                                <div class="badtestimonials-item-title">
+                                    <a href="{$data.link}" title="{$data.title}">{{ testimonial.tnttestimonialchild_name }}</a>
+                                </div>
+                                <div class="badtestimonials-item-sub-title">{{ testimonial.tnttestimonialchild_designation }}</div>
+                                <div class="badtestimonials-item-description">{{ testimonial.tnttestimonialchild_description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="badtestimonials-pagination-wrapper">
+                <div class="badtestimonials-pagination bad-all-pagination">
+                    <div class="badtestimonials-content-pagination">
+                        <button class="badtestimonials-prev-btn bad-prev-btn">
+                            {# <i class='material-icons'>&#xe5c4;</i> #}
+                        </button>
+                        <button class="badtestimonials-next-btn bad-next-btn">
+                            {# <i class='material-icons'>&#xe5c8;</i> #}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

@@ -1,0 +1,66 @@
+<div class="badnewsletter-block-wrapper">
+    <div class="container badnewsletter-content">
+        <div class="badnewsletter-content-box">
+            <div class="row">
+            <div class="col-lg-6 col-md-12 badnewsletter-content-title-wrapper">
+                <div class="badnewsletter-content-title"><i class="lnr lnr-location"></i>{{ headding }}</div>
+            </div>
+                
+            <div class="col-lg-6 col-md-12 badnewsletter-content-form">
+                <div class="badnewsletter-block">
+                <div class="badnewsletter-block-inner">
+                    <div class="input-wrapper">
+                         <input name="email" id="badnewslettermodule" type="email" value="" placeholder="Enter your mail..." >
+
+                    </div>
+                    <div class="input-wrapper-button">
+                        <input class="submitNewsletter btn btn-primary float-xs-right hidden-xs-down" name="email" type="submit" value="Subscribe" />
+                        <input class="submitNewsletter btn btn-primary float-xs-right hidden-sm-up" name="email" type="submit" value="OK" /> 
+
+                        
+                    </div>
+                    </div>
+                </div>
+                <div id="homemsg"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+$('.submitNewsletter').click(function() {
+    var email = $('#newsletterid').val();
+    $.ajax({
+        url: 'index.php?route=extension/module/tntnewsletterpopup/adddata&email=' + encodeURIComponent(email),
+        type: 'post',
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+            $('.homettvnewsletter-email-subscrib').button('loading');
+        },
+        complete: function() {
+            $('.homettvnewsletter-email-subscrib').button('reset');
+        },
+        success: function(json) {
+            if (json['text_error_email']) {
+                $('#homemsg').html(json['text_error_email']);
+            }
+            if (json['text_repeat_email']) {
+                $('#homemsg').html(json['text_repeat_email']);
+            }
+            if (json['text_enter_email']) {
+                $('#homemsg').html(json['text_enter_email']);
+            }
+            if (json['text_success_email']) {
+                $('#homemsg').html(json['text_success_email']);
+            }
+        }, 
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+</script>

@@ -1,0 +1,46 @@
+<div class="badhome-slider-block" data-speed='{{ speed }}' data-pause='{{ hover }}' data-wrap='{{ loop }}'> 
+    <div class="badhome-slider-inner">
+        <div class="badhome-slider-content-wrapper owl-carousel owl-theme">
+            {% set myVal = 1 %}
+
+             {% for slider in sliders %}
+                <div class="item badhome-slider-items" data-dot="{{ myVal }}">
+
+                     <a href="{{ slider.tntsliderchild_link }}" title="{{ slider.tntsliderchild_title }}" >
+                        <img class="lazynot" src="{{ slider.tntsliderchild_image }}"  alt="" />
+                    </a>
+                   
+                    {% if slider.tntsliderchild_textaligment != "hide" %}
+                    <div class="badhome-slider-items-content {{ slider.tntsliderchild_textaligment }}">
+                        
+                        <div class="badhome-slider-items-title">{{ slider.tntsliderchild_title }}</div>
+                        <div class="badhome-slider-items-subtitle">{{ slider.tntsliderchild_subtitle }}</div>
+                        {% if slider.tntsliderchild_description %}
+                                <div class="badhome-slider-items-sub-title">{{ slider.tntsliderchild_description }}</div>
+                        {% endif %}
+                        <div class="badhome-slider-contant-btn">
+                            <a href="#">{{ slider.tntsliderchild_buttontext }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% set myVal = myVal + 1 %}
+            {% endfor %}
+        </div>
+        <div class="badhome-slider-pagination-wrapper">
+            <div class="badhome-slider-pagination">
+                <div class="badhome-slider-content">
+                    <button class="badhome-slider-prev-btn">
+                        <i class="lnr lnr-chevron-left"></i>
+                    </button>
+                    <button class="badhome-slider-next-btn">
+                        <i class="lnr lnr-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

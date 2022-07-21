@@ -1,0 +1,25 @@
+{% if currencies|length > 1 %}
+<div id="_desktop_currency_selector">
+    <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency">
+        <div class="badheadercurrency-block">
+            <div class="currency-selector dropdown js-dropdown badheadercurrency-inner">
+                <div class="btn-unstyle badheadercurrency-btn" data-target="#">
+                    <span class="expand-more _gray-darker">
+                        {% for currency in currencies %}
+                        {% if currency.symbol_left and currency.code == code %}
+                        {{ currency.symbol_left }} {{ currency.code }}
+                        {% elseif currency.symbol_right and currency.code == code %}
+                        {{ currency.code }} {{ currency.symbol_right }}{% endif %}{% endfor %}</span><i class="fa fa-angle-down"></i>
+
+                </div>
+                
+                <ul class="dropdown-menu badheadercurrency-dropdown" >
+                    {% for currency in currencies %}<li><a data-name="{{ currency.code }}" class="currency-select" title="{{ currency.code }}" >{% if currency.symbol_left %}{{ currency.symbol_left }} {{ currency.code }}{% elseif currency.symbol_right %}{{ currency.code }} {{ currency.symbol_right }}{% endif %}</a></li>{% endfor %}
+                </ul>
+            </div>
+        </div>
+        <input type="hidden" name="code" value="" />
+        <input type="hidden" name="redirect" value="{{ redirect }}" />
+    </form>
+</div>      
+{% endif %}

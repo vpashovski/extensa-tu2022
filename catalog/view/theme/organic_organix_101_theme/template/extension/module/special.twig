@@ -1,0 +1,34 @@
+<div class="badspecial-products-block container-fluid">
+    <div class="badspecial-products-inner container">
+        <div class="badspecial-products-content-box">
+            <div class="badspecial-product-main-title">
+                <div class="badmain-title-wrapper">
+                    <div class="badmain-title">
+                        {{ title }}
+                    </div>
+                    {# <div class="badmain-sub-title">
+                         {{ subtitle }}
+                    </div> #}
+                </div>
+            </div>
+            <div class="badspecial-product-list-wrapper">
+                <div class="badspecial-product-list-inner owl-carousel owl-theme">
+                {% for product in products %}
+                    {% include 'organic_organix_101_theme/template/helpfile/specialproductdesing.twig' with {'product': product} %}
+                {% endfor %}
+                </div>
+                <div class="badspecial-product-pagination-dots"></div>
+                <div class="badspecial-product-pagination-wrapper">
+                    <div class="badspecial-product-pagination bad-all-pagination">
+                        <div class="badspecial-product-content">
+                            <button class="badspecial-product-prev-btn bad-prev-btn" data-parent="badspecial-products-block"><i class="lnr lnr-chevron-left"></i>
+                            </button>
+                            <button class="badspecial-product-next-btn bad-next-btn" data-parent="badspecial-products-block"><i class="lnr lnr-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

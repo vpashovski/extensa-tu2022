@@ -1,0 +1,11 @@
+#form-speedy-shipping .speedy-group {
+	margin-bottom: 15px;
+}
+#form-speedy-shipping .speedy-group > .form-group {
+	background-color: #E6E6E6;
+	margin: 0 -15px 1px -15px;
+	padding: 11px 0;
+}
+#form-speedy-shipping .speedy-group > .form-group table {
+	background-color: #FFFFFF;
+}

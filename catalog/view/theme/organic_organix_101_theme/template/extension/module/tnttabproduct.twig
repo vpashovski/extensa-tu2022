@@ -1,0 +1,123 @@
+<!-- catalog\view\theme\organic_organix_101_theme\template\extension\module\tnttabproduct.twig -->
+<div class="badtab-prdoducts-block container-fluid">
+    <div class="badtab-products-inner container">
+        <div class="badtab-products-content-box">
+            <div class="badtab-products-title-wrapper">
+                <div class="badtab-products-main-title-wrapper">
+                    <div class="badmain-title-wrapper">
+                        <div class="badmain-title">{{ customtext.heading }}</div>
+                        {# <div class="badmain-sub-title">
+                            {{ customtext.subtitle }}
+                        </div> #}
+                    </div>
+                </div>
+                <div class="badtab-products-title">
+                    <ul class="badtab-products-title-list">
+                        <li class=" active badtab-producat-main-title">
+                            <img src="{{ feature_image }}" >
+
+                            <a href="Javascript:void(0)" title="{{ productfeature.heading }}" data-product="badtab-featured-product-list" data-pagin="badtab-featured-product-pagin" data-dots="badtab-featured-product-dots">{{ productfeature.heading }}</a>
+                        </li>
+                        <li class=" badtab-producat-main-title">
+                            <img src="{{ special_image }}" >
+
+                            <a href="Javascript:void(0)" title="{{ productnew.heading }}" data-product="badtab-new-product-list" data-pagin="badtab-new-product-pagin" data-dots="badtab-new-product-dots">{{ productnew.heading }} </a>
+                        </li>
+                        <li class=" badtab-producat-main-title">
+                            <img src="{{ new_image }}" >
+
+                            <a href="Javascript:void(0)" title="{{ productspecial.heading }}" data-product="badtab-special-product-list" data-pagin="badtab-special-product-pagin" data-dots="badtab-special-product-dots">{{ productspecial.heading }}</a>
+                        </li>
+                        <li class=" badtab-producat-main-title">
+                            <img src="{{ best_image }}" >
+
+                            <a href="Javascript:void(0)" title="{{ productspecial.heading }}" data-product="badtab-best-product-list" data-pagin="badtab-best-product-pagin" data-dots="badtab-best-product-dots">{{ productbest.heading }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                                            {% set class_name = "badtab-product-first-item" %}
+
+            <div class="badtab-product-list-wrapper">
+                <div id="badtab-featured-product-list" class="active badtab-product-content-wrapper" data-pagin="badtab-featured-product-pagin" data-dots="badtab-featured-product-dots">
+                    <div class="badtab-featured-product-list-content badtab-product-content owl-carousel owl-theme">
+                        {% for product in productfeatures %}
+                        		<div class="item badtab-product-item">
+
+                                    <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                                    {% include 'organic_organix_101_theme/template/helpfile/productdesing.twig' with {'product': product,'class_name': class_name} %}
+                                    <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                        		</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="badtab-new-product-list" class="badtab-product-content-wrapper" data-pagin="badtab-new-product-pagin" data-dots="badtab-new-product-dots">
+                    <div class="badtab-new-product-list-content badtab-product-content owl-carousel owl-theme ">
+                        {% for product in productnews %}
+                                <div class="item badtab-product-item">
+                                    <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                                    {% include 'organic_organix_101_theme/template/helpfile/productdesing.twig' with {'product': product,'class_name': class_name} %}
+                                    <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                                </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="badtab-special-product-list" class="badtab-product-content-wrapper" data-pagin="badtab-special-product-pagin" data-dots="badtab-special-product-dots">
+                    <div class="badtab-special-product-list-content badtab-product-content owl-carousel owl-theme ">
+                        {% for product in productspecials %}
+                            <div class="item badtab-product-item">
+                                <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                                {% include 'organic_organix_101_theme/template/helpfile/productdesing.twig' with {'product': product,'class_name': class_name} %}
+                                <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="badtab-best-product-list" class="badtab-product-content-wrapper" data-pagin="badtab-best-product-pagin" data-dots="badtab-best-product-dots">
+                    <div class="badtab-best-product-list-content badtab-product-content owl-carousel owl-theme ">
+                        {% for product in productbests %}
+                                <div class="item badtab-product-item">
+                                    <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                                        {% include 'organic_organix_101_theme/template/helpfile/productdesing.twig' with {'product': product,'class_name': class_name} %}
+                                    <!-- catalog\view\theme\organic_organix_101_theme/template/helpfile/productdesing.twig -->
+                                </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="active badtab-featured-product-pagin-wrapper badtab-product-pagination-wrapper">
+                    <div class="badtab-featured-product-pagin badtab-product-pagination bad-all-pagination">
+                        <div class="badtab-featured-product-pagin-content badtab-product-content">
+                            <button class="badtab-featured-product-pagin-prev-btn bad-prev-btn" data-parent="badtab-featured-product-list-content"><i class="lnr lnr-chevron-left"></i></button>
+                            <button class="badtab-featured-product-pagin-next-btn bad-next-btn" data-parent="badtab-featured-product-list-content"><i class="lnr lnr-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="badtab-new-product-pagin-wrapper badtab-product-pagination-wrapper">
+                    <div class="badtab-new-product-pagin badtab-product-pagination bad-all-pagination">
+                        <div class="badtab-new-product-pagin-content badtab-product-content">
+                            <button class="badtab-new-product-pagin-prev-btn bad-prev-btn" data-parent="badtab-new-product-list-content"><i class="lnr lnr-chevron-left"></i></button>
+                            <button class="badtab-new-product-pagin-next-btn bad-next-btn" data-parent="badtab-new-product-list-content"><i class="lnr lnr-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="badtab-special-product-pagin-wrapper badtab-product-pagination-wrapper">
+                    <div class="badtab-special-product-pagin badtab-product-pagination bad-all-pagination">
+                        <div class="badtab-special-product-pagin-content badtab-product-content">
+                            <button class="badtab-special-product-pagin-prev-btn bad-prev-btn" data-parent="badtab-special-product-list-content"><i class="lnr lnr-chevron-left"></i></button>
+                            <button class="badtab-special-product-pagin-next-btn bad-next-btn" data-parent="badtab-special-product-list-content"><i class="lnr lnr-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="badtab-best-product-pagin-wrapper badtab-product-pagination-wrapper">
+                    <div class="badtab-best-product-pagin badtab-product-pagination bad-all-pagination">
+                        <div class="badtab-best-product-pagin-content badtab-product-content">
+                            <button class="badtab-best-product-pagin-prev-btn bad-prev-btn" data-parent="badtab-best-product-list-content"><i class="lnr lnr-chevron-left"></i></button>
+                            <button class="badtab-best-product-pagin-next-btn bad-next-btn" data-parent="badtab-best-product-list-content"><i class="lnr lnr-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- catalog\view\theme\organic_organix_101_theme\template\extension\module\tnttabproduct.twig -->

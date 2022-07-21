@@ -1,0 +1,50 @@
+<div class=" badhomeblog-content-wrapper">
+    <div class="container">
+    <div class="badhomeblog-main-title">
+        <div class="badmain-title-wrapper">
+            <div class="badmain-title">
+                {{ main_title }}
+            </div>
+        </div>             
+    </div>
+    <div class="badhomeblog-content">
+        <div class="badhomeblog-content-inner">
+            <div class="row">
+            {% for data in blogpost_data %}
+                <article class="badhomeblog-item col-lg-4 col-md-6">
+                    <div class="badhomeblog-item-inner">
+                        <div class="badhomeblog-item-top">
+                            <img class="badhomeblog-item-img img-responsive" src="{{ data.tntblog_parent_featureimage }}" alt="Demo">
+                        </div>
+                        <div class="badhomeblog-item-thumbnail">
+                            <div class="badhomeblog-title">
+                                {{ data.tntblog_child_title }}
+                            </div>
+                            <div class="badhomeblog-item-bottom">
+                                <div class="badhomeblog-item-date">
+                                    {{ data.tntblog_parent_createdate_day }}
+                                    {{ data.tntblog_parent_createdate_month }}
+                                    {{ data.tntblog_parent_createdate_year }}
+                                </div> 
+                                <div class="badhomeblog-item-title">        
+                                    <a href="{{ data.tntblog_parent_link }}">
+                                        <i class="fa fa-user-o" aria-hidden="true"></i> 
+                                        {{ owner }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="badhomeblog-description">
+                                {{ data.tntblog_child_excerpt }}
+                            </div>
+                            <div class="badhomeblog-item-content-more">
+                                <a class="badhomeblog-item-content-read-more" href="{{ data.tntblog_parent_link }}">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+</div> 

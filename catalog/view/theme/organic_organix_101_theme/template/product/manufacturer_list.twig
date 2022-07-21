@@ -1,0 +1,95 @@
+{{ header }}
+
+<div id="product-manufacturer" class="container">
+
+      <div class="adbreadcrumb">
+
+{#  <h1>{{ heading_title }}</h1> #}
+
+        {% include 'organic_organix_101_theme/template/helpfile/breadcrumb.twig' with {'breadcrumbs': breadcrumbs} %} 
+
+      </div>
+
+  <div class="row">{{ column_left }}
+
+    {% if column_left and column_right %}
+
+    {% set class = 'col-sm-6' %}
+
+    {% elseif column_left or column_right %}
+
+    {% set class = 'col-sm-12 col-md-8 col-lg-9' %}
+
+    {% else %}
+
+    {% set class = 'col-sm-12' %}
+
+    {% endif %}
+
+    <div id="content" class="{{ class }} adbrand-wrapper">{{ content_top }}
+
+      {% if categories %}
+
+      <p><strong>{{ text_index }}</strong> {% for category in categories %}
+
+        &nbsp;&nbsp;&nbsp;<a href="index.php?route=product/manufacturer#{{ category.name }}">{{ category.name }}</a> {% endfor %} </p>
+
+      {% for category in categories %}
+
+      <div class="ad_brand_wrapper">
+
+      <div class="ad_font_title_brand">
+
+      <div class="ad_font_title_brand_inner" id="{{ category.name }}">{{ category.name }}</div>
+
+      </div>
+
+      {% if category.manufacturer %}
+
+      {% for manufacturers in category.manufacturer|batch(4) %}
+
+      <div class="ad_title_brand">
+
+        <div class="row">
+          <ul>
+             {% for manufacturer in manufacturers %}
+
+
+            <li>
+              <a href="{{ manufacturer.href }}">{{ manufacturer.name }}</a></li>
+
+            {% endfor %} 
+
+          </ul>
+
+        </div>
+
+      </div>
+
+      </div>
+
+      {% endfor %}
+
+      {% endif %}
+
+      {% endfor %}
+
+      {% else %}
+
+      <p>{{ text_empty }}</p>
+
+      <div class="buttons clearfix">
+
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+
+      </div>
+
+      {% endif %}
+
+      {{ content_bottom }}</div>
+
+    {{ column_right }}</div>
+
+</div>
+
+{{ footer }}

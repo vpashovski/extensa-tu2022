@@ -1,0 +1,1015 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-speedy-shipping" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-speedy-shipping" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_version">{{ text_label_requirements }}</label>
+            <div class="col-sm-10">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr><th class="text-right">{{ text_requirements }}</th>
+                  <th class="text-center">{{ text_min_reqired }}</th>
+                  <th class="text-center">{{ text_current }}</th>
+                  <th>{{ text_result }}</th></tr>
+                </thead>
+                <tbody>
+                  {% for requirement in requirements %}
+                  <tr>
+                      <td class="text-right">{{ requirement.name }}</td>
+                      <td class="text-center">{{ requirement.required }}</td>
+                      <td class="text-center">{{ requirement.current }}</td>
+                      <td><span style="color: {{ requirement.is_success ? 'green' : 'red; text-transform: uppercase;' }}">{{ requirement.result }}<span></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_version">{{ entry_version }}</label>
+            <div class="col-sm-10">
+              <label class="control-label" for="speedy_version">{{ speedy_version }}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_server_address">{{ entry_server_address }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_server_address" value="{{ shipping_speedy_server_address }}" placeholder="{{ entry_server_address }}" id="speedy_server_address" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="speedy_username">{{ entry_username }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_username" value="{{ shipping_speedy_username }}" placeholder="{{ entry_username }}" id="speedy_username" class="form-control" />
+              {% if error_username %}
+                <div class="text-danger">{{ error_username }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="speedy_password">{{ entry_password }}</label>
+            <div class="col-sm-10">
+              <input type="password" name="shipping_speedy_password" value="{{ shipping_speedy_password }}" placeholder="{{ entry_password }}" id="speedy_password" class="form-control" />
+              <input type="hidden" name="pass_changed" value="{{ (error_password or shipping_speedy_password == '') ? 1 : 0 }}" id="pass_changed"/>
+              {% if error_password %}
+                <div class="text-danger">{{ error_password }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_check_credentials"></label>
+            <div class="col-sm-10">
+              <a onclick="checkSpeedyCredentials(); return false;" id="speedy_check_credentials" class="btn btn-primary"><span>{{ button_test_credentials }}</span></a>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="speedy_name">{{ entry_name }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_name" value="{{ shipping_speedy_name }}" placeholder="{{ entry_name }}" id="speedy_name" class="form-control" />
+              {% if error_name %}
+                <div class="text-danger">{{ error_name }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="speedy_telephone">{{ entry_telephone }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_telephone" value="{{ shipping_speedy_telephone }}" placeholder="{{ entry_telephone }}" id="speedy_telephone" class="form-control" />
+              {% if error_telephone %}
+                <div class="text-danger">{{ error_telephone }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_workingtime_end_hour">{{ entry_workingtime_end }}</label>
+            <div class="col-sm-2">
+              <select name="shipping_speedy_workingtime_end_hour" id="speedy_workingtime_end_hour" class="form-control">
+                {% for hour in hours %}
+                  {% if hour == shipping_speedy_workingtime_end_hour %}
+                    <option value="{{ hour }}" selected="selected">{{ hour }}</option>
+                  {% else %}
+                    <option value="{{ hour }}">{{ hour }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <select name="shipping_speedy_workingtime_end_min" id="speedy_workingtime_end_min" class="form-control">
+                {% for minute in minutes %}
+                  {% if minute == shipping_speedy_workingtime_end_min %}
+                    <option value="{{ minute }}" selected="selected">{{ minute }}</option>
+                  {% else %}
+                    <option value="{{ minute }}">{{ minute }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label">{{ entry_allowed_methods }}</label>
+            <div class="col-sm-10">
+              <div class="well well-sm" style="height: 150px; overflow: auto;">
+                {% for service_id, service in services %}
+                  <div class="checkbox">
+                    <label>
+                      {% if service_id in shipping_speedy_allowed_methods %}
+                        <input type="checkbox" name="shipping_speedy_allowed_methods[]" value="{{ service_id }}" checked="checked" />
+                        {{ service }} <i>({{ text_sevice_id }} {{ service_id }})</i>
+                      {% else %}
+                        <input type="checkbox" name="shipping_speedy_allowed_methods[]" value="{{ service_id }}" />
+                        {{ service }} <i>({{ text_sevice_id }} {{ service_id }})</i>
+                      {% endif %}
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+              <a onclick="$(this).parent().find(':checkbox').prop('checked', true);" style="cursor: pointer;">{{ text_select_all }}</a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);" style="cursor: pointer;">{{ text_unselect_all }}</a>
+              {% if error_allowed_methods %}
+                <div class="text-danger">{{ error_allowed_methods }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="speedy_client_id">{{ entry_client_id }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_client_id" id="speedy_client_id" class="form-control">
+                {% if clients|length > 1 or clients|length == 0 %}
+                  <option value="0">{{ text_none }}</option>
+                {% endif %}
+                {% for client in clients %}
+                  {% if client.clientId == shipping_speedy_client_id %}
+                    <option value="{{ client.clientId }}" selected="selected">{{ text_client_id|format(client.clientId, client.name, client.address) }}</option>
+                  {% else %}
+                    <option value="{{ client.clientId }}">{{ text_client_id|format(client.clientId, client.name, client.address) }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+              {% if error_client_id %}
+                <div class="text-danger">{{ error_client_id }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="speedy-group">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="speedy_pricing">{{ entry_pricing }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_pricing" id="speedy_pricing" class="form-control" onchange="changePricing();">
+                  {% for pricing_id, pricing in pricings %}
+                    {% if pricing_id == shipping_speedy_pricing %}
+                      <option value="{{ pricing_id }}" selected="selected">{{ pricing }}</option>
+                    {% else %}
+                      <option value="{{ pricing_id }}">{{ pricing }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_pricing != 'table_rate' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_table_rate_filename"><span data-toggle="tooltip" title="{{ help_filename }}">{{ text_filename }}</span></label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" name="fileprice_name" value="" placeholder="{{ text_filename }}" id="speedy_table_rate_filename" class="form-control" />
+                  <span class="input-group-btn">
+                    <button type="button" id="button-upload" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_pricing != 'fixed' and shipping_speedy_pricing != 'calculator_fixed' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_fixed_price">{{ entry_fixed_price }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="shipping_speedy_fixed_price" value="{{ shipping_speedy_fixed_price }}" placeholder="{{ entry_fixed_price }}" id="speedy_fixed_price" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_pricing != 'free' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_free_shipping_total">{{ entry_free_shipping_total }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="shipping_speedy_free_shipping_total" value="{{ shipping_speedy_free_shipping_total }}" placeholder="{{ entry_free_shipping_total }}" id="speedy_free_shipping_total" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_pricing != 'free' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_free_method_city">{{ entry_free_method_city }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_free_method_city" id="speedy_free_method_city" class="form-control" onchange="changePricing();">
+                  {% for service_id, service in services %}
+                    {% if service_id == shipping_speedy_free_method_city %}
+                      <option value="{{ service_id }}" selected="selected">{{ service }}</option>
+                    {% else %}
+                      <option value="{{ service_id }}">{{ service }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_pricing != 'free' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_free_method_intercity">{{ entry_free_method_intercity }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_free_method_intercity" id="speedy_free_method_intercity" class="form-control" onchange="changePricing();">
+                  {% for service_id, service in services %}
+                    {% if service_id == shipping_speedy_free_method_intercity %}
+                      <option value="{{ service_id }}" selected="selected">{{ service }}</option>
+                    {% else %}
+                      <option value="{{ service_id }}">{{ service }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" id="select_speedy_free_method_city" {% if shipping_speedy_pricing != 'free' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label">{{ entry_free_method_international }}</label>
+              <div class="col-sm-10">
+                <div class="well well-sm" style="height: 150px; overflow: auto;">
+                  {% for service_id, service in services %}
+                    <div class="checkbox">
+                      <label>
+                        {% if service_id in shipping_speedy_free_method_international %}
+                          <input type="checkbox" name="shipping_speedy_free_method_international[]" value="{{ service_id }}" checked="checked" />
+                          {{ service }}
+                        {% else %}
+                          <input type="checkbox" name="shipping_speedy_free_method_international[]" value="{{ service_id }}" />
+                          {{ service }}
+                        {% endif %}
+                      </label>
+                    </div>
+                  {% endfor %}
+                </div>
+                <a onclick="$(this).parent().find(':checkbox').prop('checked', true);" style="cursor: pointer;">{{ text_select_all }}</a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);" style="cursor: pointer;">{{ text_unselect_all }}</a>
+                {% if error_free_method_international %}
+                  <div class="text-danger">{{ error_free_method_international }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_back_documents">{{ entry_back_documents }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_back_documents" id="speedy_back_documents" class="form-control">
+                {% if shipping_speedy_back_documents %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_back_receipt">{{ entry_back_receipt }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_back_receipt" id="speedy_back_receipt" class="form-control">
+                {% if shipping_speedy_back_receipt %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="speedy_default_weight">{{ entry_default_weight }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_default_weight" value="{{ shipping_speedy_default_weight }}" placeholder="{{ entry_default_weight }}" id="speedy_default_weight" class="form-control" />
+              {% if error_default_weight %}
+                <div class="text-danger">{{ error_default_weight }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_packing">{{ entry_packing }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_packing" value="{{ shipping_speedy_packing }}" placeholder="{{ entry_packing }}" id="speedy_packing" class="form-control" />
+            </div>
+          </div>
+          {% if available_money_transfer %}
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="speedy_money_transfer"><span data-toggle="tooltip" title="{{ help_money_transfer }}">{{ entry_money_transfer }}</span></label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_money_transfer" id="speedy_money_transfer" class="form-control">
+                  {% if shipping_speedy_money_transfer %}
+                    <option value="1" selected="selected">{{ text_yes }}</option>
+                    <option value="0">{{ text_no }}</option>
+                  {% else %}
+                    <option value="1">{{ text_yes }}</option>
+                    <option value="0" selected="selected">{{ text_no }}</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+          {% endif %}
+          <div class="speedy-group">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="speedy_option_before_payment">{{ entry_options_before_payment }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_option_before_payment" id="speedy_option_before_payment" class="form-control">
+                  {% for option_id, option in options_before_payment %}
+                    {% if option_id == shipping_speedy_option_before_payment %}
+                      <option value="{{ option_id }}" selected="selected">{{ option }}</option>
+                    {% else %}
+                      <option value="{{ option_id }}">{{ option }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_option_before_payment == 'no_option' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_return_payer_type">{{ entry_return_payer_type }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_payer_type" id="speedy_return_payer_type" class="form-control">
+                  {% for option_id, option in return_payer_types %}
+                    {% if option_id == shipping_speedy_return_payer_type %}
+                      <option value="{{ option_id }}" selected="selected">{{ option }}</option>
+                    {% else %}
+                      <option value="{{ option_id }}">{{ option }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_option_before_payment == 'no_option' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_return_package_city_service_id">{{ entry_return_package_city_service_id }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_package_city_service_id" id="speedy_return_package_city_service_id" class="form-control">
+                  {% for service_id, service in services %}
+                    {% if service_id == shipping_speedy_return_package_city_service_id %}
+                      <option value="{{ service_id }}" selected="selected">{{ service }}</option>
+                    {% else %}
+                      <option value="{{ service_id }}">{{ service }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_option_before_payment == 'no_option' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_return_package_intercity_service_id">{{ entry_return_package_intercity_service_id }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_package_intercity_service_id" id="speedy_return_package_intercity_service_id" class="form-control">
+                  {% for service_id, service in services %}
+                    {% if service_id == shipping_speedy_return_package_intercity_service_id %}
+                      <option value="{{ service_id }}" selected="selected">{{ service }}</option>
+                    {% else %}
+                      <option value="{{ service_id }}">{{ service }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_option_before_payment == 'no_option' %} style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_ignore_obp">{{ entry_ignore_obp }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_ignore_obp" id="speedy_ignore_obp" class="form-control">
+                  {% if shipping_speedy_ignore_obp %}
+                    <option value="1" selected="selected">{{ text_yes }}</option>
+                    <option value="0">{{ text_no }}</option>
+                  {% else %}
+                    <option value="1">{{ text_yes }}</option>
+                    <option value="0" selected="selected">{{ text_no }}</option>
+                  {% endif %}
+               </select>
+              </div>
+            </div>
+          </div>
+          <div class="speedy-group">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="speedy_return_voucher">{{ entry_return_voucher }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_voucher" id="speedy_return_voucher" class="form-control" onchange="$('#speedy_return_voucher_city_service_id').parent().parent().toggle(); $('#speedy_return_voucher_intercity_service_id').parent().parent().toggle(); $('#speedy_return_voucher_payer_type').parent().parent().toggle();">
+                    {% if shipping_speedy_return_voucher %}
+                      <option value="1" selected="selected">{{ text_yes }}</option>
+                      <option value="0">{{ text_no }}</option>
+                    {% else %}
+                      <option value="1">{{ text_yes }}</option>
+                      <option value="0" selected="selected">{{ text_no }}</option>
+                    {% endif %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_return_voucher != 1 %}style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_return_voucher_payer_type">{{ entry_return_voucher_payer_type }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_voucher_payer_type" id="speedy_return_voucher_payer_type" class="form-control">
+                  {% for payer_type_id, payer_type in payer_types %}
+                    {% if payer_type_id == shipping_speedy_return_voucher_payer_type %}
+                      <option value="{{ payer_type_id }}" selected="selected">{{ payer_type }}</option>
+                    {% else %}
+                      <option value="{{ payer_type_id }}">{{ payer_type }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_return_voucher != 1 %}style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_return_voucher_city_service_id">{{ entry_return_voucher_city_service_id }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_voucher_city_service_id" id="speedy_return_voucher_city_service_id" class="form-control">
+                  {% for service_id, service in services %}
+                    {% if service_id == shipping_speedy_return_voucher_city_service_id %}
+                      <option value="{{ service_id }}" selected="selected">{{ service }}</option>
+                    {% else %}
+                      <option value="{{ service_id }}">{{ service }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_return_voucher != 1 %}style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_return_voucher_intercity_service_id">{{ entry_return_voucher_intercity_service_id }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_return_voucher_intercity_service_id" id="speedy_return_voucher_intercity_service_id" class="form-control">
+                  {% for service_id, service in services %}
+                    {% if service_id == shipping_speedy_return_voucher_intercity_service_id %}
+                      <option value="{{ service_id }}" selected="selected">{{ service }}</option>
+                    {% else %}
+                      <option value="{{ service_id }}">{{ service }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_label_printer">{{ entry_label_printer }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_label_printer" id="speedy_label_printer" class="form-control">
+                {% if shipping_speedy_label_printer %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_additional_copy_for_sender">{{ entry_additional_copy_for_sender }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_additional_copy_for_sender" id="speedy_additional_copy_for_sender" class="form-control">
+                {% if shipping_speedy_additional_copy_for_sender %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="speedy-group">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="speedy_insurance">{{ entry_insurance }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_insurance" id="speedy_insurance" class="form-control" onchange="$('#speedy_fragile').parent().parent().toggle();">
+                  {% if shipping_speedy_insurance %}
+                    <option value="1" selected="selected">{{ text_yes }}</option>
+                    <option value="0">{{ text_no }}</option>
+                  {% else %}
+                    <option value="1">{{ text_yes }}</option>
+                    <option value="0" selected="selected">{{ text_no }}</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_insurance != 1 %}style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_fragile"><span data-toggle="tooltip" title="{{ help_fragile }}">{{ entry_fragile }}</span></label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_fragile" id="speedy_fragile" class="form-control">
+                  {% if shipping_speedy_fragile %}
+                    <option value="1" selected="selected">{{ text_yes }}</option>
+                    <option value="0">{{ text_no }}</option>
+                  {% else %}
+                    <option value="1">{{ text_yes }}</option>
+                    <option value="0" selected="selected">{{ text_no }}</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="speedy-group">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="speedy_from_office"><span data-toggle="tooltip" title="{{ help_from_office }}">{{ entry_from_office }}</span></label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_from_office" id="speedy_from_office" class="form-control" onchange="$('#speedy_office_id').parent().parent().toggle();">
+                  {% if shipping_speedy_from_office %}
+                    <option value="1" selected="selected">{{ text_yes }}</option>
+                    <option value="0">{{ text_no }}</option>
+                  {% else %}
+                    <option value="1">{{ text_yes }}</option>
+                    <option value="0" selected="selected">{{ text_no }}</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group" {% if shipping_speedy_from_office != 1 %}style="display: none;"{% endif %}>
+              <label class="col-sm-2 control-label" for="speedy_office_id">{{ entry_office }}</label>
+              <div class="col-sm-10">
+                <select name="shipping_speedy_office_id" id="speedy_office_id" class="form-control">
+                  {% for office in offices %}
+                    {% if office.id == shipping_speedy_office_id %}
+                      <option value="{{ office.id }}" selected="selected">{{ office.label }}</option>
+                    {% else %}
+                      <option value="{{ office.id }}">{{ office.label }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_documents"><span data-toggle="tooltip" title="{{ help_documents }}">{{ entry_documents }}</span></label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_documents" id="speedy_documents" class="form-control">
+                {% if shipping_speedy_documents %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_fixed_time"><span data-toggle="tooltip" title="{{ help_fixed_time }}">{{ entry_fixed_time }}</span></label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_fixed_time" id="speedy_fixed_time" class="form-control">
+                {% if shipping_speedy_fixed_time %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_check_office_work_day">{{ entry_check_office_work_day }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_check_office_work_day" id="speedy_check_office_work_day" class="form-control">
+                {% if shipping_speedy_check_office_work_day %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_invoice_courier_sevice_as_text"><span data-toggle="tooltip" title="{{ help_courier_sevice }}">{{ entry_courier_sevice }}</span></label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_invoice_courier_sevice_as_text" id="speedy_invoice_courier_sevice_as_text" class="form-control">
+                {% if shipping_speedy_invoice_courier_sevice_as_text %}
+                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                  <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                  <option value="1">{{ text_enabled }}</option>
+                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_taking_date">{{ entry_taking_date }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_taking_date" value="{{ shipping_speedy_taking_date }}" placeholder="{{ entry_taking_date }}" id="speedy_taking_date" class="form-control" />
+              {% if error_taking_date %}
+                <div class="text-danger">{{ error_taking_date }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_order_status_id">{{ entry_order_status }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_order_status_id" id="speedy_order_status_id" class="form-control">
+                {% for order_status in order_statuses %}
+                  {% if speedy_order_status_id %}
+                    {% if order_status.order_status_id == 3 %}
+                      <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                    {% endif %}
+                  {% endif %}
+                  {% if order_status.order_status_id == shipping_speedy_order_status_id %}
+                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                  {% else %}
+                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_geo_zone_id">{{ entry_geo_zone }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_geo_zone_id" id="speedy_geo_zone_id" class="form-control">
+                <option value="0">{{ text_all_zones }}</option>
+                {% for geo_zone in geo_zones %}
+                  {% if geo_zone.geo_zone_id == shipping_speedy_geo_zone_id %}
+                    <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                  {% else %}
+                    <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="speedy-group">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{ entry_order_status_update }}</label>
+                <div class="col-sm-10">
+                <select name="shipping_speedy_order_status_update" id="speedy_order_status_update" class="form-control">
+                    {% if shipping_speedy_order_status_update %}
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                        <option value="0">{{ text_disabled }}</option>
+                    {% else %}
+                        <option value="1">{{ text_enabled }}</option>
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                    {% endif %}
+                </select>
+                </div>
+            </div>
+            <div class="form-group" id="speedy_order_status_table" {% if not shipping_speedy_order_status_update %}style="display: none;"{% endif %}>
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td class="text-center">{{ text_speedy_status }}</td>
+                                    <td class="text-center">{{ text_opencart_status }}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for operation,label in final_operation %}
+                                    <tr>
+                                        <td class="text-center">
+                                            <label>{{ _context[label] }}</label>
+                                        </td>
+                                        <td class="text-center">
+                                            <select name="shipping_speedy_final_statuses[{{ operation }}]" class="form-control">
+                                                {% for order_status in order_statuses %}
+                                                    {% if shipping_speedy_final_statuses[operation] is not empty and order_status.order_status_id == shipping_speedy_final_statuses[operation]  %}
+                                                        <option value="{{ order_status['order_status_id'] }}" selected="selected">{{ order_status['name'] }}</option>
+                                                    {% else %}
+                                                        <option value="{{ order_status['order_status_id'] }}"> {{ order_status['name'] }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_weight_dimensions">
+              <span data-toggle="tooltip" title="" data-original-title="{{ help_weight }}">{{ entry_weight_dimensions }}</span>
+            </label>
+            <div class="col-sm-10">
+              <div class="table-responsive">
+                <table id="weight_dimensions" class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td class="text-center"></td>
+                      <td colspan="5" class="text-center">{{ text_speedy_package_dimentions }}</td>
+                      <td class="text-center"></td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">{{ text_package_weight }}</td>
+                      <td class="text-center">{{ column_speedy_XS }}</td>
+                      <td class="text-center">{{ column_speedy_S }}</td>
+                      <td class="text-center">{{ column_speedy_M }}</td>
+                      <td class="text-center">{{ column_speedy_L }}</td>
+                      <td class="text-center">{{ column_speedy_XL }}</td>
+                      <td class="text-center"></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if weight_dimensions %}
+                      {% for key, dimention in weight_dimensions %}
+                        <tr data-row="{{ key }}">
+                          <td class="text-center">
+                            <input type="text" name="weight_dimensions[{{ key }}][WEIGHT]" value="{{ dimention.WEIGHT }}" class="form-control">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="weight_dimensions[{{ key }}][XS]" value="{{ dimention.XS }}" class="form-control">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="weight_dimensions[{{ key }}][S]" value="{{ dimention.S }}" class="form-control">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="weight_dimensions[{{ key }}][M]" value="{{ dimention.M }}" class="form-control">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="weight_dimensions[{{ key }}][L]" value="{{ dimention.L }}" class="form-control">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="weight_dimensions[{{ key }}][XL]" value="{{ dimention.XL }}" class="form-control">
+                          </td>
+                          <td class="text-center">
+                            <button type="button" onclick="removeSpeedyWeightDimension({{ key }});" data-toggle="tooltip" title="" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr data-row="0">
+                        <td class="text-center">
+                          <input type="text" name="weight_dimensions[0][WEIGHT]" class="form-control">
+                        </td>
+                        <td class="text-center">
+                          <input type="text" name="weight_dimensions[0][XS]" class="form-control">
+                        </td>
+                        <td class="text-center">
+                          <input type="text" name="weight_dimensions[0][S]" class="form-control">
+                        </td>
+                        <td class="text-center">
+                          <input type="text" name="weight_dimensions[0][M]" class="form-control">
+                        </td>
+                        <td class="text-center">
+                          <input type="text" name="weight_dimensions[0][L]" class="form-control">
+                        </td>
+                        <td class="text-center">
+                          <input type="text" name="weight_dimensions[0][XL]" class="form-control">
+                        </td>
+                        <td class="text-center">
+                          <button type="button" onclick="removeSpeedyWeightDimension(0);" data-toggle="tooltip" title="" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="6"></td>
+                      <td class="text-right">
+                        <button type="button" onclick="addSpeedyWeightDimension();" data-toggle="tooltip" title="" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_min_package_dimention">{{ entry_min_package_dimention }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_min_package_dimention" id="speedy_min_package_dimention" class="form-control">
+                <option value="0">{{ text_none }}</option>
+                {% for id, dimention in package_dimentions %}
+                  {% if id == shipping_speedy_min_package_dimention %}
+                    <option value="{{ id }}" selected="selected">{{ dimention }}</option>
+                  {% else %}
+                    <option value="{{ id }}">{{ dimention }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="shipping_speedy_convertion_to_win1251">{{ entry_convertion_to_win1251 }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_convertion_to_win1251" id="shipping_speedy_convertion_to_win1251" class="form-control">
+                {% if shipping_speedy_convertion_to_win1251 %}
+                  <option value="1" selected="selected">{{ text_yes }}</option>
+                  <option value="0">{{ text_no }}</option>
+                {% else %}
+                  <option value="1">{{ text_yes }}</option>
+                  <option value="0" selected="selected">{{ text_no }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="shipping_speedy_status" id="speedy_status" class="form-control">
+                {% if shipping_speedy_status %}
+                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                  <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                  <option value="1">{{ text_enabled }}</option>
+                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="speedy_sort_order">{{ entry_sort_order }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="shipping_speedy_sort_order" value="{{ shipping_speedy_sort_order }}" placeholder="{{ entry_sort_order }}" id="speedy_sort_order" class="form-control" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+  function addSpeedyWeightDimension() {
+    var next_row = 0;
+
+    if (typeof $('#weight_dimensions tbody tr:last').attr('data-row') != 'undefined') {
+      next_row = parseInt($('#weight_dimensions tbody tr:last').attr('data-row')) + 1;
+    }
+
+    var html = '';
+    html  = '<tr data-row="' + next_row + '">';
+    html +=   '<td class="text-center">';
+    html +=     '<input type="text" name="weight_dimensions[' + next_row + '][WEIGHT]" class="form-control">';
+    html +=   '</td>';
+    html +=   '<td class="text-center">';
+    html +=     '<input type="text" name="weight_dimensions[' + next_row + '][XS]" class="form-control">';
+    html +=   '</td>';
+    html +=   '<td class="text-center">';
+    html +=     '<input type="text" name="weight_dimensions[' + next_row + '][S]" class="form-control">';
+    html +=   '</td>';
+    html +=   '<td class="text-center">';
+    html +=     '<input type="text" name="weight_dimensions[' + next_row + '][M]" class="form-control">';
+    html +=   '</td>';
+    html +=   '<td class="text-center">';
+    html +=     '<input type="text" name="weight_dimensions[' + next_row + '][L]" class="form-control">';
+    html +=   '</td>';
+    html +=   '<td class="text-center">';
+    html +=     '<input type="text" name="weight_dimensions[' + next_row + '][XL]" class="form-control">';
+    html +=   '</td>';
+    html +=   '<td class="text-center">';
+    html +=     '<button type="button" onclick="removeSpeedyWeightDimension(' + next_row + ');" data-toggle="tooltip" title="" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>';
+    html +=   '</td>';
+    html += '</tr>';
+
+    $('#weight_dimensions tbody').append(html);
+  }
+
+  function removeSpeedyWeightDimension(row) {
+    $('#weight_dimensions tr[data-row=' + row + ']').remove();
+  }
+//--></script>
+<script type="text/javascript"><!--
+  $('#speedy_password').keydown(function() {
+    if ($('#pass_changed').val() == 0) {
+      $('#speedy_password').val('');
+      alert('{{ alert_enter_pass_again }}');
+      $('#pass_changed').val(1);
+    }
+  });
+  function checkSpeedyCredentials() {
+    var speedyUsername = document.getElementById("speedy_username").value;
+    var speedyPassword = document.getElementById("speedy_password").value;
+
+    if (!speedyUsername) {
+      alert("{{ error_username_credentials }}")
+    } else if (!speedyPassword) {
+      alert("{{ error_password_credentials }}")
+    } else {
+      $.ajax({
+        url: 'index.php?route=extension/shipping/speedy/checkcredentials&user_token={{ user_token }}',
+        type: 'POST',
+        data: {shipping_speedy_username: speedyUsername, shipping_speedy_password: speedyPassword, pass_changed: $('#pass_changed').val()},
+        dataType: 'json',
+        success: function(data) {
+          if (data.ok) {
+            alert(data.message);
+          } else if (data.error) {
+            alert(data.message);
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+        //alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+      });
+    }
+  }
+
+  function changePricing() {
+    pricing = $('#speedy_pricing').val();
+
+    if (pricing == 'free') {
+      $('#speedy_fixed_price').parent().parent().hide();
+      $('#speedy_free_shipping_total').parent().parent().show();
+      $('#speedy_free_method_city').parent().parent().show();
+      $('#speedy_free_method_intercity').parent().parent().show();
+      $('#select_speedy_free_method_city').show();
+      $('#speedy_table_rate_filename').parent().parent().parent().hide();
+    } else if (pricing == 'fixed' || pricing == 'calculator_fixed') {
+      $('#speedy_fixed_price').parent().parent().show();
+      $('#speedy_free_shipping_total').parent().parent().hide();
+      $('#speedy_free_method_city').parent().parent().hide();
+      $('#speedy_free_method_intercity').parent().parent().hide();
+      $('#select_speedy_free_method_city').hide();
+      $('#speedy_table_rate_filename').parent().parent().parent().hide();
+    } else if (pricing == 'table_rate') {
+      $('#speedy_fixed_price').parent().parent().hide();
+      $('#speedy_free_shipping_total').parent().parent().hide();
+      $('#speedy_free_method_city').parent().parent().hide();
+      $('#speedy_free_method_intercity').parent().parent().hide();
+      $('#select_speedy_free_method_city').hide();
+      $('#speedy_table_rate_filename').parent().parent().parent().show();
+    } else {
+      $('#speedy_fixed_price').parent().parent().hide();
+      $('#speedy_free_shipping_total').parent().parent().hide();
+      $('#speedy_free_method_city').parent().parent().hide();
+      $('#speedy_free_method_intercity').parent().parent().hide();
+      $('#select_speedy_free_method_city').hide();
+      $('#speedy_table_rate_filename').parent().parent().parent().hide();
+    }
+  }
+//--></script>
+<script type="text/javascript"><!--
+$('#button-upload').on('click', function() {
+  $('#form-upload').remove();
+
+  $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+  $('#form-upload input[name=\'file\']').trigger('click');
+
+  if (typeof timer != 'undefined') {
+    clearInterval(timer);
+  }
+
+  timer = setInterval(function() {
+    if ($('#form-upload input[name=\'file\']').val() != '') {
+      clearInterval(timer);
+
+      $.ajax({
+        url: 'index.php?route=extension/shipping/speedy/upload&user_token={{ user_token }}',
+        type: 'post',
+        dataType: 'json',
+        data: new FormData($('#form-upload')[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function() {
+          $('#button-upload').button('loading');
+        },
+        complete: function() {
+          $('#button-upload').button('reset');
+        },
+        success: function(json) {
+          if (json['error']) {
+            alert(json['error']);
+          }
+          if (json['success']) {
+            alert(json['success']);
+            $('input[name=\'fileprice_name\']').attr('value', json['fileprice_name']);
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+      });
+    }
+  }, 500);
+});
+//--></script>
+<script type="text/javascript"><!--
+$('#speedy_option_before_payment').on('change', function() {
+  if ($(this).val() == 'no_option') {
+    $('#speedy_return_payer_type').parent().parent().hide();
+    $('#speedy_return_package_city_service_id').parent().parent().hide();
+    $('#speedy_return_package_intercity_service_id').parent().parent().hide();
+    $('#speedy_ignore_obp').parent().parent().hide();
+  } else {
+    $('#speedy_return_payer_type').parent().parent().show();
+    $('#speedy_return_package_city_service_id').parent().parent().show();
+    $('#speedy_return_package_intercity_service_id').parent().parent().show();
+    $('#speedy_ignore_obp').parent().parent().show();
+  }
+});
+$('#speedy_order_status_update').on('change', function() {
+	if ($(this).val() == 0) {
+		$('#speedy_order_status_table').hide();
+	} else {
+		$('#speedy_order_status_table').show();
+	}
+});
+//--></script>
+{{ footer }}

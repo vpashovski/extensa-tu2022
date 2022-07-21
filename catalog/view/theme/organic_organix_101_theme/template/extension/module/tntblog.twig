@@ -1,0 +1,143 @@
+{{ header }}
+<div id="wrapper">
+    <div id="blog-blog">
+        <div id="module-ttntblog-archive">
+            <div class="container ttv-left-layout">
+                {% include 'organic_organix_101_theme/template/helpfile/breadcrumb.twig' with {'breadcrumbs': breadcrumbs} %}
+
+                <div id="content-wrapper">
+                    <div id="main">
+                        <div id="content" class="page-content card card-block">
+                            <div class="ttv-blog-content-wrapper clearfix">
+                                <div class="ttvall-page-top-title"><h1 class="ttvpage-header-title">{{ text_blogspagetitle }}</h1>
+                                </div>
+                                <div class="kr_blog_post_area">
+                                    <div class="kr_blog_post_inner products">
+                                        {% for data in blogpost_data %}
+                                            <article class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12 ttvblog_post blog_post_video">
+                                                <div class="blog_post_content">
+                                                    <div class="blog_post_content_top">
+                                                        <div class="post_thumbnail">
+                                                            <!-- begin post-video -->
+                                                             {% if data.tntblog_parent_positionttype == "video" %}
+                                                                <a href="{{ data.tntblog_parent_video }}?autoplay=1" class="item swiper-slide various fancybox fancybox.iframe img_content" style='width:100%;'>
+                                                                    <div class="ttvnews-event-hoverbtn">
+                                                                        <div class="ttvblog-content-img ttvblog-balance-height">
+                                                                            <img src="https://img.youtube.com/vi/{{ data.youtube_id }}/0.jpg" alt="">
+                                                                        </div>
+                                                                        <div class="ttvnews-event-overly"></div>
+                                                                        <div class="ttvnews-event-buttons">
+                                                                            <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            {% elseif data.tntblog_parent_positionttype == "gallery" %}
+                                                            <div class="ttvnews-event-hoverbtn">
+                                                                <div class="post_format_items ttntblog-video-slider ttvblog-balance-height ttntblog-gallery-slider-2" data-slider-id="ttntblog-gallery-slider-2">
+                                                                    <div class="ttvblog-wrapper-slider owl-theme owl-carousel">
+                                                                    {% for galleryimage in data.gallery %}
+                                                                        <a href="{{ data.tntblog_parent_link }}" style="width:100%;">
+                                                                            <div class="ttvnews-event-hoverbtn">
+                                                                                <div class="ttvblog-content-img ttvblog-balance-height">
+                                                                                    <img src="{{ galleryimage }}" alt="">
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                   {% endfor %}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ttntblog-gallery-slider-pagination">
+                                                                    <div class="ttntblog-gallery-next-pre-btn">
+                                                                        <div class="ttntblog-gallery-slider-prev">
+                                                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                                        </div>
+                                                                        <div class="ttntblog-gallery-slider-next">
+                                                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {% else %}
+                                                            <div class="ttvnews-event-hoverbtn">
+                                                                <a href="{{ data.tntblog_parent_link }}">
+                                                                    <img class="ttntblog_img img-responsive" src="{{ data.tntblog_parent_featureimage }}" alt="{{ data.tntblog_child_title }}">
+                                                                </a>
+                                                                <div class="ttvnews-event-overly"></div>
+                                                                <div class="ttvnews-event-buttons">
+                                                                    <a href="{{ data.tntblog_parent_link }}">
+                                                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+                                                            <!-- end post-video -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="post_content">
+                                                        <h3 class="post_title">
+                                                            <a href="{{ data.tntblog_parent_link }}">{{ data.tntblog_child_title }}</a></h3>
+                                                        <div class="post_meta clearfix">
+                                                            <p class="meta_author">{{ text_blogpostby }} <span>{{ store_owner }}</span></p>
+                                                            <p class="meta_date"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ data.tntblog_parent_createdate }}</p>
+                                                            <p class="meta_category">{{ data.category_title }}</p>
+                                                        </div>
+                                                        <div class="post_description ttvblog-desc-balance-height">
+                                                            <p>{{ data.tntblog_child_excerpt }} </p>
+                                                        </div>
+                                                        <div class="read_more">
+                                                            <a class="more" href="{{ data.tntblog_parent_link }}">{{ text_blogcountinue }} <i class="arrow_right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                           
+
+                            <div class="row badcategory-pagination">
+
+                                <div class="col-sm-6 badcategory-pagination-text">{{ results }}</div>
+
+                                <div class="col-sm-6 badcategory-pagination-button">{{ pagination }}</div>
+
+                            </div>
+
+                            
+                        </div>         
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>
+</div>
+{{ footer }}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#module-ttntblog-archive .ttvblog-wrapper-slider').owlCarousel({
+        loop: false,
+        dots: false,
+        nav: false,
+        responsive: {
+            0: { items: 1 },
+            320: { items: 1, slideBy: 1 },
+            400: { items: 1, slideBy: 1 },
+            768: { items: 1, slideBy: 1 },
+            992: { items: 1, slideBy: 1 },
+            1200: { items: 1, slideBy: 1 },
+            1600: { items: 1, slideBy: 1 },
+            1800: { items: 1, slideBy: 1 }
+        },
+    });
+    $('#module-ttntblog-archive .ttntblog-gallery-slider-prev').click(function(e) {
+        e.preventDefault();
+        $(this).parent().parent().parent().parent().find('.ttvnews-event-hoverbtn .owl-nav .owl-prev').trigger('click');
+    });
+
+    $('#module-ttntblog-archive .ttntblog-gallery-slider-next').click(function(e) {
+        e.preventDefault();
+        $(this).parent().parent().parent().parent().find('.ttvnews-event-hoverbtn .owl-nav .owl-next').trigger('click');
+    });
+});
+</script>

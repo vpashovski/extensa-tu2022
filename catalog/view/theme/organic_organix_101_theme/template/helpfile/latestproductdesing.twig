@@ -1,0 +1,40 @@
+<article class="{{ class_name }} product-miniature js-product-miniature badproduct-wrapper-all" data-id-product="{{ product.product_id }}" data-id-product-attribute="">
+    <div class="badproduct-wrapper-content">
+        <div class="thumbnail-container">
+            <div class="badproduct-wrapper">
+                <div class="badproduct-image col-md-5 col-lg-5 col-xl-5">
+                    <a href="{{ product.href }}" class="product-thumbnail">
+                        <img src="{{ product.thumb }}" alt="{{ product.name }}">
+                        <img class="badproduct-hover-image" src="{{ product.hoverimage }}" alt="{{ product.name }}">
+                    </a>
+                </div>
+                <div class="badproduct-description col-md-7 col-lg-7 col-xl-7">
+                    <div class="badproduct-name">
+                        <div class="badproduct-title">
+                            <a href="{{ product.href }}">
+                                <h4>{{ product.name }}</h4>
+                            </a>
+                        </div>
+                    </div>
+                    {% include 'organic_organix_101_theme/template/helpfile/productrating.twig' with {'rating': product.rating } %}
+                    <div class="badproduct-price-and-shipping">
+                        {% if product.price %}
+                         {% if not product.special %}
+                        <span class="price">{{ product.price }}</span>
+                        {% else %}<span class="price">{{ product.special }}</span><span class="regular-price">{{ product.price }}</span>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="badproduct-all-btn">
+                        <div class="badproduct-add-to-cart-btn">
+                            <a onclick="cart.add('{{ product.product_id }}');" class="add-to-cart" data-button-action="{{ button_cart }}">
+                                <i class="fa fa-plus"></i>
+                                <span>{{ button_cart }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

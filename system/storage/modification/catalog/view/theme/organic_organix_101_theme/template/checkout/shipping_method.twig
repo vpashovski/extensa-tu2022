@@ -1,0 +1,127 @@
+{% if error_warning %}
+<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+{% endif %}
+{% if shipping_methods %}
+<p>{{ text_shipping_method }}</p>
+{% for shipping_method in shipping_methods %}
+<p><strong>{{ shipping_method.title }}</strong></p>
+{% if not shipping_method.error %}
+{% for quote in shipping_method.quote %}
+<div class="radio">
+  <label> {% if quote.code == code or not code %}
+    {% set code = quote.code %}
+    <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" />
+    {% else %}
+    <input type="radio" name="shipping_method" value="{{ quote.code }}" />
+    {% endif %}
+    {{ quote.title }} - {{ quote.text }}</label>
+</div>
+{% endfor %}
+{% else %}
+<div class="alert alert-danger alert-dismissible">{{ shipping_method.error }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div id="speedy_container"></div>
+			
+<p><strong>{{ text_comments }}</strong></p>
+<p>
+  <textarea name="comment" rows="8" class="form-control">{{ comment }}</textarea>
+</p>
+<div class="buttons">
+  <div class="pull-right">
+    <input type="button" value="{{ button_continue }}" id="button-shipping-method" data-loading-text="{{ text_loading }}" class="btn badall-theme-button" />
+  </div>
+</div>
+
+<script type="text/javascript"><!--
+var speedy_loaded = false;
+
+$(document).ready(function() {
+	if ($('[name="shipping_method"][value^="speedy."]:checked').length) {
+		speedy($('[name="shipping_method"][value^="speedy."]:checked').prop('value'));
+	} else {
+		{% if speedy_active %}
+			speedy('speedy');
+		{% endif %}
+	}
+
+	$('[name="shipping_method"]').not('[value^="speedy."]').click(function() {
+		$('#speedy_container').hide();
+	});
+
+	$('[name="shipping_method"][value^="speedy."]').click(function() {
+		speedy($(this).prop('value'));
+	});
+});
+
+function speedy(speedy_value) {
+	var speedy_has_fixed_time = {% if speedy_fixed_time %}{{ speedy_fixed_time }}{% else %}false{% endif %};
+
+	if (speedy_loaded) {
+		$('#speedy_container').show();
+
+		if (speedy_has_fixed_time) {
+			$('#speedy_fixed_time_cb').removeAttr('disabled');
+		} else {
+			$('#speedy_fixed_time_cb').prop('disabled', 'disabled');
+			$('#speedy_fixed_time_cb').prop('checked', false);
+			$('#speedy_fixed_time_hour').prop('disabled', 'disabled');
+			$('#speedy_fixed_time_min').prop('disabled', 'disabled');
+		}
+	} else {
+		$.ajax({
+			url: 'index.php?route=extension/shipping/speedy',
+			async: false,
+			dataType: 'json',
+			success: function(data) {
+				if (data) {
+					if (data.redirect) {
+						location = data.redirect;
+					} else {
+						$('#speedy_container').html(data.html);
+
+						$('#speedy_cod_yes').click(function() {
+							$('#speedy_cod').prop('checked', true);
+							$('#speedy_cod').parent().parent().show();
+							$('[name="payment_method"][value!="speedy_cod"]').parent().parent().hide();
+						});
+
+						$('#speedy_cod_no').click(function() {
+							$('#speedy_cod').prop('checked', false);
+							$('#speedy_cod').parent().parent().hide();
+							$('[name="payment_method"][value!="speedy_cod"]').parent().parent().show();
+						});
+
+						if ($('#speedy_cod_yes:checked').length) {
+							$('#speedy_cod_yes').click();
+						} else if ($('#speedy_cod_no:checked').length) {
+							$('#speedy_cod_no').click();
+						}
+
+						if (speedy_has_fixed_time) {
+							$('#speedy_fixed_time_cb').removeAttr('disabled');
+						} else {
+							if ($('#speedy_fixed_time_cb:checked').length) {
+								alert('{{ error_fixed_time2 }}');
+							}
+
+							$('#speedy_fixed_time_cb').prop('disabled', 'disabled');
+							$('#speedy_fixed_time_cb').prop('checked', false);
+							$('#speedy_fixed_time_hour').prop('disabled', 'disabled');
+							$('#speedy_fixed_time_min').prop('disabled', 'disabled');
+						}
+
+						speedy_loaded = true;
+					}
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				//alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	}
+}
+//--></script>
+			

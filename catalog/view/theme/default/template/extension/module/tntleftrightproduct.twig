@@ -1,0 +1,29 @@
+
+
+
+{{ productfeature.tabheading }}
+
+
+{% for product in productfeatures %} 
+{# {% include 'organic_organix_101_theme/template/extension/module/commonproduct.twig' with {'product': product} %} #}
+ {% endfor %}
+	
+
+{{ productnew.tabheading }}
+
+{% for product in productnews %}
+ {# {% include 'organic_organix_101_theme/template/extension/module/commonproduct.twig' with {'product': product} %} #} 
+ {% endfor %}
+
+{{ productspecial.tabheading }}
+{% for product in productspecials %} 
+{# {% include 'organic_organix_101_theme/template/extension/module/commonproduct.twig' with {'product': product} %} #}
+ {% endfor %}
+
+
+{{ productbest.tabheading }}
+{% for product in productbests %} 
+{# {% include 'organic_organix_101_theme/template/extension/module/commonproduct.twig' with {'product': product} %} #} 
+{% endfor %}
+
+

@@ -1,0 +1,41 @@
+{% for slider in sliders %}
+    {{ slider.tntsliderchild_link }}
+    <img src="{{ slider.tntsliderchild_image }}">
+    {{ slider.tntsliderchild_title }}
+    {{ slider.tntsliderchild_textaligment }}
+    {{ slider.tntsliderchild_buttontext }}
+    {{ slider.tntsliderchild_description }}
+{% endfor %}
+
+<script type="text/javascript">
+/*main slider*/
+$('#id').owlCarousel({
+    loop: true,
+    dots: false,
+    nav: false,
+    autoplay: {{ loop }},
+    autoplayTimeout: {{ speed }},
+    autoplayHoverPause: {{ hover }},
+    responsive: {
+        0: { items: 1 },
+        320: { items: 1, slideBy: 1 },
+        440: { items: 1, slideBy: 1 },
+        768: { items: 1, slideBy: 1 },
+        850: { items: 1, slideBy: 1 },
+        992: { items: 1, slideBy: 1 },
+        1200: { items: 1, slideBy: 1 },
+        1600: { items: 1, slideBy: 1 },
+        1800: { items: 1, slideBy: 1 }
+
+    },
+});
+$('.parent .prev').click(function(e) {
+    e.preventDefault();
+    $('#slider .owl-nav .owl-prev').trigger('click');
+});
+$('.parent .next').click(function(e) {
+    e.preventDefault();
+    $('#slider .owl-nav .owl-next').trigger('click');
+});
+/*main slider*/
+</script>

@@ -1,0 +1,81 @@
+<article class="{{ class_name }} product-miniature js-product-miniature badproduct-wrapper-all" data-id-product="{{ product.product_id }}">
+
+        <div class="badproduct-wrapper-content">
+            <div class="thumbnail-container">
+                <div class="badproduct-wrapper">
+                    <div class="badproduct-image">
+                        <a href="{{ product.href }}" class="thumbnail product-thumbnail">
+                            <img src = "{{ product.thumb }}" alt = "{{ product.name }}">
+                            <img class="badproduct-hover-image" src = "{{ product.hoverimage }}" alt = "{{ product.name }}">
+                        </a>
+                      
+                        {% if product.speciallabel or product.newlabel %}
+                        <div class="badproduct-flag-wrapper">
+                            <div class="badproduct-new-sale-flags-wrapper">
+                                <ul class="badproduct-flags">
+                                    {% if product.speciallabel %}<li class="badproduct-flag new">{{ product.speciallabel }}</li> {% endif %}
+                                    {% if product.newlabel %}<li class="badproduct-flag sale">{{ product.newlabel }}</li>{% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if product.date_end %}
+                         {% include 'organic_organix_101_theme/template/helpfile/producttimer.twig' with {'specific_timer': product.date_end } %}
+                        {% endif %}
+                        <div data-productid="{{ product.product_id }}" class="badproduct-quick-view badquickview">      
+                            <div class="highlighted-informations">
+                                <a class="quick-view" href="JavaScript:void(0);" data-link-action="quickview">
+                                    <i class="lnr lnr-move" aria-hidden="true"></i>
+                                    <span>{{ button_quickview }}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="badproduct-description">
+
+                        <div class="badproduct-star">
+                            {% include 'organic_organix_101_theme/template/helpfile/productrating.twig' with {'rating': product.rating } %}
+                        </div>
+                        <div class="badproduct-name">
+                            <div class="badproduct-title" itemprop="name">
+                                <a href="{{ product.href }}">
+                                    <h4>{{ product.name }}</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="badproduct-desc">
+                            {{ product.description }}
+                        </div>
+                        <div class="badproduct-price-and-shipping">
+                            {% if product.price %}                        
+                                {% if not product.special %}<span class="price">{{ product.price }}</span>{% else %}<span class="price">{{ product.special }}</span><span class="regular-price">{{ product.price }}</span>{% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="badproduct-all-btn">
+                            <div class="badproduct-wishlist">
+                                <a onclick="wishlist.add('{{ product.product_id }}');" href="JavaScript:void(0);" class="badwishlist" rel="nofollow" title="{{ button_wishlist }}">
+                                    <i class="lnr lnr-heart" aria-hidden="true"></i>
+                                    <span>{{ button_wishlist }}</span>
+                                </a>
+                            </div>
+                            <div class="badproduct-add-to-cart-btn">
+                                <button data-button-action="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');" class="btn add-to-cart badproduct-add-to-cart" data-button-action="add-to-cart" type="submit" >
+                                     <i class='material-icons'>&#xe854;</i> 
+                                    <span>{{ button_cart }}</span>
+                                </button>
+                            </div>
+                            
+                            <div class="badproduct-compare">
+                                <a class="tmrfproduct-compare-btn badcompare" onclick="compare.add('{{ product.product_id }}');" href="JavaScript:void(0);" title="{{ button_compare }}">
+                                    <i class="removeCompare lnr lnr-trash remove hide"></i>
+                                    <i class="addCompare lnr lnr-layers"></i>
+                                    <span>{{ button_compare }}</span>
+                                </a>
+                            </div>
+                        </div>                        
+                  </div>  
+                </div>
+            </div>
+        </div>
+</article>

@@ -1,0 +1,27 @@
+<div class="badpopup_wrapper">
+{% if products %}
+    {% for product in products %}
+        <div class="wrap_item">
+            <div class="product clearfix">
+                <div class="search_img">
+                    <a href="{{ product.link }}" title="{{ product.name }}" class="product_image"><img src="{{ product.image }}" title="{{ product.name }}" alt="{{ product.name }}"></a>
+                </div>
+                <div class="search_info">
+                    <a class="product_name" href="{{ product.link }}" title="{{ product.name }}">{{ product.name }}</a>
+                    <div class="badproduct-price-and-shipping">
+                        {% if product.price %}
+                        {% if not product.special %}<span class="price">{{ product.price }}</span>{% else %}<span class="price">{{ product.special }}</span><span class="regular-price">{{ product.price }}</span>{% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if producttotal > 3 %}
+    <div id="badlivesearchmore" class="badall-theme-button">more</div>
+
+    {% endif %}
+    {% else %}
+    {{ noproduct }}
+    {% endif %}
+</div>

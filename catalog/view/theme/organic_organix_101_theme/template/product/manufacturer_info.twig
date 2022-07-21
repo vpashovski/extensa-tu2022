@@ -1,0 +1,40 @@
+{{ header }}
+<div id="product-manufacturer" class="container">
+  <div class="adbreadcrumb">
+    <h1>{{ heading_title }}</h1>
+    {% include 'organic_organix_101_theme/template/helpfile/breadcrumb.twig' with {'breadcrumbs': breadcrumbs} %} 
+  </div>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-12 col-md-8 col-lg-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">
+      {% if products %}
+        {% include 'organic_organix_101_theme/template/helpfile/listgridstyle.twig' with {'button_grid': button_grid,'button_list': button_list,'text_sort': text_sort,'sorts': sorts,'text_limit': text_limit,'limits': limits} %}
+
+      <div class="row"> 
+        {% for product in products %}
+         <div class="product-layout product-list col-xs-12">
+              {% include 'organic_organix_101_theme/template/helpfile/productdesing.twig' with {'product': product} %}
+          </div>
+        {% endfor %} 
+      </div>
+      
+      <div class="row badcategory-pagination">
+        <div class="col-sm-6 badcategory-pagination-text">{{ results }}</div>
+        <div class="col-sm-6 badcategory-pagination-button">{{ pagination }}</div>
+      </div>
+      {% else %}
+      <p>{{ text_empty }}</p>
+      <div class="buttons">
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      </div>
+      {% endif %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

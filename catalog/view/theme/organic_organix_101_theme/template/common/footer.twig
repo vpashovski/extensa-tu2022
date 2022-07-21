@@ -1,0 +1,101 @@
+    <footer id="footer">
+        <div class="container-fluid badfooter-block">
+            <div class="container badfooter-content">
+                <div class="row badfooter-content-box">
+
+                    <div class="col-lg-3 col-md-12 badfooter-linklist-block-wrapper">
+                        <div class="badfooter-linklist-block-wrapper-inner">
+                            <div class="badfooter-linklist-block">
+                                <div class="badfooter-linklist-title-wrapper badfooter-title-wrapper" data-target="#footer_sub_menu_32854" data-toggle="collapse"><span class="badfooter-linklist-title badfooter-title">Quick Links</span><span class="float-xs-right"><span class="navbar-toggler collapse-icons"><i class="fa fa-chevron-down" aria-hidden="true"></i> </span></span></div>
+                                <ul id="footer_sub_menu_32854" class="collapse badfooter-linklist-content badfooter-dropdown">
+                                    {% for information in informations %}
+                                    <li><a  class="cms-page-link" href="{{ information.href }}" >{{ information.title }}</a></li> 
+                                    {% endfor %}  
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="block_myaccount_infos" class="col-lg-3 col-md-12 badfooter-myaccount-block">
+                        <div class="badfooter-myaccount-title-wrapper badfooter-title-wrapper" data-target="#footer_account_list" data-toggle="collapse">
+                            <div class="badfooter-myaccount-title badfooter-title">Our company</div><span class="float-xs-right"><span class="navbar-toggler collapse-icons"><i class="fa fa-chevron-down" aria-hidden="true"></i> </span></span>
+                        </div>
+                        <ul class="collapse badfooter-myaccount-content badfooter-dropdown" id="footer_account_list">
+                           
+                           <li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
+                              <li><a href="{{ voucher }}">{{ text_voucher }}</a></li>
+                              <li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>
+                              <li><a href="{{ special }}">{{ text_special }}</a></li>
+                        </ul>
+                    </div>
+
+<div class="col-lg-3 col-md-12 badfooter-linklist-block-wrapper">
+    <div class="badfooter-linklist-block-wrapper-inner">
+        <div class="badfooter-linklist-block">
+            <div class="badfooter-linklist-title-wrapper badfooter-title-wrapper" data-target="#footer_sub_menu_17162" data-toggle="collapse"><span class="badfooter-linklist-title badfooter-title">Your account</span><span class="float-xs-right"><span class="navbar-toggler collapse-icons"><i class="fa fa-chevron-down" aria-hidden="true"></i> </span></span></div>
+
+            <ul id="footer_sub_menu_17162" class="collapse badfooter-linklist-content badfooter-dropdown">
+                
+                <li><a class="cms-page-link" href="{{ account }}">{{ text_account }}</a></li>
+                <li><a class="cms-page-link" href="{{ order }}">{{ text_order }}</a></li>
+                <li><a class="cms-page-link" href="{{ wishlist }}">{{ text_wishlist }}</a></li>
+                <li><a class="cms-page-link" href="{{ newsletter }}">{{ text_newsletter }}</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-12 badfooter-storeinfo-block links wrapper">
+    <div class="badfooter-storeinfo-content-wrapper">
+        <div class="badfooter-linklist-title-wrapper badfooter-title-wrapper" data-target="#footer_contact_list" data-toggle="collapse"><span class="badfooter-linklist-title badfooter-title">Information</span><span class="float-xs-right"><span class="navbar-toggler collapse-icons"><i class="fa fa-chevron-down" aria-hidden="true"></i> </span></span></div>
+
+        <div id="footer_contact_list" class="collapse badfooter-storeinfo-content badfooter-dropdown">
+            <div class="badfooter-storeinfo-content-address"><i class="fa fa-home"></i><span class="badfooter-storeinfo-content-address-title">Address:</span><span class="badfooter-storeinfo-content-address-value">{{ storeaddress }}</span> </div>
+            <div class="badfooter-storeinfo-content-contact"><i class="fa fa-phone-square"></i><span class="badfooter-storeinfo-content-contact-title">Phone: </span> <span class="badfooter-storeinfo-content-contact-value">{{ storetelephone }}</span></div>
+            <div class="badfooter-storeinfo-content-email"><i class="fa fa-envelope"></i><span class="badfooter-storeinfo-content-email-title">Email us: </span> <a href="mailto:{{ storeemail }}" class="dropdown">{{ storeemail }}</a></div>
+        </div>
+    </div>
+</div>                    
+                  
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid badfooter-row-block">
+            <div class="container badfooter-row-content">
+                <div class="row badfooter-top-to-bottom-block" style="display: block;">
+                    <div class="badfooter-top-to-bottom-content"><a href="Javascript:void(0);" title="Bottom to Top"><i class="lnr lnr-chevron-up"></i></a></div>
+                </div>
+                {{ footerlogo }}
+                {{ socialicon }}
+                <div class="badfooter-row-content-box">
+                    {% if copyright %}
+                            <div class="badfooter-copyright">
+                                <div class="badfooter-copyright-content">
+                                    <a href="{{ copyrightlink }}" title="{{ copyright }}">{{ copyright }}</a>
+                                </div>
+                            </div>
+                    {% endif %}
+                    <div class="badfooter-payment-icon">
+                        {{ payemtnicon }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="badquickview" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          
+          <div class="modal-body" id="badquickviewhtml">
+          </div>
+         
+        </div>
+
+      </div>
+    </div>
+</main>
+</div>
+</body>

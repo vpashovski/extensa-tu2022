@@ -1,0 +1,19 @@
+{{ header }}
+<div id="information-information" class="container">
+      <div class="adbreadcrumb">
+        {#  <h1>{{ heading_title }}</h1> #}
+        {% include 'organic_organix_101_theme/template/helpfile/breadcrumb.twig' with {'breadcrumbs': breadcrumbs} %} 
+      </div>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-12 col-md-8 col-lg-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      {{ description }}{{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

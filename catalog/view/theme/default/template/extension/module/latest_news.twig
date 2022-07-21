@@ -1,0 +1,6 @@
+<div class="list-group">
+  <h2>{{ heading_title }}</h2>
+  {% for new in news %}
+    <a href="{{ new.href }}" class="list-group-item">{{ new.title }}</a> 
+  {% endfor %}
+</div>

@@ -1,0 +1,95 @@
+<div class="{# container-fluid #}badimagegallery-block">
+
+    <div class="{# container #} badimagegallery-content-wrapper">
+
+        {# <div class="badimagegallery-main-title">
+
+            <div class="badmain-title-wrapper">
+
+                <div class="badmain-title">
+
+                    {{ heading }}
+
+                </div>
+
+                 <div class="badmain-sub-title">
+
+                    {$arr_main_data.sub_title}
+
+                </div> 
+
+            </div>
+
+        </div>#}
+
+        <div class="badimagegallery-content">
+
+            <div class="badimagegallery-content-inner owl-carousel owl-theme">
+
+                {% for imagegallerys in imagegallerys %}
+
+                    <div class="item badimagegallery-item">
+
+                        <div class="badimagegallery-item-img-wrapper">
+
+                            <img class="lazynot" src="{{ imagegallerys.tntimagegalleryparent_image }}" alt="{{ imagegallerys.tntimagegallerychild_name }}">
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {# <div class="badimagegallery-pagination-wrapper">
+
+            <div class="badimagegallery-pagination bad-all-pagination">
+
+                <div class="badimagegallery-content-pagination">
+
+                    <button class="badimagegallery-prev-btn bad-prev-btn">
+
+                        <i class='material-icons'>&#xe5c4;</i>
+
+                    </button>
+
+                    <button class="badimagegallery-next-btn bad-next-btn">
+
+                        <i class='material-icons'>&#xe5c8;</i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div> #}
+
+    </div> 
+
+</div>
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+	      		
+
+					
+
+					
+
+					
+
+				

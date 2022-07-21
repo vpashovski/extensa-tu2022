@@ -1,0 +1,89 @@
+<div class="container-fluid badbrandlist-block">
+    <div class="container badbrandlist-content-wrapper">
+        {# <div class="badbrandlist-main-title">
+            <div class="badmain-title-wrapper">
+                <div class="badmain-title">
+                    {{ heading }}
+                </div>
+                <div class="badmain-sub-title">
+                    {{ subtitle }}
+                </div>
+            </div>
+        </div> #}
+        <div class="badbrandlist-content">
+            <div class="badbrandlist-content-inner owl-carousel owl-theme">
+                {% for brand in brandlist %}
+                    <div class="item badbrandlist-item">
+                        <div class="badbrandlist-item-img-wrapper">
+                            <a href="{{ brand.tntbrandlist_link }}" title="{{ brand.tntbrandlist_text }}">
+                                <img src="{{ brand.tntbrandlist_image }}" alt="{{ brand.tntbrandlist_text }}">
+                            </a>
+                        </div>
+                        {# <div class="badbrandlist-item-content">
+                            <div class="badbrandlist-item-title">
+                                {{ brand.tntbrandlist_text }}
+                            </div>
+                        </div> #}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {# <div class="badbrandlist-pagination-wrapper">
+            <div class="badbrandlist-pagination bad-all-pagination">
+                <div class="badbrandlist-content-pagination">
+                    <button class="badbrandlist-prev-btn bad-prev-btn">
+                        <i class='material-icons'>&#xe5c4;</i>
+                    </button>
+                    <button class="badbrandlist-next-btn bad-next-btn">
+                        <i class='material-icons'>&#xe5c8;</i>
+                    </button>
+                </div>
+            </div>
+        </div> #}
+    </div> 
+</div>
+{# <div class="container-fluid badbrandlist-block">
+    <div class="container badbrandlist-content-wrapper">
+        <div class="badbrandlist-main-title">
+            <div class="badmain-title-wrapper">
+                <div class="badmain-title">
+                    {{ heading }}
+                </div>
+                    {{ subtitle }}
+                </div> 
+            </div>
+        </div>
+        <div class="badbrandlist-content">
+            <div class="badbrandlist-content-inner owl-carousel owl-theme">
+               {% for brand in brandlist %}
+                    <div class="item badbrandlist-item">
+                        <div class="badbrandlist-item-img-wrapper">
+                            <a href="{{ brand.tntbrandlist_link }}" title="{{ brand.tntbrandlist_text }}">
+                                <img src="{{ brand.tntbrandlist_image }}" alt="{{ brand.tntbrandlist_text }}">
+                            </a>
+                        </div>
+                         <div class="badbrandlist-item-content">
+                            <div class="badbrandlist-item-title">
+                                {{ brand.tntbrandlist_text }}
+                            </div>
+                            <div class="badbrandlist-item-sub-title">{{ brand.sub_title }}</div>
+                            <div class="badbrandlist-item-description">{{ brand.description }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="badbrandlist-pagination-wrapper">
+            <div class="badbrandlist-pagination bad-all-pagination">
+                <div class="badbrandlist-content-pagination">
+                    <button class="badbrandlist-prev-btn bad-prev-btn">
+                        <i class='material-icons'>&#xe5c4;</i>
+                    </button>
+                    <button class="badbrandlist-next-btn bad-next-btn">
+                        <i class='material-icons'>&#xe5c8;</i>
+                    </button>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div> #}
